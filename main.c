@@ -1,0 +1,265 @@
+#define __HAS_DELAY_CYCLES 0
+
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/sfr_defs.h>
+#include <stdbool.h>
+
+void shiftRegisterSendBit(bool bit);
+void shiftRegisterSendByte(uint8_t data);
+void shiftRegisterStrobe(void);
+
+void displayRow(uint16_t row);
+void nextRow(void);
+
+static uint8_t reverse(uint8_t b);
+
+void prepareScreen(uint8_t hour, uint8_t minute);
+
+uint8_t currentrow = 0;
+
+
+uint16_t screen[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+int main(void)
+{
+    DDRC = 0b1111111; // Port C all outputs
+    DDRB = 0b0000111; // Pins B0 and B1 outputs for column I + J drive, plus B2 for 4017 POR
+
+    PORTC &= ~(_BV(PC0)); // Data line low
+
+    PORTB |= _BV(PB2); // POR 4017
+    _delay_us(1);
+    PORTB &= ~(_BV(PB2));
+    int i;
+    for (i = 0; i < 9; i++)
+    {
+        PORTC |= _BV(PC3); // 4017 Clock line high
+        _delay_us(1);
+        PORTC &= ~(_BV(PC3)); //4017 Clock line low
+    }
+
+    displayRow(0);
+    prepareScreen(22, 58);
+    while(1)
+    {
+        displayRow(screen[currentrow]);
+        nextRow();
+
+        _delay_ms(1);
+    }
+    return 0;
+}
+
+void nextRow(void)
+{
+    PORTC |= _BV(PC3); // 4017 Clock line high
+    _delay_us(1);
+    PORTC &= ~(_BV(PC3)); //4017 Clock line low
+
+    currentrow++;
+    if (currentrow > 9)
+    {
+        currentrow = 0;
+    }
+}
+
+void displayRow(uint16_t row)
+{
+    shiftRegisterSendByte(row & 0xff);
+    if ((row >> 8) & 0x01)
+    {
+        PORTB |= _BV(PB1);
+    }
+    else
+    {
+        PORTB &= ~(_BV(PB1));
+    }
+    if ((row >> 9) & 0x01)
+    {
+        PORTB |= _BV(PB0);
+    }
+    else
+    {
+        PORTB &= ~(_BV(PB0));
+    }
+}
+void shiftRegisterSendByte(uint8_t data)
+{
+    data = reverse((uint8_t)data);
+    int i;
+    for(i = 0; i < 8; i++)
+    {
+        shiftRegisterSendBit((data >> i) & 0x01);
+    }
+    shiftRegisterStrobe();
+}
+
+void shiftRegisterSendBit(bool bit)
+{
+    if (bit == 1)
+    {
+        PORTC |= _BV(PC1); // Data line high
+    }
+    else
+    {
+        PORTC &= ~(_BV(PC1)); // Data line low
+    }
+
+    // _delay_us(1);
+    PORTC |= _BV(PC0); // Clock line high
+    //_delay_us(1);
+    PORTC &= ~(_BV(PC0)); // Clock line low
+    //_delay_us(1); // TODO: check if these delays are really necessary
+}
+
+void shiftRegisterStrobe()
+{
+    PORTC |= _BV(PC2);
+    _delay_us(1);
+    PORTC &= ~(_BV(PC2));
+}
+
+static uint8_t reverse(uint8_t b)
+{
+    int rev = (b >> 4) | ((b & 0xf) << 4);
+    rev = ((rev & 0xcc) >> 2) | ((rev & 0x33) << 2);
+    rev = ((rev & 0xaa) >> 1) | ((rev & 0x55) << 1);
+    return (uint8_t)rev;
+}
+
+
+
+void prepareScreen(uint8_t hour, uint8_t minute)
+{
+    screen[0] = 0b0000000000011011; // IT IS
+
+    if (minute < 35)
+    {
+        if (minute < 5)
+        {
+            screen[9] = 0b0000001111111000; // O'CLOCK
+        }
+        else
+        {
+            screen[3] = 0b0000000000111100; // PAST
+        }
+    }
+    else
+    {
+        screen[3] = 0b0000000000000011; // TO
+        hour++; // Increment hour because we are saying it is x minutes to the next hour
+    }
+
+    screen[4] = 0; // Blank hour words
+    screen[5] = 0;
+    screen[6] = 0;
+    screen[7] = 0;
+    screen[8] = 0;
+
+    switch (hour)
+    {
+    case 0:
+    case 12:
+        screen[8] = 0b0000001111110000; // TWELVE
+        break;
+    case 1:
+    case 13:
+        screen[3] |= 0b0000001110000000; // ONE
+        break;
+    case 2:
+    case 14:
+        screen[5] = 0b0000000000000111; // TWO
+        break;
+    case 3:
+    case 15:
+        screen[6] = 0b0000001111100000; // THREE
+        break;
+    case 4:
+    case 16:
+        screen[7] = 0b0000001111000000; // FOUR
+        break;
+    case 5:
+    case 17:
+        screen[5] = 0b0000000001111000; // hFIVE
+        break;
+    case 6:
+    case 18:
+        screen[4] = 0b0000000111000000; // SIX
+        break;
+    case 7:
+    case 19:
+        screen[4] = 0b0000000000111110; // SEVEN
+        break;
+    case 8:
+    case 20:
+        screen[6] = 0b0000000000011111; // EIGHT
+        break;
+    case 9:
+    case 21:
+        screen[8] = 0b0000000000001111; // NINE
+        break;
+    case 10:
+    case 22:
+        screen[5] = 0b0000001110000000; // hTEN
+        break;
+    case 11:
+    case 23:
+        screen[7] = 0b0000000000111111; // ELEVEN
+        break;
+    }
+
+    screen[1] = 0; // Blank minute words
+    screen[2] = 0;
+
+    if (minute < 5)
+    {
+        // do nothing
+    }
+    else if (minute < 10)
+    {
+        screen[1] = 0b0000001111000000; // mFIVE
+    }
+    else if (minute < 15)
+    {
+        screen[2] = 0b0000000000000111; // mTEN
+    }
+    else if (minute < 20)
+    {
+        screen[2] = 0b0000001111111000; // QUARTER
+    }
+    else if (minute < 25)
+    {
+        screen[1] = 0b0000000000111111; // TWENTY
+    }
+    else if (minute < 30)
+    {
+        screen[1] = 0b0000001111111111; // TWENTYFIVE
+    }
+    else if (minute < 35)
+    {
+        screen[0] |= 0b0000001111000000; // HALF
+    }
+    else if (minute < 40)
+    {
+        screen[1] = 0b0000001111111111; // TWENTYFIVE
+    }
+    else if (minute < 45)
+    {
+        screen[1] = 0b0000000000111111; // TWENTY
+    }
+    else if (minute < 50)
+    {
+        screen[2] = 0b0000001111111000; // QUARTER
+    }
+    else if (minute < 55)
+    {
+        screen[2] = 0b0000000000000111; // mTEN
+    }
+    else if (minute < 60)
+    {
+        screen[1] = 0b0000001111000000; // mFIVE
+    }
+}
+
+
