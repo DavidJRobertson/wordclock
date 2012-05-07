@@ -4,33 +4,54 @@
 #include <util/delay.h>
 #include <avr/sfr_defs.h>
 #include <stdbool.h>
+#include <avr/interrupt.h>
 
 void shiftRegisterSendBit(bool bit);
 void shiftRegisterSendByte(uint8_t data);
 void shiftRegisterStrobe(void);
-
 void displayRow(uint16_t row);
 void nextRow(void);
-
 static uint8_t reverse(uint8_t b);
-
 void prepareScreen(uint8_t hour, uint8_t minute);
 
 uint8_t currentrow = 0;
-
+uint8_t currenthour = 0;
+uint8_t currentminute = 0;
 
 uint16_t screen[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 int main(void)
 {
-    DDRC = 0b1111111; // Port C all outputs
-    DDRB = 0b0000111; // Pins B0 and B1 outputs for column I + J drive, plus B2 for 4017 POR
+    //TODO: make program initialize RTC and get current time over I2C
 
-    PORTC &= ~(_BV(PC0)); // Data line low
+    DDRC = 0b1111111;         // Port C all outputs
+    DDRB = 0b0000111;         // Pins B0 and B1 outputs for column I + J drive, plus B2 for 4017 POR
+    DDRD &= ~(_BV(PD4));      // Set PD4/T0 as input. Used for 1Hz input from RTC to timer/counter0.
+    PORTD |= _BV(PD4);        // Turn on internal pull-up resistor for PD4/T0
 
-    PORTB |= _BV(PB2); // POR 4017
+    OCR0A = 59;               // Timer/counter0 compare register 0 to 59 for counting to a minute.
+
+    TCCR0A &= ~(_BV(WGM00));  // Set timer/counter0 to CTC mode
+    TCCR0A |= _BV(WGM01);
+    TCCR0B &= ~(_BV(WGM02));
+
+    TIMSK0 |= _BV(OCIE0A);    // Fire interrupt on  timer/counter0 compare match A.
+
+    TCCR0B |= _BV(CS00);      // Set timer/counter0 clock source to PD4/T0, rising edge.
+    TCCR0B |= _BV(CS00);      // For falling edge, change CS00 bit to 0.
+    TCCR0B |= _BV(CS00);
+
+
+
+
+
+    PORTC &= ~(_BV(PC0)); // Shift register data line low
+
+    PORTB |= _BV(PB2);    // POR 4017
     _delay_us(1);
     PORTB &= ~(_BV(PB2));
+
+
     int i;
     for (i = 0; i < 9; i++)
     {
@@ -40,7 +61,7 @@ int main(void)
     }
 
     displayRow(0);
-    prepareScreen(22, 58);
+    prepareScreen(currenthour, currentminute);
     while(1)
     {
         displayRow(screen[currentrow]);
@@ -262,4 +283,18 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     }
 }
 
+
+ISR(TIMER0_COMPA_vect) {
+  // Interrupt service routine for t/c0 compare match A. Fires every minute.
+  currentminute++;
+  if (currentminute > 59) {
+    currentminute = 0;
+    currenthour++;
+    if (currenthour > 23){
+      currenthour = 0;
+      //TODO: make software get current time from RTC over I2C here. This happens daily at midnight.
+    }
+  }
+  prepareScreen(currenthour, currentminute);
+}
 

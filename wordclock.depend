@@ -1,6 +1,8 @@
 # depslib dependency file v1.0
-1335971912 source:/home/david/code/wordclock/main.c
+1336434901 source:/home/david/code/wordclock/main.c
 	<avr/io.h>
 	<util/delay.h>
 	<avr/sfr_defs.h>
+	<stdbool.h>
+	<avr/interrupt.h>
 
