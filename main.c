@@ -162,6 +162,7 @@ void prepareScreen(uint8_t hour, uint8_t minute)
         if (minute < 5)
         {
             screen[9] = 0b0000001111111000; // O'CLOCK
+            screen[3] &= 0b1111111111000000; // Blank to/past
         }
         else
         {

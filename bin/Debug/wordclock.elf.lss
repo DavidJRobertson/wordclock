@@ -3,13 +3,13 @@ bin/Debug/wordclock.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000004d6  00000000  00000000  00000074  2**1
+  0 .text         000004e8  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .bss          00000017  00800100  00800100  0000054a  2**0
+  1 .bss          00000017  00800100  00800100  0000055c  2**0
                   ALLOC
-  2 .stab         000013ec  00000000  00000000  0000054c  2**2
+  2 .stab         000013f8  00000000  00000000  0000055c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  3 .stabstr      00000acf  00000000  00000000  00001938  2**0
+  3 .stabstr      00000acf  00000000  00000000  00001954  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -29,7 +29,7 @@ Disassembly of section .text:
   2c:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   30:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   34:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
-  38:	0c 94 2c 02 	jmp	0x458	; 0x458 <__vector_14>
+  38:	0c 94 35 02 	jmp	0x46a	; 0x46a <__vector_14>
   3c:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   40:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   44:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
@@ -41,30 +41,30 @@ Disassembly of section .text:
   5c:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   60:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   64:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
-  68:	8a 01       	movw	r16, r20
-  6a:	6a 01       	movw	r12, r20
-  6c:	75 01       	movw	r14, r10
-  6e:	7c 01       	movw	r14, r24
-  70:	83 01       	movw	r16, r6
-  72:	9f 01       	movw	r18, r30
-  74:	a6 01       	movw	r20, r12
-  76:	ad 01       	movw	r20, r26
-  78:	b4 01       	movw	r22, r8
-  7a:	91 01       	movw	r18, r2
-  7c:	98 01       	movw	r18, r16
-  7e:	21 01       	movw	r4, r2
-  80:	8a 01       	movw	r16, r20
-  82:	6a 01       	movw	r12, r20
-  84:	75 01       	movw	r14, r10
-  86:	7c 01       	movw	r14, r24
-  88:	83 01       	movw	r16, r6
-  8a:	9f 01       	movw	r18, r30
-  8c:	a6 01       	movw	r20, r12
-  8e:	ad 01       	movw	r20, r26
-  90:	b4 01       	movw	r22, r8
-  92:	91 01       	movw	r18, r2
-  94:	98 01       	movw	r18, r16
-  96:	21 01       	movw	r4, r2
+  68:	93 01       	movw	r18, r6
+  6a:	73 01       	movw	r14, r6
+  6c:	7e 01       	movw	r14, r28
+  6e:	85 01       	movw	r16, r10
+  70:	8c 01       	movw	r16, r24
+  72:	a8 01       	movw	r20, r16
+  74:	af 01       	movw	r20, r30
+  76:	b6 01       	movw	r22, r12
+  78:	bd 01       	movw	r22, r26
+  7a:	9a 01       	movw	r18, r20
+  7c:	a1 01       	movw	r20, r2
+  7e:	2a 01       	movw	r4, r20
+  80:	93 01       	movw	r18, r6
+  82:	73 01       	movw	r14, r6
+  84:	7e 01       	movw	r14, r28
+  86:	85 01       	movw	r16, r10
+  88:	8c 01       	movw	r16, r24
+  8a:	a8 01       	movw	r20, r16
+  8c:	af 01       	movw	r20, r30
+  8e:	b6 01       	movw	r22, r12
+  90:	bd 01       	movw	r22, r26
+  92:	9a 01       	movw	r18, r20
+  94:	a1 01       	movw	r20, r2
+  96:	2a 01       	movw	r4, r20
 
 00000098 <__ctors_end>:
   98:	11 24       	eor	r1, r1
@@ -78,7 +78,7 @@ Disassembly of section .text:
   a4:	11 e0       	ldi	r17, 0x01	; 1
   a6:	a0 e0       	ldi	r26, 0x00	; 0
   a8:	b1 e0       	ldi	r27, 0x01	; 1
-  aa:	e6 ed       	ldi	r30, 0xD6	; 214
+  aa:	e8 ee       	ldi	r30, 0xE8	; 232
   ac:	f4 e0       	ldi	r31, 0x04	; 4
   ae:	02 c0       	rjmp	.+4      	; 0xb4 <__do_copy_data+0x10>
   b0:	05 90       	lpm	r0, Z+
@@ -100,8 +100,8 @@ Disassembly of section .text:
   c4:	a7 31       	cpi	r26, 0x17	; 23
   c6:	b1 07       	cpc	r27, r17
   c8:	e1 f7       	brne	.-8      	; 0xc2 <.do_clear_bss_loop>
-  ca:	0e 94 db 01 	call	0x3b6	; 0x3b6 <main>
-  ce:	0c 94 69 02 	jmp	0x4d2	; 0x4d2 <_exit>
+  ca:	0e 94 e4 01 	call	0x3c8	; 0x3c8 <main>
+  ce:	0c 94 72 02 	jmp	0x4e4	; 0x4e4 <_exit>
 
 000000d2 <__bad_interrupt>:
   d2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -390,584 +390,590 @@ void prepareScreen(uint8_t hour, uint8_t minute)
  1d6:	10 92 15 01 	sts	0x0115, r1
     if (minute < 35)
  1da:	63 32       	cpi	r22, 0x23	; 35
- 1dc:	50 f4       	brcc	.+20     	; 0x1f2 <prepareScreen+0x2c>
+ 1dc:	98 f4       	brcc	.+38     	; 0x204 <prepareScreen+0x3e>
     {
         if (minute < 5)
  1de:	65 30       	cpi	r22, 0x05	; 5
  1e0:	08 f0       	brcs	.+2      	; 0x1e4 <prepareScreen+0x1e>
- 1e2:	63 c0       	rjmp	.+198    	; 0x2aa <prepareScreen+0xe4>
+ 1e2:	6c c0       	rjmp	.+216    	; 0x2bc <prepareScreen+0xf6>
         {
             screen[9] = 0b0000001111111000; // O'CLOCK
  1e4:	28 ef       	ldi	r18, 0xF8	; 248
  1e6:	33 e0       	ldi	r19, 0x03	; 3
  1e8:	30 93 16 01 	sts	0x0116, r19
  1ec:	20 93 15 01 	sts	0x0115, r18
- 1f0:	07 c0       	rjmp	.+14     	; 0x200 <prepareScreen+0x3a>
+            screen[3] &= 0b1111111111000000; // Blank to/past
+ 1f0:	20 91 09 01 	lds	r18, 0x0109
+ 1f4:	30 91 0a 01 	lds	r19, 0x010A
+ 1f8:	20 7c       	andi	r18, 0xC0	; 192
+ 1fa:	30 93 0a 01 	sts	0x010A, r19
+ 1fe:	20 93 09 01 	sts	0x0109, r18
+ 202:	07 c0       	rjmp	.+14     	; 0x212 <prepareScreen+0x4c>
             screen[3] = 0b0000000000111100; // PAST
         }
     }
     else
     {
         screen[3] = 0b0000000000000011; // TO
- 1f2:	23 e0       	ldi	r18, 0x03	; 3
- 1f4:	30 e0       	ldi	r19, 0x00	; 0
- 1f6:	30 93 0a 01 	sts	0x010A, r19
- 1fa:	20 93 09 01 	sts	0x0109, r18
+ 204:	23 e0       	ldi	r18, 0x03	; 3
+ 206:	30 e0       	ldi	r19, 0x00	; 0
+ 208:	30 93 0a 01 	sts	0x010A, r19
+ 20c:	20 93 09 01 	sts	0x0109, r18
         hour++; // Increment hour because we are saying it is x minutes to the next hour
- 1fe:	8f 5f       	subi	r24, 0xFF	; 255
+ 210:	8f 5f       	subi	r24, 0xFF	; 255
     }
 
     screen[4] = 0; // Blank hour words
- 200:	10 92 0c 01 	sts	0x010C, r1
- 204:	10 92 0b 01 	sts	0x010B, r1
+ 212:	10 92 0c 01 	sts	0x010C, r1
+ 216:	10 92 0b 01 	sts	0x010B, r1
     screen[5] = 0;
- 208:	10 92 0e 01 	sts	0x010E, r1
- 20c:	10 92 0d 01 	sts	0x010D, r1
+ 21a:	10 92 0e 01 	sts	0x010E, r1
+ 21e:	10 92 0d 01 	sts	0x010D, r1
     screen[6] = 0;
- 210:	10 92 10 01 	sts	0x0110, r1
- 214:	10 92 0f 01 	sts	0x010F, r1
+ 222:	10 92 10 01 	sts	0x0110, r1
+ 226:	10 92 0f 01 	sts	0x010F, r1
     screen[7] = 0;
- 218:	10 92 12 01 	sts	0x0112, r1
- 21c:	10 92 11 01 	sts	0x0111, r1
+ 22a:	10 92 12 01 	sts	0x0112, r1
+ 22e:	10 92 11 01 	sts	0x0111, r1
     screen[8] = 0;
- 220:	10 92 14 01 	sts	0x0114, r1
- 224:	10 92 13 01 	sts	0x0113, r1
+ 232:	10 92 14 01 	sts	0x0114, r1
+ 236:	10 92 13 01 	sts	0x0113, r1
 
     switch (hour)
- 228:	e8 2f       	mov	r30, r24
- 22a:	f0 e0       	ldi	r31, 0x00	; 0
- 22c:	e8 31       	cpi	r30, 0x18	; 24
- 22e:	f1 05       	cpc	r31, r1
- 230:	70 f4       	brcc	.+28     	; 0x24e <prepareScreen+0x88>
- 232:	ec 5c       	subi	r30, 0xCC	; 204
- 234:	ff 4f       	sbci	r31, 0xFF	; 255
- 236:	ee 0f       	add	r30, r30
- 238:	ff 1f       	adc	r31, r31
- 23a:	05 90       	lpm	r0, Z+
- 23c:	f4 91       	lpm	r31, Z+
- 23e:	e0 2d       	mov	r30, r0
- 240:	09 94       	ijmp
+ 23a:	e8 2f       	mov	r30, r24
+ 23c:	f0 e0       	ldi	r31, 0x00	; 0
+ 23e:	e8 31       	cpi	r30, 0x18	; 24
+ 240:	f1 05       	cpc	r31, r1
+ 242:	70 f4       	brcc	.+28     	; 0x260 <prepareScreen+0x9a>
+ 244:	ec 5c       	subi	r30, 0xCC	; 204
+ 246:	ff 4f       	sbci	r31, 0xFF	; 255
+ 248:	ee 0f       	add	r30, r30
+ 24a:	ff 1f       	adc	r31, r31
+ 24c:	05 90       	lpm	r0, Z+
+ 24e:	f4 91       	lpm	r31, Z+
+ 250:	e0 2d       	mov	r30, r0
+ 252:	09 94       	ijmp
     case 22:
         screen[5] = 0b0000001110000000; // hTEN
         break;
     case 11:
     case 23:
         screen[7] = 0b0000000000111111; // ELEVEN
- 242:	8f e3       	ldi	r24, 0x3F	; 63
- 244:	90 e0       	ldi	r25, 0x00	; 0
- 246:	90 93 12 01 	sts	0x0112, r25
- 24a:	80 93 11 01 	sts	0x0111, r24
+ 254:	8f e3       	ldi	r24, 0x3F	; 63
+ 256:	90 e0       	ldi	r25, 0x00	; 0
+ 258:	90 93 12 01 	sts	0x0112, r25
+ 25c:	80 93 11 01 	sts	0x0111, r24
         break;
     }
 
     screen[1] = 0; // Blank minute words
- 24e:	10 92 06 01 	sts	0x0106, r1
- 252:	10 92 05 01 	sts	0x0105, r1
+ 260:	10 92 06 01 	sts	0x0106, r1
+ 264:	10 92 05 01 	sts	0x0105, r1
     screen[2] = 0;
- 256:	10 92 08 01 	sts	0x0108, r1
- 25a:	10 92 07 01 	sts	0x0107, r1
+ 268:	10 92 08 01 	sts	0x0108, r1
+ 26c:	10 92 07 01 	sts	0x0107, r1
 
     if (minute < 5)
- 25e:	65 30       	cpi	r22, 0x05	; 5
- 260:	18 f1       	brcs	.+70     	; 0x2a8 <prepareScreen+0xe2>
+ 270:	65 30       	cpi	r22, 0x05	; 5
+ 272:	18 f1       	brcs	.+70     	; 0x2ba <prepareScreen+0xf4>
     {
         // do nothing
     }
     else if (minute < 10)
- 262:	6a 30       	cpi	r22, 0x0A	; 10
- 264:	48 f1       	brcs	.+82     	; 0x2b8 <prepareScreen+0xf2>
+ 274:	6a 30       	cpi	r22, 0x0A	; 10
+ 276:	48 f1       	brcs	.+82     	; 0x2ca <prepareScreen+0x104>
     {
         screen[1] = 0b0000001111000000; // mFIVE
     }
     else if (minute < 15)
- 266:	6f 30       	cpi	r22, 0x0F	; 15
- 268:	08 f4       	brcc	.+2      	; 0x26c <prepareScreen+0xa6>
- 26a:	85 c0       	rjmp	.+266    	; 0x376 <prepareScreen+0x1b0>
+ 278:	6f 30       	cpi	r22, 0x0F	; 15
+ 27a:	08 f4       	brcc	.+2      	; 0x27e <prepareScreen+0xb8>
+ 27c:	85 c0       	rjmp	.+266    	; 0x388 <prepareScreen+0x1c2>
     {
         screen[2] = 0b0000000000000111; // mTEN
     }
     else if (minute < 20)
- 26c:	64 31       	cpi	r22, 0x14	; 20
- 26e:	58 f1       	brcs	.+86     	; 0x2c6 <prepareScreen+0x100>
+ 27e:	64 31       	cpi	r22, 0x14	; 20
+ 280:	58 f1       	brcs	.+86     	; 0x2d8 <prepareScreen+0x112>
     {
         screen[2] = 0b0000001111111000; // QUARTER
     }
     else if (minute < 25)
- 270:	69 31       	cpi	r22, 0x19	; 25
- 272:	08 f4       	brcc	.+2      	; 0x276 <prepareScreen+0xb0>
- 274:	87 c0       	rjmp	.+270    	; 0x384 <prepareScreen+0x1be>
+ 282:	69 31       	cpi	r22, 0x19	; 25
+ 284:	08 f4       	brcc	.+2      	; 0x288 <prepareScreen+0xc2>
+ 286:	87 c0       	rjmp	.+270    	; 0x396 <prepareScreen+0x1d0>
     {
         screen[1] = 0b0000000000111111; // TWENTY
     }
     else if (minute < 30)
- 276:	6e 31       	cpi	r22, 0x1E	; 30
- 278:	08 f4       	brcc	.+2      	; 0x27c <prepareScreen+0xb6>
- 27a:	96 c0       	rjmp	.+300    	; 0x3a8 <prepareScreen+0x1e2>
+ 288:	6e 31       	cpi	r22, 0x1E	; 30
+ 28a:	08 f4       	brcc	.+2      	; 0x28e <prepareScreen+0xc8>
+ 28c:	96 c0       	rjmp	.+300    	; 0x3ba <prepareScreen+0x1f4>
     {
         screen[1] = 0b0000001111111111; // TWENTYFIVE
     }
     else if (minute < 35)
- 27c:	63 32       	cpi	r22, 0x23	; 35
- 27e:	08 f4       	brcc	.+2      	; 0x282 <prepareScreen+0xbc>
- 280:	88 c0       	rjmp	.+272    	; 0x392 <prepareScreen+0x1cc>
+ 28e:	63 32       	cpi	r22, 0x23	; 35
+ 290:	08 f4       	brcc	.+2      	; 0x294 <prepareScreen+0xce>
+ 292:	88 c0       	rjmp	.+272    	; 0x3a4 <prepareScreen+0x1de>
     {
         screen[0] |= 0b0000001111000000; // HALF
     }
     else if (minute < 40)
- 282:	68 32       	cpi	r22, 0x28	; 40
- 284:	08 f4       	brcc	.+2      	; 0x288 <prepareScreen+0xc2>
- 286:	90 c0       	rjmp	.+288    	; 0x3a8 <prepareScreen+0x1e2>
+ 294:	68 32       	cpi	r22, 0x28	; 40
+ 296:	08 f4       	brcc	.+2      	; 0x29a <prepareScreen+0xd4>
+ 298:	90 c0       	rjmp	.+288    	; 0x3ba <prepareScreen+0x1f4>
     {
         screen[1] = 0b0000001111111111; // TWENTYFIVE
     }
     else if (minute < 45)
- 288:	6d 32       	cpi	r22, 0x2D	; 45
- 28a:	08 f4       	brcc	.+2      	; 0x28e <prepareScreen+0xc8>
- 28c:	7b c0       	rjmp	.+246    	; 0x384 <prepareScreen+0x1be>
+ 29a:	6d 32       	cpi	r22, 0x2D	; 45
+ 29c:	08 f4       	brcc	.+2      	; 0x2a0 <prepareScreen+0xda>
+ 29e:	7b c0       	rjmp	.+246    	; 0x396 <prepareScreen+0x1d0>
     {
         screen[1] = 0b0000000000111111; // TWENTY
     }
     else if (minute < 50)
- 28e:	62 33       	cpi	r22, 0x32	; 50
- 290:	d0 f0       	brcs	.+52     	; 0x2c6 <prepareScreen+0x100>
+ 2a0:	62 33       	cpi	r22, 0x32	; 50
+ 2a2:	d0 f0       	brcs	.+52     	; 0x2d8 <prepareScreen+0x112>
     {
         screen[2] = 0b0000001111111000; // QUARTER
     }
     else if (minute < 55)
- 292:	67 33       	cpi	r22, 0x37	; 55
- 294:	08 f4       	brcc	.+2      	; 0x298 <prepareScreen+0xd2>
- 296:	6f c0       	rjmp	.+222    	; 0x376 <prepareScreen+0x1b0>
+ 2a4:	67 33       	cpi	r22, 0x37	; 55
+ 2a6:	08 f4       	brcc	.+2      	; 0x2aa <prepareScreen+0xe4>
+ 2a8:	6f c0       	rjmp	.+222    	; 0x388 <prepareScreen+0x1c2>
     {
         screen[2] = 0b0000000000000111; // mTEN
     }
     else if (minute < 60)
- 298:	6c 33       	cpi	r22, 0x3C	; 60
- 29a:	30 f4       	brcc	.+12     	; 0x2a8 <prepareScreen+0xe2>
+ 2aa:	6c 33       	cpi	r22, 0x3C	; 60
+ 2ac:	30 f4       	brcc	.+12     	; 0x2ba <prepareScreen+0xf4>
     {
         screen[1] = 0b0000001111000000; // mFIVE
- 29c:	80 ec       	ldi	r24, 0xC0	; 192
- 29e:	93 e0       	ldi	r25, 0x03	; 3
- 2a0:	90 93 06 01 	sts	0x0106, r25
- 2a4:	80 93 05 01 	sts	0x0105, r24
- 2a8:	08 95       	ret
-        {
+ 2ae:	80 ec       	ldi	r24, 0xC0	; 192
+ 2b0:	93 e0       	ldi	r25, 0x03	; 3
+ 2b2:	90 93 06 01 	sts	0x0106, r25
+ 2b6:	80 93 05 01 	sts	0x0105, r24
+ 2ba:	08 95       	ret
             screen[9] = 0b0000001111111000; // O'CLOCK
+            screen[3] &= 0b1111111111000000; // Blank to/past
         }
         else
         {
             screen[3] = 0b0000000000111100; // PAST
- 2aa:	2c e3       	ldi	r18, 0x3C	; 60
- 2ac:	30 e0       	ldi	r19, 0x00	; 0
- 2ae:	30 93 0a 01 	sts	0x010A, r19
- 2b2:	20 93 09 01 	sts	0x0109, r18
- 2b6:	a4 cf       	rjmp	.-184    	; 0x200 <prepareScreen+0x3a>
+ 2bc:	2c e3       	ldi	r18, 0x3C	; 60
+ 2be:	30 e0       	ldi	r19, 0x00	; 0
+ 2c0:	30 93 0a 01 	sts	0x010A, r19
+ 2c4:	20 93 09 01 	sts	0x0109, r18
+ 2c8:	a4 cf       	rjmp	.-184    	; 0x212 <prepareScreen+0x4c>
     {
         // do nothing
     }
     else if (minute < 10)
     {
         screen[1] = 0b0000001111000000; // mFIVE
- 2b8:	80 ec       	ldi	r24, 0xC0	; 192
- 2ba:	93 e0       	ldi	r25, 0x03	; 3
- 2bc:	90 93 06 01 	sts	0x0106, r25
- 2c0:	80 93 05 01 	sts	0x0105, r24
- 2c4:	08 95       	ret
+ 2ca:	80 ec       	ldi	r24, 0xC0	; 192
+ 2cc:	93 e0       	ldi	r25, 0x03	; 3
+ 2ce:	90 93 06 01 	sts	0x0106, r25
+ 2d2:	80 93 05 01 	sts	0x0105, r24
+ 2d6:	08 95       	ret
     {
         screen[1] = 0b0000000000111111; // TWENTY
     }
     else if (minute < 50)
     {
         screen[2] = 0b0000001111111000; // QUARTER
- 2c6:	88 ef       	ldi	r24, 0xF8	; 248
- 2c8:	93 e0       	ldi	r25, 0x03	; 3
- 2ca:	90 93 08 01 	sts	0x0108, r25
- 2ce:	80 93 07 01 	sts	0x0107, r24
- 2d2:	08 95       	ret
+ 2d8:	88 ef       	ldi	r24, 0xF8	; 248
+ 2da:	93 e0       	ldi	r25, 0x03	; 3
+ 2dc:	90 93 08 01 	sts	0x0108, r25
+ 2e0:	80 93 07 01 	sts	0x0107, r24
+ 2e4:	08 95       	ret
     case 12:
         screen[8] = 0b0000001111110000; // TWELVE
         break;
     case 1:
     case 13:
         screen[3] |= 0b0000001110000000; // ONE
- 2d4:	80 91 09 01 	lds	r24, 0x0109
- 2d8:	90 91 0a 01 	lds	r25, 0x010A
- 2dc:	80 68       	ori	r24, 0x80	; 128
- 2de:	93 60       	ori	r25, 0x03	; 3
- 2e0:	90 93 0a 01 	sts	0x010A, r25
- 2e4:	80 93 09 01 	sts	0x0109, r24
+ 2e6:	80 91 09 01 	lds	r24, 0x0109
+ 2ea:	90 91 0a 01 	lds	r25, 0x010A
+ 2ee:	80 68       	ori	r24, 0x80	; 128
+ 2f0:	93 60       	ori	r25, 0x03	; 3
+ 2f2:	90 93 0a 01 	sts	0x010A, r25
+ 2f6:	80 93 09 01 	sts	0x0109, r24
         break;
- 2e8:	b2 cf       	rjmp	.-156    	; 0x24e <prepareScreen+0x88>
+ 2fa:	b2 cf       	rjmp	.-156    	; 0x260 <prepareScreen+0x9a>
     case 2:
     case 14:
         screen[5] = 0b0000000000000111; // TWO
- 2ea:	87 e0       	ldi	r24, 0x07	; 7
- 2ec:	90 e0       	ldi	r25, 0x00	; 0
- 2ee:	90 93 0e 01 	sts	0x010E, r25
- 2f2:	80 93 0d 01 	sts	0x010D, r24
+ 2fc:	87 e0       	ldi	r24, 0x07	; 7
+ 2fe:	90 e0       	ldi	r25, 0x00	; 0
+ 300:	90 93 0e 01 	sts	0x010E, r25
+ 304:	80 93 0d 01 	sts	0x010D, r24
         break;
- 2f6:	ab cf       	rjmp	.-170    	; 0x24e <prepareScreen+0x88>
+ 308:	ab cf       	rjmp	.-170    	; 0x260 <prepareScreen+0x9a>
     case 3:
     case 15:
         screen[6] = 0b0000001111100000; // THREE
- 2f8:	80 ee       	ldi	r24, 0xE0	; 224
- 2fa:	93 e0       	ldi	r25, 0x03	; 3
- 2fc:	90 93 10 01 	sts	0x0110, r25
- 300:	80 93 0f 01 	sts	0x010F, r24
+ 30a:	80 ee       	ldi	r24, 0xE0	; 224
+ 30c:	93 e0       	ldi	r25, 0x03	; 3
+ 30e:	90 93 10 01 	sts	0x0110, r25
+ 312:	80 93 0f 01 	sts	0x010F, r24
         break;
- 304:	a4 cf       	rjmp	.-184    	; 0x24e <prepareScreen+0x88>
+ 316:	a4 cf       	rjmp	.-184    	; 0x260 <prepareScreen+0x9a>
     case 4:
     case 16:
         screen[7] = 0b0000001111000000; // FOUR
- 306:	80 ec       	ldi	r24, 0xC0	; 192
- 308:	93 e0       	ldi	r25, 0x03	; 3
- 30a:	90 93 12 01 	sts	0x0112, r25
- 30e:	80 93 11 01 	sts	0x0111, r24
+ 318:	80 ec       	ldi	r24, 0xC0	; 192
+ 31a:	93 e0       	ldi	r25, 0x03	; 3
+ 31c:	90 93 12 01 	sts	0x0112, r25
+ 320:	80 93 11 01 	sts	0x0111, r24
         break;
- 312:	9d cf       	rjmp	.-198    	; 0x24e <prepareScreen+0x88>
+ 324:	9d cf       	rjmp	.-198    	; 0x260 <prepareScreen+0x9a>
 
     switch (hour)
     {
     case 0:
     case 12:
         screen[8] = 0b0000001111110000; // TWELVE
- 314:	80 ef       	ldi	r24, 0xF0	; 240
- 316:	93 e0       	ldi	r25, 0x03	; 3
- 318:	90 93 14 01 	sts	0x0114, r25
- 31c:	80 93 13 01 	sts	0x0113, r24
+ 326:	80 ef       	ldi	r24, 0xF0	; 240
+ 328:	93 e0       	ldi	r25, 0x03	; 3
+ 32a:	90 93 14 01 	sts	0x0114, r25
+ 32e:	80 93 13 01 	sts	0x0113, r24
         break;
- 320:	96 cf       	rjmp	.-212    	; 0x24e <prepareScreen+0x88>
+ 332:	96 cf       	rjmp	.-212    	; 0x260 <prepareScreen+0x9a>
     case 20:
         screen[6] = 0b0000000000011111; // EIGHT
         break;
     case 9:
     case 21:
         screen[8] = 0b0000000000001111; // NINE
- 322:	8f e0       	ldi	r24, 0x0F	; 15
- 324:	90 e0       	ldi	r25, 0x00	; 0
- 326:	90 93 14 01 	sts	0x0114, r25
- 32a:	80 93 13 01 	sts	0x0113, r24
+ 334:	8f e0       	ldi	r24, 0x0F	; 15
+ 336:	90 e0       	ldi	r25, 0x00	; 0
+ 338:	90 93 14 01 	sts	0x0114, r25
+ 33c:	80 93 13 01 	sts	0x0113, r24
         break;
- 32e:	8f cf       	rjmp	.-226    	; 0x24e <prepareScreen+0x88>
+ 340:	8f cf       	rjmp	.-226    	; 0x260 <prepareScreen+0x9a>
     case 10:
     case 22:
         screen[5] = 0b0000001110000000; // hTEN
- 330:	80 e8       	ldi	r24, 0x80	; 128
- 332:	93 e0       	ldi	r25, 0x03	; 3
- 334:	90 93 0e 01 	sts	0x010E, r25
- 338:	80 93 0d 01 	sts	0x010D, r24
+ 342:	80 e8       	ldi	r24, 0x80	; 128
+ 344:	93 e0       	ldi	r25, 0x03	; 3
+ 346:	90 93 0e 01 	sts	0x010E, r25
+ 34a:	80 93 0d 01 	sts	0x010D, r24
         break;
- 33c:	88 cf       	rjmp	.-240    	; 0x24e <prepareScreen+0x88>
+ 34e:	88 cf       	rjmp	.-240    	; 0x260 <prepareScreen+0x9a>
     case 16:
         screen[7] = 0b0000001111000000; // FOUR
         break;
     case 5:
     case 17:
         screen[5] = 0b0000000001111000; // hFIVE
- 33e:	88 e7       	ldi	r24, 0x78	; 120
- 340:	90 e0       	ldi	r25, 0x00	; 0
- 342:	90 93 0e 01 	sts	0x010E, r25
- 346:	80 93 0d 01 	sts	0x010D, r24
+ 350:	88 e7       	ldi	r24, 0x78	; 120
+ 352:	90 e0       	ldi	r25, 0x00	; 0
+ 354:	90 93 0e 01 	sts	0x010E, r25
+ 358:	80 93 0d 01 	sts	0x010D, r24
         break;
- 34a:	81 cf       	rjmp	.-254    	; 0x24e <prepareScreen+0x88>
+ 35c:	81 cf       	rjmp	.-254    	; 0x260 <prepareScreen+0x9a>
     case 6:
     case 18:
         screen[4] = 0b0000000111000000; // SIX
- 34c:	80 ec       	ldi	r24, 0xC0	; 192
- 34e:	91 e0       	ldi	r25, 0x01	; 1
- 350:	90 93 0c 01 	sts	0x010C, r25
- 354:	80 93 0b 01 	sts	0x010B, r24
+ 35e:	80 ec       	ldi	r24, 0xC0	; 192
+ 360:	91 e0       	ldi	r25, 0x01	; 1
+ 362:	90 93 0c 01 	sts	0x010C, r25
+ 366:	80 93 0b 01 	sts	0x010B, r24
         break;
- 358:	7a cf       	rjmp	.-268    	; 0x24e <prepareScreen+0x88>
+ 36a:	7a cf       	rjmp	.-268    	; 0x260 <prepareScreen+0x9a>
     case 7:
     case 19:
         screen[4] = 0b0000000000111110; // SEVEN
- 35a:	8e e3       	ldi	r24, 0x3E	; 62
- 35c:	90 e0       	ldi	r25, 0x00	; 0
- 35e:	90 93 0c 01 	sts	0x010C, r25
- 362:	80 93 0b 01 	sts	0x010B, r24
+ 36c:	8e e3       	ldi	r24, 0x3E	; 62
+ 36e:	90 e0       	ldi	r25, 0x00	; 0
+ 370:	90 93 0c 01 	sts	0x010C, r25
+ 374:	80 93 0b 01 	sts	0x010B, r24
         break;
- 366:	73 cf       	rjmp	.-282    	; 0x24e <prepareScreen+0x88>
+ 378:	73 cf       	rjmp	.-282    	; 0x260 <prepareScreen+0x9a>
     case 8:
     case 20:
         screen[6] = 0b0000000000011111; // EIGHT
- 368:	8f e1       	ldi	r24, 0x1F	; 31
- 36a:	90 e0       	ldi	r25, 0x00	; 0
- 36c:	90 93 10 01 	sts	0x0110, r25
- 370:	80 93 0f 01 	sts	0x010F, r24
+ 37a:	8f e1       	ldi	r24, 0x1F	; 31
+ 37c:	90 e0       	ldi	r25, 0x00	; 0
+ 37e:	90 93 10 01 	sts	0x0110, r25
+ 382:	80 93 0f 01 	sts	0x010F, r24
         break;
- 374:	6c cf       	rjmp	.-296    	; 0x24e <prepareScreen+0x88>
+ 386:	6c cf       	rjmp	.-296    	; 0x260 <prepareScreen+0x9a>
     {
         screen[2] = 0b0000001111111000; // QUARTER
     }
     else if (minute < 55)
     {
         screen[2] = 0b0000000000000111; // mTEN
- 376:	87 e0       	ldi	r24, 0x07	; 7
- 378:	90 e0       	ldi	r25, 0x00	; 0
- 37a:	90 93 08 01 	sts	0x0108, r25
- 37e:	80 93 07 01 	sts	0x0107, r24
- 382:	08 95       	ret
+ 388:	87 e0       	ldi	r24, 0x07	; 7
+ 38a:	90 e0       	ldi	r25, 0x00	; 0
+ 38c:	90 93 08 01 	sts	0x0108, r25
+ 390:	80 93 07 01 	sts	0x0107, r24
+ 394:	08 95       	ret
     {
         screen[1] = 0b0000001111111111; // TWENTYFIVE
     }
     else if (minute < 45)
     {
         screen[1] = 0b0000000000111111; // TWENTY
- 384:	8f e3       	ldi	r24, 0x3F	; 63
- 386:	90 e0       	ldi	r25, 0x00	; 0
- 388:	90 93 06 01 	sts	0x0106, r25
- 38c:	80 93 05 01 	sts	0x0105, r24
- 390:	08 95       	ret
+ 396:	8f e3       	ldi	r24, 0x3F	; 63
+ 398:	90 e0       	ldi	r25, 0x00	; 0
+ 39a:	90 93 06 01 	sts	0x0106, r25
+ 39e:	80 93 05 01 	sts	0x0105, r24
+ 3a2:	08 95       	ret
     {
         screen[1] = 0b0000001111111111; // TWENTYFIVE
     }
     else if (minute < 35)
     {
         screen[0] |= 0b0000001111000000; // HALF
- 392:	80 91 03 01 	lds	r24, 0x0103
- 396:	90 91 04 01 	lds	r25, 0x0104
- 39a:	80 6c       	ori	r24, 0xC0	; 192
- 39c:	93 60       	ori	r25, 0x03	; 3
- 39e:	90 93 04 01 	sts	0x0104, r25
- 3a2:	80 93 03 01 	sts	0x0103, r24
- 3a6:	08 95       	ret
+ 3a4:	80 91 03 01 	lds	r24, 0x0103
+ 3a8:	90 91 04 01 	lds	r25, 0x0104
+ 3ac:	80 6c       	ori	r24, 0xC0	; 192
+ 3ae:	93 60       	ori	r25, 0x03	; 3
+ 3b0:	90 93 04 01 	sts	0x0104, r25
+ 3b4:	80 93 03 01 	sts	0x0103, r24
+ 3b8:	08 95       	ret
     }
     else if (minute < 40)
     {
         screen[1] = 0b0000001111111111; // TWENTYFIVE
- 3a8:	8f ef       	ldi	r24, 0xFF	; 255
- 3aa:	93 e0       	ldi	r25, 0x03	; 3
- 3ac:	90 93 06 01 	sts	0x0106, r25
- 3b0:	80 93 05 01 	sts	0x0105, r24
- 3b4:	08 95       	ret
+ 3ba:	8f ef       	ldi	r24, 0xFF	; 255
+ 3bc:	93 e0       	ldi	r25, 0x03	; 3
+ 3be:	90 93 06 01 	sts	0x0106, r25
+ 3c2:	80 93 05 01 	sts	0x0105, r24
+ 3c6:	08 95       	ret
 
-000003b6 <main>:
+000003c8 <main>:
 uint8_t currentminute = 0;
 
 uint16_t screen[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 int main(void)
 {
- 3b6:	cf 93       	push	r28
- 3b8:	df 93       	push	r29
+ 3c8:	cf 93       	push	r28
+ 3ca:	df 93       	push	r29
     sei(); // Enable interrupts
- 3ba:	78 94       	sei
+ 3cc:	78 94       	sei
     //TODO: make program initialize RTC and get current time over I2C
 
     DDRC = 0b1111111;         // Port C all outputs
- 3bc:	8f e7       	ldi	r24, 0x7F	; 127
- 3be:	87 b9       	out	0x07, r24	; 7
+ 3ce:	8f e7       	ldi	r24, 0x7F	; 127
+ 3d0:	87 b9       	out	0x07, r24	; 7
     DDRB = 0b0000111;         // Pins B0 and B1 outputs for column I + J drive, plus B2 for 4017 POR
- 3c0:	87 e0       	ldi	r24, 0x07	; 7
- 3c2:	84 b9       	out	0x04, r24	; 4
+ 3d2:	87 e0       	ldi	r24, 0x07	; 7
+ 3d4:	84 b9       	out	0x04, r24	; 4
     DDRD &= ~(_BV(PD4));      // Set PD4/T0 as input. Used for 1Hz input from RTC to timer/counter0.
- 3c4:	54 98       	cbi	0x0a, 4	; 10
+ 3d6:	54 98       	cbi	0x0a, 4	; 10
     PORTD |= _BV(PD4);        // Turn on internal pull-up resistor for PD4/T0
- 3c6:	5c 9a       	sbi	0x0b, 4	; 11
+ 3d8:	5c 9a       	sbi	0x0b, 4	; 11
 
     OCR0A = 60;               // Timer/counter0 compare register A to 60 for counting to a minute.
- 3c8:	8c e3       	ldi	r24, 0x3C	; 60
- 3ca:	87 bd       	out	0x27, r24	; 39
+ 3da:	8c e3       	ldi	r24, 0x3C	; 60
+ 3dc:	87 bd       	out	0x27, r24	; 39
 
     TCCR0A &= ~(_BV(WGM00));  // Set timer/counter0 to CTC mode
- 3cc:	84 b5       	in	r24, 0x24	; 36
- 3ce:	8e 7f       	andi	r24, 0xFE	; 254
- 3d0:	84 bd       	out	0x24, r24	; 36
+ 3de:	84 b5       	in	r24, 0x24	; 36
+ 3e0:	8e 7f       	andi	r24, 0xFE	; 254
+ 3e2:	84 bd       	out	0x24, r24	; 36
     TCCR0A |= _BV(WGM01);
- 3d2:	84 b5       	in	r24, 0x24	; 36
- 3d4:	82 60       	ori	r24, 0x02	; 2
- 3d6:	84 bd       	out	0x24, r24	; 36
+ 3e4:	84 b5       	in	r24, 0x24	; 36
+ 3e6:	82 60       	ori	r24, 0x02	; 2
+ 3e8:	84 bd       	out	0x24, r24	; 36
     TCCR0B &= ~(_BV(WGM02));
- 3d8:	85 b5       	in	r24, 0x25	; 37
- 3da:	87 7f       	andi	r24, 0xF7	; 247
- 3dc:	85 bd       	out	0x25, r24	; 37
+ 3ea:	85 b5       	in	r24, 0x25	; 37
+ 3ec:	87 7f       	andi	r24, 0xF7	; 247
+ 3ee:	85 bd       	out	0x25, r24	; 37
 
     TIMSK0 |= _BV(OCIE0A);    // Fire interrupt on  timer/counter0 compare match A.
- 3de:	80 91 6e 00 	lds	r24, 0x006E
- 3e2:	82 60       	ori	r24, 0x02	; 2
- 3e4:	80 93 6e 00 	sts	0x006E, r24
+ 3f0:	80 91 6e 00 	lds	r24, 0x006E
+ 3f4:	82 60       	ori	r24, 0x02	; 2
+ 3f6:	80 93 6e 00 	sts	0x006E, r24
 
     TCCR0B |= _BV(CS00);      // Set timer/counter0 clock source to PD4/T0, rising edge.
- 3e8:	85 b5       	in	r24, 0x25	; 37
- 3ea:	81 60       	ori	r24, 0x01	; 1
- 3ec:	85 bd       	out	0x25, r24	; 37
+ 3fa:	85 b5       	in	r24, 0x25	; 37
+ 3fc:	81 60       	ori	r24, 0x01	; 1
+ 3fe:	85 bd       	out	0x25, r24	; 37
     TCCR0B |= _BV(CS01);      // For falling edge, change CS00 bit to 0.
- 3ee:	85 b5       	in	r24, 0x25	; 37
- 3f0:	82 60       	ori	r24, 0x02	; 2
- 3f2:	85 bd       	out	0x25, r24	; 37
+ 400:	85 b5       	in	r24, 0x25	; 37
+ 402:	82 60       	ori	r24, 0x02	; 2
+ 404:	85 bd       	out	0x25, r24	; 37
     TCCR0B |= _BV(CS02);
- 3f4:	85 b5       	in	r24, 0x25	; 37
- 3f6:	84 60       	ori	r24, 0x04	; 4
- 3f8:	85 bd       	out	0x25, r24	; 37
+ 406:	85 b5       	in	r24, 0x25	; 37
+ 408:	84 60       	ori	r24, 0x04	; 4
+ 40a:	85 bd       	out	0x25, r24	; 37
 
 
 
 
 
     PORTC &= ~(_BV(PC0)); // Shift register data line low
- 3fa:	40 98       	cbi	0x08, 0	; 8
+ 40c:	40 98       	cbi	0x08, 0	; 8
 
     PORTB |= _BV(PB2);    // POR 4017
- 3fc:	2a 9a       	sbi	0x05, 2	; 5
- 3fe:	82 e0       	ldi	r24, 0x02	; 2
- 400:	8a 95       	dec	r24
- 402:	f1 f7       	brne	.-4      	; 0x400 <main+0x4a>
+ 40e:	2a 9a       	sbi	0x05, 2	; 5
+ 410:	82 e0       	ldi	r24, 0x02	; 2
+ 412:	8a 95       	dec	r24
+ 414:	f1 f7       	brne	.-4      	; 0x412 <main+0x4a>
     _delay_us(1);
     PORTB &= ~(_BV(PB2));
- 404:	2a 98       	cbi	0x05, 2	; 5
+ 416:	2a 98       	cbi	0x05, 2	; 5
 
 
     int i;
     for (i = 0; i < 9; i++)
- 406:	80 e0       	ldi	r24, 0x00	; 0
- 408:	90 e0       	ldi	r25, 0x00	; 0
- 40a:	32 e0       	ldi	r19, 0x02	; 2
+ 418:	80 e0       	ldi	r24, 0x00	; 0
+ 41a:	90 e0       	ldi	r25, 0x00	; 0
+ 41c:	32 e0       	ldi	r19, 0x02	; 2
     {
         PORTC |= _BV(PC3); // 4017 Clock line high
- 40c:	43 9a       	sbi	0x08, 3	; 8
- 40e:	23 2f       	mov	r18, r19
- 410:	2a 95       	dec	r18
- 412:	f1 f7       	brne	.-4      	; 0x410 <main+0x5a>
+ 41e:	43 9a       	sbi	0x08, 3	; 8
+ 420:	23 2f       	mov	r18, r19
+ 422:	2a 95       	dec	r18
+ 424:	f1 f7       	brne	.-4      	; 0x422 <main+0x5a>
         _delay_us(1);
         PORTC &= ~(_BV(PC3)); //4017 Clock line low
- 414:	43 98       	cbi	0x08, 3	; 8
+ 426:	43 98       	cbi	0x08, 3	; 8
     _delay_us(1);
     PORTB &= ~(_BV(PB2));
 
 
     int i;
     for (i = 0; i < 9; i++)
- 416:	01 96       	adiw	r24, 0x01	; 1
- 418:	89 30       	cpi	r24, 0x09	; 9
- 41a:	91 05       	cpc	r25, r1
- 41c:	b9 f7       	brne	.-18     	; 0x40c <main+0x56>
+ 428:	01 96       	adiw	r24, 0x01	; 1
+ 42a:	89 30       	cpi	r24, 0x09	; 9
+ 42c:	91 05       	cpc	r25, r1
+ 42e:	b9 f7       	brne	.-18     	; 0x41e <main+0x56>
         PORTC |= _BV(PC3); // 4017 Clock line high
         _delay_us(1);
         PORTC &= ~(_BV(PC3)); //4017 Clock line low
     }
 
     displayRow(0);
- 41e:	80 e0       	ldi	r24, 0x00	; 0
- 420:	90 e0       	ldi	r25, 0x00	; 0
- 422:	0e 94 c5 00 	call	0x18a	; 0x18a <displayRow>
+ 430:	80 e0       	ldi	r24, 0x00	; 0
+ 432:	90 e0       	ldi	r25, 0x00	; 0
+ 434:	0e 94 c5 00 	call	0x18a	; 0x18a <displayRow>
     prepareScreen(currenthour, currentminute);
- 426:	80 91 01 01 	lds	r24, 0x0101
- 42a:	60 91 02 01 	lds	r22, 0x0102
- 42e:	0e 94 e3 00 	call	0x1c6	; 0x1c6 <prepareScreen>
+ 438:	80 91 01 01 	lds	r24, 0x0101
+ 43c:	60 91 02 01 	lds	r22, 0x0102
+ 440:	0e 94 e3 00 	call	0x1c6	; 0x1c6 <prepareScreen>
     milliseconds can be achieved.
  */
 void
 _delay_loop_2(uint16_t __count)
 {
 	__asm__ volatile (
- 432:	c0 ed       	ldi	r28, 0xD0	; 208
- 434:	d7 e0       	ldi	r29, 0x07	; 7
+ 444:	c0 ed       	ldi	r28, 0xD0	; 208
+ 446:	d7 e0       	ldi	r29, 0x07	; 7
     while(1)
     {
         displayRow(screen[currentrow]);
- 436:	e0 91 00 01 	lds	r30, 0x0100
- 43a:	f0 e0       	ldi	r31, 0x00	; 0
- 43c:	ee 0f       	add	r30, r30
- 43e:	ff 1f       	adc	r31, r31
- 440:	ed 5f       	subi	r30, 0xFD	; 253
- 442:	fe 4f       	sbci	r31, 0xFE	; 254
- 444:	80 81       	ld	r24, Z
- 446:	91 81       	ldd	r25, Z+1	; 0x01
- 448:	0e 94 c5 00 	call	0x18a	; 0x18a <displayRow>
+ 448:	e0 91 00 01 	lds	r30, 0x0100
+ 44c:	f0 e0       	ldi	r31, 0x00	; 0
+ 44e:	ee 0f       	add	r30, r30
+ 450:	ff 1f       	adc	r31, r31
+ 452:	ed 5f       	subi	r30, 0xFD	; 253
+ 454:	fe 4f       	sbci	r31, 0xFE	; 254
+ 456:	80 81       	ld	r24, Z
+ 458:	91 81       	ldd	r25, Z+1	; 0x01
+ 45a:	0e 94 c5 00 	call	0x18a	; 0x18a <displayRow>
         nextRow();
- 44c:	0e 94 6b 00 	call	0xd6	; 0xd6 <nextRow>
- 450:	ce 01       	movw	r24, r28
- 452:	01 97       	sbiw	r24, 0x01	; 1
- 454:	f1 f7       	brne	.-4      	; 0x452 <main+0x9c>
- 456:	ef cf       	rjmp	.-34     	; 0x436 <main+0x80>
+ 45e:	0e 94 6b 00 	call	0xd6	; 0xd6 <nextRow>
+ 462:	ce 01       	movw	r24, r28
+ 464:	01 97       	sbiw	r24, 0x01	; 1
+ 466:	f1 f7       	brne	.-4      	; 0x464 <main+0x9c>
+ 468:	ef cf       	rjmp	.-34     	; 0x448 <main+0x80>
 
-00000458 <__vector_14>:
+0000046a <__vector_14>:
         screen[1] = 0b0000001111000000; // mFIVE
     }
 }
 
 
 ISR(TIMER0_COMPA_vect) {
- 458:	1f 92       	push	r1
- 45a:	0f 92       	push	r0
- 45c:	0f b6       	in	r0, 0x3f	; 63
- 45e:	0f 92       	push	r0
- 460:	11 24       	eor	r1, r1
- 462:	2f 93       	push	r18
- 464:	3f 93       	push	r19
- 466:	4f 93       	push	r20
- 468:	5f 93       	push	r21
- 46a:	6f 93       	push	r22
- 46c:	7f 93       	push	r23
- 46e:	8f 93       	push	r24
- 470:	9f 93       	push	r25
- 472:	af 93       	push	r26
- 474:	bf 93       	push	r27
- 476:	ef 93       	push	r30
- 478:	ff 93       	push	r31
+ 46a:	1f 92       	push	r1
+ 46c:	0f 92       	push	r0
+ 46e:	0f b6       	in	r0, 0x3f	; 63
+ 470:	0f 92       	push	r0
+ 472:	11 24       	eor	r1, r1
+ 474:	2f 93       	push	r18
+ 476:	3f 93       	push	r19
+ 478:	4f 93       	push	r20
+ 47a:	5f 93       	push	r21
+ 47c:	6f 93       	push	r22
+ 47e:	7f 93       	push	r23
+ 480:	8f 93       	push	r24
+ 482:	9f 93       	push	r25
+ 484:	af 93       	push	r26
+ 486:	bf 93       	push	r27
+ 488:	ef 93       	push	r30
+ 48a:	ff 93       	push	r31
   // Interrupt service routine for t/c0 compare match A. Fires every minute.
   currentminute++;
- 47a:	60 91 02 01 	lds	r22, 0x0102
- 47e:	6f 5f       	subi	r22, 0xFF	; 255
- 480:	60 93 02 01 	sts	0x0102, r22
+ 48c:	60 91 02 01 	lds	r22, 0x0102
+ 490:	6f 5f       	subi	r22, 0xFF	; 255
+ 492:	60 93 02 01 	sts	0x0102, r22
   if (currentminute > 59) {
- 484:	6c 33       	cpi	r22, 0x3C	; 60
- 486:	10 f1       	brcs	.+68     	; 0x4cc <__vector_14+0x74>
+ 496:	6c 33       	cpi	r22, 0x3C	; 60
+ 498:	10 f1       	brcs	.+68     	; 0x4de <__vector_14+0x74>
     currentminute = 0;
- 488:	10 92 02 01 	sts	0x0102, r1
+ 49a:	10 92 02 01 	sts	0x0102, r1
     currenthour++;
- 48c:	80 91 01 01 	lds	r24, 0x0101
- 490:	8f 5f       	subi	r24, 0xFF	; 255
- 492:	80 93 01 01 	sts	0x0101, r24
+ 49e:	80 91 01 01 	lds	r24, 0x0101
+ 4a2:	8f 5f       	subi	r24, 0xFF	; 255
+ 4a4:	80 93 01 01 	sts	0x0101, r24
     if (currenthour > 23){
- 496:	88 31       	cpi	r24, 0x18	; 24
- 498:	b8 f0       	brcs	.+46     	; 0x4c8 <__vector_14+0x70>
+ 4a8:	88 31       	cpi	r24, 0x18	; 24
+ 4aa:	b8 f0       	brcs	.+46     	; 0x4da <__vector_14+0x70>
       currenthour = 0;
- 49a:	10 92 01 01 	sts	0x0101, r1
- 49e:	60 e0       	ldi	r22, 0x00	; 0
- 4a0:	80 e0       	ldi	r24, 0x00	; 0
+ 4ac:	10 92 01 01 	sts	0x0101, r1
+ 4b0:	60 e0       	ldi	r22, 0x00	; 0
+ 4b2:	80 e0       	ldi	r24, 0x00	; 0
       //TODO: make software get current time from RTC over I2C here. This happens daily at midnight.
     }
   }
   prepareScreen(currenthour, currentminute);
- 4a2:	0e 94 e3 00 	call	0x1c6	; 0x1c6 <prepareScreen>
+ 4b4:	0e 94 e3 00 	call	0x1c6	; 0x1c6 <prepareScreen>
 }
- 4a6:	ff 91       	pop	r31
- 4a8:	ef 91       	pop	r30
- 4aa:	bf 91       	pop	r27
- 4ac:	af 91       	pop	r26
- 4ae:	9f 91       	pop	r25
- 4b0:	8f 91       	pop	r24
- 4b2:	7f 91       	pop	r23
- 4b4:	6f 91       	pop	r22
- 4b6:	5f 91       	pop	r21
- 4b8:	4f 91       	pop	r20
- 4ba:	3f 91       	pop	r19
- 4bc:	2f 91       	pop	r18
- 4be:	0f 90       	pop	r0
- 4c0:	0f be       	out	0x3f, r0	; 63
- 4c2:	0f 90       	pop	r0
- 4c4:	1f 90       	pop	r1
- 4c6:	18 95       	reti
+ 4b8:	ff 91       	pop	r31
+ 4ba:	ef 91       	pop	r30
+ 4bc:	bf 91       	pop	r27
+ 4be:	af 91       	pop	r26
+ 4c0:	9f 91       	pop	r25
+ 4c2:	8f 91       	pop	r24
+ 4c4:	7f 91       	pop	r23
+ 4c6:	6f 91       	pop	r22
+ 4c8:	5f 91       	pop	r21
+ 4ca:	4f 91       	pop	r20
+ 4cc:	3f 91       	pop	r19
+ 4ce:	2f 91       	pop	r18
+ 4d0:	0f 90       	pop	r0
+ 4d2:	0f be       	out	0x3f, r0	; 63
+ 4d4:	0f 90       	pop	r0
+ 4d6:	1f 90       	pop	r1
+ 4d8:	18 95       	reti
   // Interrupt service routine for t/c0 compare match A. Fires every minute.
   currentminute++;
   if (currentminute > 59) {
     currentminute = 0;
     currenthour++;
     if (currenthour > 23){
- 4c8:	60 e0       	ldi	r22, 0x00	; 0
- 4ca:	eb cf       	rjmp	.-42     	; 0x4a2 <__vector_14+0x4a>
+ 4da:	60 e0       	ldi	r22, 0x00	; 0
+ 4dc:	eb cf       	rjmp	.-42     	; 0x4b4 <__vector_14+0x4a>
 
 
 ISR(TIMER0_COMPA_vect) {
   // Interrupt service routine for t/c0 compare match A. Fires every minute.
   currentminute++;
   if (currentminute > 59) {
- 4cc:	80 91 01 01 	lds	r24, 0x0101
- 4d0:	e8 cf       	rjmp	.-48     	; 0x4a2 <__vector_14+0x4a>
+ 4de:	80 91 01 01 	lds	r24, 0x0101
+ 4e2:	e8 cf       	rjmp	.-48     	; 0x4b4 <__vector_14+0x4a>
 
-000004d2 <_exit>:
- 4d2:	f8 94       	cli
+000004e4 <_exit>:
+ 4e4:	f8 94       	cli
 
-000004d4 <__stop_program>:
- 4d4:	ff cf       	rjmp	.-2      	; 0x4d4 <__stop_program>
+000004e6 <__stop_program>:
+ 4e6:	ff cf       	rjmp	.-2      	; 0x4e6 <__stop_program>
