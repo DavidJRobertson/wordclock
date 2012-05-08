@@ -30,7 +30,7 @@ int main(void)
     DDRD &= ~(_BV(PD4));      // Set PD4/T0 as input. Used for 1Hz input from RTC to timer/counter0.
     PORTD |= _BV(PD4);        // Turn on internal pull-up resistor for PD4/T0
 
-    OCR0A = 59;               // Timer/counter0 compare register 0 to 59 for counting to a minute.
+    OCR0A = 60;               // Timer/counter0 compare register 0 to 60 for counting to a minute.
 
     TCCR0A &= ~(_BV(WGM00));  // Set timer/counter0 to CTC mode
     TCCR0A |= _BV(WGM01);
@@ -156,6 +156,7 @@ void prepareScreen(uint8_t hour, uint8_t minute)
 {
     screen[0] = 0b0000000000011011; // IT IS
 
+    screen[9] = 0; //Blank o'clock line.
     if (minute < 35)
     {
         if (minute < 5)
