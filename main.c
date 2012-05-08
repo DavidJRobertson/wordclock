@@ -104,6 +104,7 @@ void displayRow(uint16_t row)
     {
         PORTB &= ~(_BV(PB0));
     }
+    shiftRegisterStrobe();
 }
 void shiftRegisterSendByte(uint8_t data)
 {
@@ -113,7 +114,6 @@ void shiftRegisterSendByte(uint8_t data)
     {
         shiftRegisterSendBit((data >> i) & 0x01);
     }
-    shiftRegisterStrobe();
 }
 
 void shiftRegisterSendBit(bool bit)
