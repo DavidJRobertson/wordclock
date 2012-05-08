@@ -765,7 +765,7 @@ int main(void)
     PORTD |= _BV(PD4);        // Turn on internal pull-up resistor for PD4/T0
  3c6:	5c 9a       	sbi	0x0b, 4	; 11
 
-    OCR0A = 60;               // Timer/counter0 compare register 0 to 60 for counting to a minute.
+    OCR0A = 60;               // Timer/counter0 compare register A to 60 for counting to a minute.
  3c8:	8c e3       	ldi	r24, 0x3C	; 60
  3ca:	87 bd       	out	0x27, r24	; 39
 
