@@ -22,6 +22,7 @@ uint16_t screen[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 int main(void)
 {
+    sei(); // Enable interrupts
     //TODO: make program initialize RTC and get current time over I2C
 
     DDRC = 0b1111111;         // Port C all outputs
@@ -38,8 +39,8 @@ int main(void)
     TIMSK0 |= _BV(OCIE0A);    // Fire interrupt on  timer/counter0 compare match A.
 
     TCCR0B |= _BV(CS00);      // Set timer/counter0 clock source to PD4/T0, rising edge.
-    TCCR0B |= _BV(CS00);      // For falling edge, change CS00 bit to 0.
-    TCCR0B |= _BV(CS00);
+    TCCR0B |= _BV(CS01);      // For falling edge, change CS00 bit to 0.
+    TCCR0B |= _BV(CS02);
 
 
 
