@@ -46,7 +46,7 @@ int main(void)
 
 
 
-    PORTC &= ~(_BV(PC0)); // Shift register data line low
+    PORTC &= ~(_BV(PC1)); // Shift register data line low
 
     PORTB |= _BV(PB2);    // POR 4017
     _delay_us(1);
@@ -128,11 +128,8 @@ void shiftRegisterSendBit(bool bit)
         PORTC &= ~(_BV(PC1)); // Data line low
     }
 
-    // _delay_us(1);
     PORTC |= _BV(PC0); // Clock line high
-    //_delay_us(1);
     PORTC &= ~(_BV(PC0)); // Clock line low
-    //_delay_us(1); // TODO: check if these delays are really necessary
 }
 
 void shiftRegisterStrobe()
