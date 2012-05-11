@@ -42,6 +42,14 @@
 			<Add after="avr-objcopy --no-change-warnings -j .eeprom --change-section-lma .eeprom=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_FILE).eep.hex" />
 			<Add after="avr-objdump -h -S $(TARGET_OUTPUT_FILE) &gt; $(TARGET_OUTPUT_FILE).lss" />
 		</ExtraCommands>
+		<Unit filename="I2C.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="I2C.h" />
+		<Unit filename="ds1307.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ds1307.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

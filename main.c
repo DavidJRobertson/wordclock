@@ -5,6 +5,8 @@
 #include <avr/sfr_defs.h>
 #include <stdbool.h>
 #include <avr/interrupt.h>
+#include "I2C.h"
+#include "ds1307.h"
 
 void shiftRegisterSendBit(bool bit);
 void shiftRegisterSendByte(uint8_t data);
@@ -13,6 +15,8 @@ void displayRow(uint16_t row);
 void nextRow(void);
 static uint8_t reverse(uint8_t b);
 void prepareScreen(uint8_t hour, uint8_t minute);
+void getTimeFromRTC(void);
+
 
 uint8_t currentrow = 0;
 uint8_t currenthour = 0;
@@ -22,6 +26,7 @@ uint16_t screen[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 int main(void)
 {
+    I2CInit();
     sei(); // Enable interrupts
     //TODO: make program initialize RTC and get current time over I2C
 
@@ -29,6 +34,12 @@ int main(void)
     DDRB = 0b0000111;         // Pins B0 and B1 outputs for column I + J drive, plus B2 for 4017 POR
     DDRD &= ~(_BV(PD4));      // Set PD4/T0 as input. Used for 1Hz input from RTC to timer/counter0.
     PORTD |= _BV(PD4);        // Turn on internal pull-up resistor for PD4/T0
+
+    // Initialize RTC
+    DS1307Write(0x00, 0b00000000); // Start the clock
+    DS1307Write(0x07, 0b00010000); // Turn on 1Hz output
+
+
 
     OCR0A = 60;               // Timer/counter0 compare register A to 60 for counting to a minute.
 
@@ -63,6 +74,7 @@ int main(void)
 
     displayRow(0);
     prepareScreen(currenthour, currentminute);
+
     while(1)
     {
         displayRow(screen[currentrow]);
@@ -283,18 +295,28 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     }
 }
 
+void getTimeFromRTC()
+{
 
-ISR(TIMER0_COMPA_vect) {
-  // Interrupt service routine for t/c0 compare match A. Fires every minute.
-  currentminute++;
-  if (currentminute > 59) {
-    currentminute = 0;
-    currenthour++;
-    if (currenthour > 23){
-      currenthour = 0;
-      //TODO: make software get current time from RTC over I2C here. This happens daily at midnight.
-    }
-  }
-  prepareScreen(currenthour, currentminute);
 }
+
+ISR(TIMER0_COMPA_vect)
+{
+    // Interrupt service routine for t/c0 compare match A. Fires every minute.
+    currentminute++;
+    if (currentminute > 59)
+    {
+        currentminute = 0;
+        currenthour++;
+        if (currenthour > 23)
+        {
+            currenthour = 0;
+            //TODOĸ: make software get current time from RTC over I2C here. This happens daily at midnight.
+        }
+    }
+    prepareScreen(currenthour, currentminute);
+}
+
+
+
 
