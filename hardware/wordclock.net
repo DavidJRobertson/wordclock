@@ -1,254 +1,254 @@
-# EESchema Netlist Version 1.1 created  Thu 10 May 2012 01:30:03 BST
+# EESchema Netlist Version 1.1 created  Thu 10 May 2012 01:32:52 BST
 (
- ( /4FAB06B8 $noname  C1 0.1uF {Lib=C}
-  (    1 +5V )
-  (    2 GND )
+ ( /4FAAF813 $noname$ BT1 BATTERY
+  ( 1 N-000023 )
+  ( 2 GND )
  )
- ( /4FAB0683 $noname  C4 0.1uF {Lib=C}
-  (    1 +5V )
-  (    2 GND )
+ ( /4FAB06B8 $noname$ C1 0.1uF
+  ( 1 +5V )
+  ( 2 GND )
  )
- ( /4FAB0649 $noname  C5 0.1uF {Lib=C}
-  (    1 +5V )
-  (    2 GND )
+ ( /4FAB05A6 $noname$ C2 1uF
+  ( 1 N-000051 )
+  ( 2 GND )
  )
- ( /4FAB05B8 $noname  C3 47uF {Lib=CP1}
-  (    1 +5V )
-  (    2 GND )
+ ( /4FAB05B8 $noname$ C3 47uF
+  ( 1 +5V )
+  ( 2 GND )
  )
- ( /4FAB05A6 $noname  C2 1uF {Lib=CP1}
-  (    1 N-000051 )
-  (    2 GND )
+ ( /4FAB0683 $noname$ C4 0.1uF
+  ( 1 +5V )
+  ( 2 GND )
  )
- ( /4FAB0589 $noname  P2 CONN_2 {Lib=CONN_2}
-  (    1 GND )
-  (    2 N-000051 )
+ ( /4FAB0649 $noname$ C5 0.1uF
+  ( 1 +5V )
+  ( 2 GND )
  )
- ( /4FAB057F $noname  U3 7805 {Lib=7805}
-  (  GND GND )
-  (   VI N-000051 )
-  (   VO +5V )
+ ( /4FAB055D $noname$ K1 CONN_3
+  ( 1 N-000050 )
+  ( 2 N-000049 )
+  ( 3 GND )
  )
- ( /4FAB055D $noname  K1 CONN_3 {Lib=CONN_3}
-  (    1 N-000050 )
-  (    2 N-000049 )
-  (    3 GND )
+ ( /4FAAF711 $noname$ P1 ISP
+  ( 1 N-000029 )
+  ( 2 +5V )
+  ( 3 N-000027 )
+  ( 4 N-000003 )
+  ( 5 N-000021 )
+  ( 6 GND )
  )
- ( /4FAAF813 $noname  BT1 BATTERY {Lib=BATTERY}
-  (    1 N-000023 )
-  (    2 GND )
+ ( /4FAB0589 $noname$ P2 CONN_2
+  ( 1 GND )
+  ( 2 N-000051 )
  )
- ( /4FAAF711 $noname  P1 ISP {Lib=CONN_3X2}
-  (    1 N-000029 )
-  (    2 +5V )
-  (    3 N-000027 )
-  (    4 N-000003 )
-  (    5 N-000021 )
-  (    6 GND )
+ ( /4FAAF92A/4FAB01F8 $noname$ P3 COLUMNS
+  ( 1 N-000063 )
+  ( 2 N-000069 )
+  ( 3 N-000062 )
+  ( 4 N-000064 )
+  ( 5 N-000061 )
+  ( 6 N-000070 )
+  ( 7 N-000065 )
+  ( 8 N-000066 )
+  ( 9 N-000067 )
+  ( 10 N-000068 )
  )
- ( /4FAAF07F $noname  U4 4094 {Lib=4094}
-  (    1 N-000048 )
-  (    2 N-000026 )
-  (    3 N-000032 )
-  (    4 /outputdriver/col0 )
-  (    5 /outputdriver/col1 )
-  (    6 /outputdriver/col2 )
-  (    7 /outputdriver/col3 )
-  (    8 GND )
-  (    9 ? )
-  (   10 ? )
-  (   11 /outputdriver/col7 )
-  (   12 /outputdriver/col6 )
-  (   13 /outputdriver/col5 )
-  (   14 /outputdriver/col4 )
-  (   15 +5V )
-  (   16 +5V )
+ ( /4FAAF92A/4FAB02D7 $noname$ P4 ROWS
+  ( 1 N-000055 )
+  ( 2 N-000056 )
+  ( 3 N-000057 )
+  ( 4 N-000071 )
+  ( 5 N-000059 )
+  ( 6 N-000060 )
+  ( 7 N-000054 )
+  ( 8 N-000052 )
+  ( 9 N-000053 )
+  ( 10 N-000058 )
  )
- ( /4FAAEEBF $noname  U5 4017 {Lib=4017}
-  (    1 /outputdriver/row5 )
-  (    2 /outputdriver/row1 )
-  (    3 /outputdriver/row0 )
-  (    4 /outputdriver/row2 )
-  (    5 /outputdriver/row6 )
-  (    6 /outputdriver/row7 )
-  (    7 /outputdriver/row3 )
-  (    8 GND )
-  (    9 /outputdriver/row8 )
-  (   10 /outputdriver/row4 )
-  (   11 /outputdriver/row9 )
-  (   12 ? )
-  (   13 GND )
-  (   14 N-000031 )
-  (   15 N-000040 )
-  (   16 +5V )
+ ( /4FAAF92A/4FAAF9BD TO92 Q1 2N7000
+  ( D N-000063 )
+  ( G /outputdriver/col0 )
+  ( S GND )
  )
- ( /4FAAEDF2 $noname  X1 32.768kHz {Lib=CRYSTAL}
-  (    1 N-000024 )
-  (    2 N-000025 )
+ ( /4FAAF92A/4FAAFAC3 TO92 Q2 2N7000
+  ( D N-000069 )
+  ( G /outputdriver/col1 )
+  ( S GND )
  )
- ( /4FAAEDD0 MODULE  U2 DS1307 {Lib=DS1307}
-  (    1 N-000025 )
-  (    2 N-000024 )
-  (    3 N-000023 )
-  (    4 GND )
-  (    5 /SDA )
-  (    6 /SCL )
-  (    7 /1Hz )
-  (    8 +5V )
+ ( /4FAAF92A/4FAAFAEF TO92 Q3 2N7000
+  ( D N-000062 )
+  ( G /outputdriver/col2 )
+  ( S GND )
  )
- ( /4FAAEB49 DIL28  U1 ATmega168 {Lib=ATMEGA8-P}
-  (    1 N-000021 )
-  (    2 N-000050 )
-  (    3 N-000049 )
-  (    4 ? )
-  (    5 ? )
-  (    6 /1Hz )
-  (    7 +5V )
-  (    8 GND )
-  (    9 ? )
-  (   10 ? )
-  (   11 ? )
-  (   12 ? )
-  (   13 ? )
-  (   14 /outputdriver/col9 )
-  (   15 /outputdriver/col8 )
-  (   16 N-000040 )
-  (   17 N-000003 )
-  (   18 N-000029 )
-  (   19 N-000027 )
-  (   20 +5V )
-  (   21 ? )
-  (   22 GND )
-  (   23 N-000032 )
-  (   24 N-000026 )
-  (   25 N-000048 )
-  (   26 N-000031 )
-  (   27 /SDA )
-  (   28 /SCL )
+ ( /4FAAF92A/4FAAFAF7 TO92 Q4 2N7000
+  ( D N-000064 )
+  ( G /outputdriver/col3 )
+  ( S GND )
  )
- ( /4FAAF92A/4FAB02E2 $noname  Q11 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row0 )
-  (    S N-000055 )
+ ( /4FAAF92A/4FAAFB00 TO92 Q5 2N7000
+  ( D N-000061 )
+  ( G /outputdriver/col4 )
+  ( S GND )
  )
- ( /4FAAF92A/4FAB02E1 $noname  Q12 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row1 )
-  (    S N-000056 )
+ ( /4FAAF92A/4FAAFB05 TO92 Q6 2N7000
+  ( D N-000070 )
+  ( G /outputdriver/col5 )
+  ( S GND )
  )
- ( /4FAAF92A/4FAB02E0 $noname  Q13 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row2 )
-  (    S N-000057 )
+ ( /4FAAF92A/4FAAFB47 TO92 Q7 2N7000
+  ( D N-000065 )
+  ( G /outputdriver/col6 )
+  ( S GND )
  )
- ( /4FAAF92A/4FAB02DF $noname  Q14 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row3 )
-  (    S N-000071 )
+ ( /4FAAF92A/4FAAFB46 TO92 Q8 2N7000
+  ( D N-000066 )
+  ( G /outputdriver/col7 )
+  ( S GND )
  )
- ( /4FAAF92A/4FAB02DE $noname  Q15 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row4 )
-  (    S N-000059 )
+ ( /4FAAF92A/4FAAFB45 TO92 Q9 2N7000
+  ( D N-000067 )
+  ( G /outputdriver/col8 )
+  ( S GND )
  )
- ( /4FAAF92A/4FAB02DD $noname  Q16 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row5 )
-  (    S N-000060 )
+ ( /4FAAF92A/4FAAFB44 TO92 Q10 2N7000
+  ( D N-000068 )
+  ( G /outputdriver/col9 )
+  ( S GND )
  )
- ( /4FAAF92A/4FAB02DC $noname  Q20 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row9 )
-  (    S N-000058 )
+ ( /4FAAF92A/4FAB02E2 TO92 Q11 2N7000
+  ( D +5V )
+  ( G /outputdriver/row0 )
+  ( S N-000055 )
  )
- ( /4FAAF92A/4FAB02DB $noname  Q19 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row8 )
-  (    S N-000053 )
+ ( /4FAAF92A/4FAB02E1 TO92 Q12 2N7000
+  ( D +5V )
+  ( G /outputdriver/row1 )
+  ( S N-000056 )
  )
- ( /4FAAF92A/4FAB02DA $noname  Q18 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row7 )
-  (    S N-000052 )
+ ( /4FAAF92A/4FAB02E0 TO92 Q13 2N7000
+  ( D +5V )
+  ( G /outputdriver/row2 )
+  ( S N-000057 )
  )
- ( /4FAAF92A/4FAB02D9 $noname  Q17 2N7000 {Lib=MOSFET_N}
-  (    D +5V )
-  (    G /outputdriver/row6 )
-  (    S N-000054 )
+ ( /4FAAF92A/4FAB02DF TO92 Q14 2N7000
+  ( D +5V )
+  ( G /outputdriver/row3 )
+  ( S N-000071 )
  )
- ( /4FAAF92A/4FAB02D7 $noname  P4 ROWS {Lib=CONN_10}
-  (    1 N-000055 )
-  (    2 N-000056 )
-  (    3 N-000057 )
-  (    4 N-000071 )
-  (    5 N-000059 )
-  (    6 N-000060 )
-  (    7 N-000054 )
-  (    8 N-000052 )
-  (    9 N-000053 )
-  (   10 N-000058 )
+ ( /4FAAF92A/4FAB02DE TO92 Q15 2N7000
+  ( D +5V )
+  ( G /outputdriver/row4 )
+  ( S N-000059 )
  )
- ( /4FAAF92A/4FAB01F8 $noname  P3 COLUMNS {Lib=CONN_10}
-  (    1 N-000063 )
-  (    2 N-000069 )
-  (    3 N-000062 )
-  (    4 N-000064 )
-  (    5 N-000061 )
-  (    6 N-000070 )
-  (    7 N-000065 )
-  (    8 N-000066 )
-  (    9 N-000067 )
-  (   10 N-000068 )
+ ( /4FAAF92A/4FAB02DD TO92 Q16 2N7000
+  ( D +5V )
+  ( G /outputdriver/row5 )
+  ( S N-000060 )
  )
- ( /4FAAF92A/4FAAFB47 $noname  Q7 2N7000 {Lib=MOSFET_N}
-  (    D N-000065 )
-  (    G /outputdriver/col6 )
-  (    S GND )
+ ( /4FAAF92A/4FAB02D9 TO92 Q17 2N7000
+  ( D +5V )
+  ( G /outputdriver/row6 )
+  ( S N-000054 )
  )
- ( /4FAAF92A/4FAAFB46 $noname  Q8 2N7000 {Lib=MOSFET_N}
-  (    D N-000066 )
-  (    G /outputdriver/col7 )
-  (    S GND )
+ ( /4FAAF92A/4FAB02DA TO92 Q18 2N7000
+  ( D +5V )
+  ( G /outputdriver/row7 )
+  ( S N-000052 )
  )
- ( /4FAAF92A/4FAAFB45 $noname  Q9 2N7000 {Lib=MOSFET_N}
-  (    D N-000067 )
-  (    G /outputdriver/col8 )
-  (    S GND )
+ ( /4FAAF92A/4FAB02DB TO92 Q19 2N7000
+  ( D +5V )
+  ( G /outputdriver/row8 )
+  ( S N-000053 )
  )
- ( /4FAAF92A/4FAAFB44 $noname  Q10 2N7000 {Lib=MOSFET_N}
-  (    D N-000068 )
-  (    G /outputdriver/col9 )
-  (    S GND )
+ ( /4FAAF92A/4FAB02DC TO92 Q20 2N7000
+  ( D +5V )
+  ( G /outputdriver/row9 )
+  ( S N-000058 )
  )
- ( /4FAAF92A/4FAAFB05 $noname  Q6 2N7000 {Lib=MOSFET_N}
-  (    D N-000070 )
-  (    G /outputdriver/col5 )
-  (    S GND )
+ ( /4FAAEB49 DIL28 U1 ATmega168
+  ( 1 N-000021 )
+  ( 2 N-000050 )
+  ( 3 N-000049 )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 /1Hz )
+  ( 7 +5V )
+  ( 8 GND )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 ? )
+  ( 12 ? )
+  ( 13 ? )
+  ( 14 /outputdriver/col9 )
+  ( 15 /outputdriver/col8 )
+  ( 16 N-000040 )
+  ( 17 N-000003 )
+  ( 18 N-000029 )
+  ( 19 N-000027 )
+  ( 20 +5V )
+  ( 21 ? )
+  ( 22 GND )
+  ( 23 N-000032 )
+  ( 24 N-000026 )
+  ( 25 N-000048 )
+  ( 26 N-000031 )
+  ( 27 /SDA )
+  ( 28 /SCL )
  )
- ( /4FAAF92A/4FAAFB00 $noname  Q5 2N7000 {Lib=MOSFET_N}
-  (    D N-000061 )
-  (    G /outputdriver/col4 )
-  (    S GND )
+ ( /4FAAEDD0 MODULE U2 DS1307
+  ( 1 N-000025 )
+  ( 2 N-000024 )
+  ( 3 N-000023 )
+  ( 4 GND )
+  ( 5 /SDA )
+  ( 6 /SCL )
+  ( 7 /1Hz )
+  ( 8 +5V )
  )
- ( /4FAAF92A/4FAAFAF7 $noname  Q4 2N7000 {Lib=MOSFET_N}
-  (    D N-000064 )
-  (    G /outputdriver/col3 )
-  (    S GND )
+ ( /4FAB057F $noname$ U3 7805
+  ( GND GND )
+  ( VI N-000051 )
+  ( VO +5V )
  )
- ( /4FAAF92A/4FAAFAEF $noname  Q3 2N7000 {Lib=MOSFET_N}
-  (    D N-000062 )
-  (    G /outputdriver/col2 )
-  (    S GND )
+ ( /4FAAF07F $noname$ U4 4094
+  ( 1 N-000048 )
+  ( 2 N-000026 )
+  ( 3 N-000032 )
+  ( 4 /outputdriver/col0 )
+  ( 5 /outputdriver/col1 )
+  ( 6 /outputdriver/col2 )
+  ( 7 /outputdriver/col3 )
+  ( 8 GND )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 /outputdriver/col7 )
+  ( 12 /outputdriver/col6 )
+  ( 13 /outputdriver/col5 )
+  ( 14 /outputdriver/col4 )
+  ( 15 +5V )
+  ( 16 +5V )
  )
- ( /4FAAF92A/4FAAFAC3 $noname  Q2 2N7000 {Lib=MOSFET_N}
-  (    D N-000069 )
-  (    G /outputdriver/col1 )
-  (    S GND )
+ ( /4FAAEEBF $noname$ U5 4017
+  ( 1 /outputdriver/row5 )
+  ( 2 /outputdriver/row1 )
+  ( 3 /outputdriver/row0 )
+  ( 4 /outputdriver/row2 )
+  ( 5 /outputdriver/row6 )
+  ( 6 /outputdriver/row7 )
+  ( 7 /outputdriver/row3 )
+  ( 8 GND )
+  ( 9 /outputdriver/row8 )
+  ( 10 /outputdriver/row4 )
+  ( 11 /outputdriver/row9 )
+  ( 12 ? )
+  ( 13 GND )
+  ( 14 N-000031 )
+  ( 15 N-000040 )
+  ( 16 +5V )
  )
- ( /4FAAF92A/4FAAF9BD $noname  Q1 2N7000 {Lib=MOSFET_N}
-  (    D N-000063 )
-  (    G /outputdriver/col0 )
-  (    S GND )
+ ( /4FAAEDF2 $noname$ X1 32.768kHz
+  ( 1 N-000024 )
+  ( 2 N-000025 )
  )
 )
 *
@@ -257,6 +257,14 @@ $component C1
  SM*
  C?
  C1-1
+$endlist
+$component C2
+ CP*
+ SM*
+$endlist
+$component C3
+ CP*
+ SM*
 $endlist
 $component C4
  SM*
@@ -268,245 +276,9 @@ $component C5
  C?
  C1-1
 $endlist
-$component C3
- CP*
- SM*
-$endlist
-$component C2
- CP*
- SM*
-$endlist
 $component U1
  28DIP-ELL600
  28dip600
 $endlist
 $endfootprintlist
 }
-{ Pin List by Nets
-Net 3 "" ""
- P1 4
- U1 17
-Net 4 "GND" "GND"
- U1 22
- U5 8
- U5 13
- U3 GND
- P2 1
- C2 2
- C3 2
- Q7 S
- Q2 S
- Q3 S
- Q4 S
- Q5 S
- Q6 S
- Q10 S
- Q1 S
- C5 2
- C4 2
- C1 2
- Q9 S
- K1 3
- Q8 S
- P1 6
- U4 8
- U1 8
- BT1 2
- U2 4
-Net 7 "+5V" "+5V"
- Q11 D
- U3 VO
- C1 1
- C3 1
- U1 20
- Q17 D
- U5 16
- Q18 D
- Q19 D
- Q20 D
- Q16 D
- Q15 D
- Q14 D
- Q13 D
- Q12 D
- U4 16
- U1 7
- C5 1
- C4 1
- U4 15
- U2 8
- P1 2
-Net 9 "/outputdriver/col7" "col7"
- U4 11
- Q8 G
-Net 10 "/outputdriver/col0" "col0"
- Q1 G
- U4 4
-Net 11 "/outputdriver/col1" "col1"
- Q2 G
- U4 5
-Net 12 "/outputdriver/col2" "col2"
- U4 6
- Q3 G
-Net 15 "/outputdriver/col4" "col4"
- U4 14
- Q5 G
-Net 16 "/outputdriver/col3" "col3"
- Q4 G
- U4 7
-Net 17 "/outputdriver/col5" "col5"
- Q6 G
- U4 13
-Net 18 "/outputdriver/col9" "col9"
- U1 14
- Q10 G
-Net 19 "/outputdriver/col8" "col8"
- U1 15
- Q9 G
-Net 20 "/outputdriver/col6" "col6"
- U4 12
- Q7 G
-Net 21 "" ""
- U1 1
- P1 5
-Net 22 "/1Hz" "1Hz"
- U2 7
- U1 6
-Net 23 "" ""
- BT1 1
- U2 3
-Net 24 "" ""
- U2 2
- X1 1
-Net 25 "" ""
- U2 1
- X1 2
-Net 26 "" ""
- U4 2
- U1 24
-Net 27 "" ""
- U1 19
- P1 3
-Net 28 "/SCL" "SCL"
- U2 6
- U1 28
-Net 29 "" ""
- P1 1
- U1 18
-Net 30 "/SDA" "SDA"
- U2 5
- U1 27
-Net 31 "" ""
- U1 26
- U5 14
-Net 32 "" ""
- U4 3
- U1 23
-Net 37 "/outputdriver/row1" "row1"
- Q12 G
- U5 2
-Net 38 "/outputdriver/row5" "row5"
- Q16 G
- U5 1
-Net 39 "/outputdriver/row0" "row0"
- Q11 G
- U5 3
-Net 40 "" ""
- U1 16
- U5 15
-Net 41 "/outputdriver/row9" "row9"
- U5 11
- Q20 G
-Net 42 "/outputdriver/row4" "row4"
- U5 10
- Q15 G
-Net 43 "/outputdriver/row8" "row8"
- Q19 G
- U5 9
-Net 44 "/outputdriver/row3" "row3"
- U5 7
- Q14 G
-Net 45 "/outputdriver/row7" "row7"
- U5 6
- Q18 G
-Net 46 "/outputdriver/row6" "row6"
- U5 5
- Q17 G
-Net 47 "/outputdriver/row2" "row2"
- U5 4
- Q13 G
-Net 48 "" ""
- U1 25
- U4 1
-Net 49 "" ""
- K1 2
- U1 3
-Net 50 "" ""
- K1 1
- U1 2
-Net 51 "" ""
- C2 1
- P2 2
- U3 VI
-Net 52 "" ""
- P4 8
- Q18 S
-Net 53 "" ""
- P4 9
- Q19 S
-Net 54 "" ""
- Q17 S
- P4 7
-Net 55 "" ""
- Q11 S
- P4 1
-Net 56 "" ""
- P4 2
- Q12 S
-Net 57 "" ""
- P4 3
- Q13 S
-Net 58 "" ""
- Q20 S
- P4 10
-Net 59 "" ""
- Q15 S
- P4 5
-Net 60 "" ""
- Q16 S
- P4 6
-Net 61 "" ""
- Q5 D
- P3 5
-Net 62 "" ""
- Q3 D
- P3 3
-Net 63 "" ""
- Q1 D
- P3 1
-Net 64 "" ""
- P3 4
- Q4 D
-Net 65 "" ""
- P3 7
- Q7 D
-Net 66 "" ""
- P3 8
- Q8 D
-Net 67 "" ""
- P3 9
- Q9 D
-Net 68 "" ""
- P3 10
- Q10 D
-Net 69 "" ""
- P3 2
- Q2 D
-Net 70 "" ""
- Q6 D
- P3 6
-Net 71 "" ""
- P4 4
- Q14 S
-}
-#End
