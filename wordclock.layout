@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="I2C.c" open="1" top="1" tabpos="3">
-		<Cursor position="87" topLine="0" />
+	<File name="I2C.c" open="0" top="0" tabpos="3">
+		<Cursor position="1188" topLine="0" />
 	</File>
-	<File name="ds1307.c" open="1" top="0" tabpos="2">
-		<Cursor position="0" topLine="0" />
+	<File name="ds1307.c" open="0" top="0" tabpos="2">
+		<Cursor position="1396" topLine="15" />
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="1">
-		<Cursor position="2021" topLine="66" />
+	<File name="ds1307.h" open="0" top="0" tabpos="4">
+		<Cursor position="56" topLine="0" />
+	</File>
+	<File name="main.c" open="1" top="1" tabpos="0">
+		<Cursor position="1071" topLine="180" />
 	</File>
 </CodeBlocks_layout_file>

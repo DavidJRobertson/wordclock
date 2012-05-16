@@ -12,7 +12,6 @@
 				<Option type="1" />
 				<Option compiler="avrgcc" />
 				<Compiler>
-					<Add option="-O2" />
 					<Add option="-g" />
 					<Add option="-I /usr/include/i386-linux-gnu" />
 				</Compiler>
@@ -22,13 +21,11 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="avrgcc" />
-				<Compiler>
-					<Add option="-Os" />
-				</Compiler>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-mmcu=atmega168" />
+			<Add option="-O2" />
 			<Add option="-Wall" />
 			<Add option="-DF_CPU=8000000UL" />
 		</Compiler>

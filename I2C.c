@@ -66,7 +66,7 @@ uint8_t I2CWriteByte(uint8_t data)
         return FALSE;	// Error
 }
 
-uint8_t I2CReadByte(uint8_t *data,uint8_t ack)
+uint8_t I2CReadByte(uint8_t *data, uint8_t ack)
 {
     // Set up ack
     if(ack)

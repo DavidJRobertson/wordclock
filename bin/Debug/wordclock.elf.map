@@ -121,7 +121,7 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x65c
+.text           0x00000000      0x710
  *(.vectors)
  .vectors       0x00000000       0x68 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm168.o
                 0x00000000                __vectors
@@ -214,29 +214,30 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  .text          0x000001ac       0x88 obj/Debug/ds1307.o
                 0x000001ac                DS1307Read
                 0x000001fa                DS1307Write
- .text          0x00000234      0x424 obj/Debug/main.o
+ .text          0x00000234      0x4d8 obj/Debug/main.o
                 0x00000234                nextRow
                 0x00000252                shiftRegisterSendBit
                 0x00000266                shiftRegisterSendByte
                 0x000002e8                displayRow
                 0x00000318                shiftRegisterStrobe
                 0x00000324                prepareScreen
-                0x00000526                main
-                0x000005dc                getTimeFromRTC
-                0x000005de                __vector_14
- .text          0x00000658        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
- .text          0x00000658        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
- .text          0x00000658        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
-                0x00000658                . = ALIGN (0x2)
+                0x00000526                getTimeFromRTC
+                0x00000574                main
+                0x00000678                decodeBCD
+                0x0000068e                __vector_14
+ .text          0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+ .text          0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
+ .text          0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
+                0x0000070c                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00000658        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
- .text.libgcc   0x00000658        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
- .text.libgcc   0x00000658        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
-                0x00000658                . = ALIGN (0x2)
+ .text.libgcc   0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+ .text.libgcc   0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
+                0x0000070c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000658        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
-                0x00000658                exit
-                0x00000658                _exit
+ .fini9         0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+                0x0000070c                exit
+                0x0000070c                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -255,11 +256,11 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000658        0x4 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+ .fini0         0x0000070c        0x4 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000065c                _etext = .
+                0x00000710                _etext = .
 
-.data           0x00800100        0x0 load address 0x0000065c
+.data           0x00800100        0x0 load address 0x00000710
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm168.o
@@ -294,8 +295,8 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  *(.bss*)
  *(COMMON)
                 0x00800117                PROVIDE (__bss_end, .)
-                0x0000065c                __data_load_start = LOADADDR (.data)
-                0x0000065c                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000710                __data_load_start = LOADADDR (.data)
+                0x00000710                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800117        0x0
                 0x00800117                PROVIDE (__noinit_start, .)
@@ -320,19 +321,19 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x1bb4
+.stab           0x00000000     0x1d7c
  *(.stab)
  .stab          0x00000000      0x6cc /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm168.o
  .stab          0x000006cc      0x684 obj/Debug/I2C.o
                                 0x690 (size before relaxing)
  .stab          0x00000d50      0x2f4 obj/Debug/ds1307.o
                                 0x4b0 (size before relaxing)
- .stab          0x00001044      0xb70 obj/Debug/main.o
-                                0xda4 (size before relaxing)
+ .stab          0x00001044      0xd38 obj/Debug/main.o
+                                0xf6c (size before relaxing)
 
-.stabstr        0x00000000      0xbb1
+.stabstr        0x00000000      0xbdc
  *(.stabstr)
- .stabstr       0x00000000      0xbb1 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm168.o
+ .stabstr       0x00000000      0xbdc /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm168.o
 
 .stab.excl
  *(.stab.excl)
@@ -395,6 +396,7 @@ Cross Reference Table
 
 Symbol                                            File
 DS1307Read                                        obj/Debug/ds1307.o
+                                                  obj/Debug/main.o
 DS1307Write                                       obj/Debug/ds1307.o
                                                   obj/Debug/main.o
 I2CClose                                          obj/Debug/I2C.o
@@ -453,6 +455,7 @@ _exit                                             /usr/lib/gcc/avr/4.5.3/avr5/li
 currenthour                                       obj/Debug/main.o
 currentminute                                     obj/Debug/main.o
 currentrow                                        obj/Debug/main.o
+decodeBCD                                         obj/Debug/main.o
 displayRow                                        obj/Debug/main.o
 exit                                              /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
                                                   /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm168.o

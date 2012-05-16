@@ -17,7 +17,7 @@ Returns:
 1= Success
 ***************************************************/
 
-uint8_t DS1307Read(uint8_t address,uint8_t *data)
+uint8_t DS1307Read(uint8_t address, uint8_t *data)
 {
     uint8_t res;	// result
 
@@ -71,7 +71,7 @@ Returns:
 1= Success
 ***************************************************/
 
-uint8_t DS1307Write(uint8_t address,uint8_t data)
+uint8_t DS1307Write(uint8_t address, uint8_t data)
 {
     uint8_t res;	// result
 
