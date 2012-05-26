@@ -121,7 +121,7 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x710
+.text           0x00000000      0x714
  *(.vectors)
  .vectors       0x00000000       0x68 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm168.o
                 0x00000000                __vectors
@@ -214,7 +214,7 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  .text          0x000001ac       0x88 obj/Debug/ds1307.o
                 0x000001ac                DS1307Read
                 0x000001fa                DS1307Write
- .text          0x00000234      0x4d8 obj/Debug/main.o
+ .text          0x00000234      0x4dc obj/Debug/main.o
                 0x00000234                nextRow
                 0x00000252                shiftRegisterSendBit
                 0x00000266                shiftRegisterSendByte
@@ -225,19 +225,19 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
                 0x00000574                main
                 0x00000678                decodeBCD
                 0x0000068e                __vector_14
- .text          0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
- .text          0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
- .text          0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
-                0x0000070c                . = ALIGN (0x2)
+ .text          0x00000710        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+ .text          0x00000710        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
+ .text          0x00000710        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
+                0x00000710                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
- .text.libgcc   0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
- .text.libgcc   0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
-                0x0000070c                . = ALIGN (0x2)
+ .text.libgcc   0x00000710        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+ .text.libgcc   0x00000710        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000710        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_clear_bss.o)
+                0x00000710                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000070c        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
-                0x0000070c                exit
-                0x0000070c                _exit
+ .fini9         0x00000710        0x0 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+                0x00000710                exit
+                0x00000710                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -256,11 +256,11 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000070c        0x4 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
+ .fini0         0x00000710        0x4 /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a(_exit.o)
  *(.fini0)
-                0x00000710                _etext = .
+                0x00000714                _etext = .
 
-.data           0x00800100        0x0 load address 0x00000710
+.data           0x00800100        0x0 load address 0x00000714
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 /usr/lib/gcc/avr/4.5.3/../../../avr/lib/avr5/crtm168.o
@@ -295,8 +295,8 @@ LOAD /usr/lib/gcc/avr/4.5.3/avr5/libgcc.a
  *(.bss*)
  *(COMMON)
                 0x00800117                PROVIDE (__bss_end, .)
-                0x00000710                __data_load_start = LOADADDR (.data)
-                0x00000710                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000714                __data_load_start = LOADADDR (.data)
+                0x00000714                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800117        0x0
                 0x00800117                PROVIDE (__noinit_start, .)

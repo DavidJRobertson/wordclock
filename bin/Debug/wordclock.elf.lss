@@ -3,13 +3,13 @@ bin/Debug/wordclock.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000710  00000000  00000000  00000074  2**1
+  0 .text         00000714  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .bss          00000017  00800100  00800100  00000784  2**0
+  1 .bss          00000017  00800100  00800100  00000788  2**0
                   ALLOC
-  2 .stab         00001d7c  00000000  00000000  00000784  2**2
+  2 .stab         00001d7c  00000000  00000000  00000788  2**2
                   CONTENTS, READONLY, DEBUGGING
-  3 .stabstr      00000bdc  00000000  00000000  00002500  2**0
+  3 .stabstr      00000bdc  00000000  00000000  00002504  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -78,7 +78,7 @@ Disassembly of section .text:
   a4:	11 e0       	ldi	r17, 0x01	; 1
   a6:	a0 e0       	ldi	r26, 0x00	; 0
   a8:	b1 e0       	ldi	r27, 0x01	; 1
-  aa:	e0 e1       	ldi	r30, 0x10	; 16
+  aa:	e4 e1       	ldi	r30, 0x14	; 20
   ac:	f7 e0       	ldi	r31, 0x07	; 7
   ae:	02 c0       	rjmp	.+4      	; 0xb4 <__do_copy_data+0x10>
   b0:	05 90       	lpm	r0, Z+
@@ -101,7 +101,7 @@ Disassembly of section .text:
   c6:	b1 07       	cpc	r27, r17
   c8:	e1 f7       	brne	.-8      	; 0xc2 <.do_clear_bss_loop>
   ca:	0e 94 ba 02 	call	0x574	; 0x574 <main>
-  ce:	0c 94 86 03 	jmp	0x70c	; 0x70c <_exit>
+  ce:	0c 94 88 03 	jmp	0x710	; 0x710 <_exit>
 
 000000d2 <__bad_interrupt>:
   d2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -1222,9 +1222,9 @@ int main(void)
  59a:	81 e0       	ldi	r24, 0x01	; 1
  59c:	60 e0       	ldi	r22, 0x00	; 0
  59e:	0e 94 fd 00 	call	0x1fa	; 0x1fa <DS1307Write>
-    DS1307Write(0x07, 0b00010000); // Turn on 1Hz output
+    DS1307Write(0x07, 0b00010001); // Turn on 1Hz output
  5a2:	87 e0       	ldi	r24, 0x07	; 7
- 5a4:	60 e1       	ldi	r22, 0x10	; 16
+ 5a4:	61 e1       	ldi	r22, 0x11	; 17
  5a6:	0e 94 fd 00 	call	0x1fa	; 0x1fa <DS1307Write>
 	if (__tmp < 1.0)
 		__ticks = 1;
@@ -1453,12 +1453,12 @@ ISR(TIMER0_COMPA_vect)
  6ae:	ff 93       	push	r31
     // Interrupt service routine for t/c0 compare match A. Fires every minute.
     currentminute++;
- 6b0:	80 91 02 01 	lds	r24, 0x0102
- 6b4:	8f 5f       	subi	r24, 0xFF	; 255
- 6b6:	80 93 02 01 	sts	0x0102, r24
+ 6b0:	60 91 02 01 	lds	r22, 0x0102
+ 6b4:	6f 5f       	subi	r22, 0xFF	; 255
+ 6b6:	60 93 02 01 	sts	0x0102, r22
     if (currentminute > 59)
- 6ba:	8c 33       	cpi	r24, 0x3C	; 60
- 6bc:	48 f0       	brcs	.+18     	; 0x6d0 <__vector_14+0x42>
+ 6ba:	6c 33       	cpi	r22, 0x3C	; 60
+ 6bc:	30 f1       	brcs	.+76     	; 0x70a <__vector_14+0x7c>
     {
         currentminute = 0;
  6be:	10 92 02 01 	sts	0x0102, r1
@@ -1468,49 +1468,56 @@ ISR(TIMER0_COMPA_vect)
  6c8:	80 93 01 01 	sts	0x0101, r24
         if (currenthour > 23)
  6cc:	88 31       	cpi	r24, 0x18	; 24
- 6ce:	c8 f4       	brcc	.+50     	; 0x702 <__vector_14+0x74>
-        {
+ 6ce:	a0 f4       	brcc	.+40     	; 0x6f8 <__vector_14+0x6a>
+ 6d0:	60 e0       	ldi	r22, 0x00	; 0
             currenthour = 0;
             getTimeFromRTC();
         }
     }
-    getTimeFromRTC();
- 6d0:	0e 94 93 02 	call	0x526	; 0x526 <getTimeFromRTC>
+    //getTimeFromRTC();
     prepareScreen(currenthour, currentminute);
- 6d4:	80 91 01 01 	lds	r24, 0x0101
- 6d8:	60 91 02 01 	lds	r22, 0x0102
- 6dc:	0e 94 92 01 	call	0x324	; 0x324 <prepareScreen>
+ 6d2:	0e 94 92 01 	call	0x324	; 0x324 <prepareScreen>
 }
- 6e0:	ff 91       	pop	r31
- 6e2:	ef 91       	pop	r30
- 6e4:	bf 91       	pop	r27
- 6e6:	af 91       	pop	r26
- 6e8:	9f 91       	pop	r25
- 6ea:	8f 91       	pop	r24
- 6ec:	7f 91       	pop	r23
- 6ee:	6f 91       	pop	r22
- 6f0:	5f 91       	pop	r21
- 6f2:	4f 91       	pop	r20
- 6f4:	3f 91       	pop	r19
- 6f6:	2f 91       	pop	r18
- 6f8:	0f 90       	pop	r0
- 6fa:	0f be       	out	0x3f, r0	; 63
- 6fc:	0f 90       	pop	r0
- 6fe:	1f 90       	pop	r1
- 700:	18 95       	reti
+ 6d6:	ff 91       	pop	r31
+ 6d8:	ef 91       	pop	r30
+ 6da:	bf 91       	pop	r27
+ 6dc:	af 91       	pop	r26
+ 6de:	9f 91       	pop	r25
+ 6e0:	8f 91       	pop	r24
+ 6e2:	7f 91       	pop	r23
+ 6e4:	6f 91       	pop	r22
+ 6e6:	5f 91       	pop	r21
+ 6e8:	4f 91       	pop	r20
+ 6ea:	3f 91       	pop	r19
+ 6ec:	2f 91       	pop	r18
+ 6ee:	0f 90       	pop	r0
+ 6f0:	0f be       	out	0x3f, r0	; 63
+ 6f2:	0f 90       	pop	r0
+ 6f4:	1f 90       	pop	r1
+ 6f6:	18 95       	reti
     {
         currentminute = 0;
         currenthour++;
         if (currenthour > 23)
         {
             currenthour = 0;
- 702:	10 92 01 01 	sts	0x0101, r1
+ 6f8:	10 92 01 01 	sts	0x0101, r1
             getTimeFromRTC();
- 706:	0e 94 93 02 	call	0x526	; 0x526 <getTimeFromRTC>
- 70a:	e2 cf       	rjmp	.-60     	; 0x6d0 <__vector_14+0x42>
+ 6fc:	0e 94 93 02 	call	0x526	; 0x526 <getTimeFromRTC>
+ 700:	80 91 01 01 	lds	r24, 0x0101
+ 704:	60 91 02 01 	lds	r22, 0x0102
+ 708:	e4 cf       	rjmp	.-56     	; 0x6d2 <__vector_14+0x44>
 
-0000070c <_exit>:
- 70c:	f8 94       	cli
+ISR(TIMER0_COMPA_vect)
+{
+    // Interrupt service routine for t/c0 compare match A. Fires every minute.
+    currentminute++;
+    if (currentminute > 59)
+ 70a:	80 91 01 01 	lds	r24, 0x0101
+ 70e:	e1 cf       	rjmp	.-62     	; 0x6d2 <__vector_14+0x44>
 
-0000070e <__stop_program>:
- 70e:	ff cf       	rjmp	.-2      	; 0x70e <__stop_program>
+00000710 <_exit>:
+ 710:	f8 94       	cli
+
+00000712 <__stop_program>:
+ 712:	ff cf       	rjmp	.-2      	; 0x712 <__stop_program>

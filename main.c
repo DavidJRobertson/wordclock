@@ -333,7 +333,7 @@ ISR(TIMER0_COMPA_vect)
             getTimeFromRTC();
         }
     }
-    getTimeFromRTC();
+    //getTimeFromRTC();
     prepareScreen(currenthour, currentminute);
 }
 
