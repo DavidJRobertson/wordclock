@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Tue 19 Jun 2012 02:52:48 BST
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Tue 19 Jun 2012 04:59:31 BST
 
 BeginCmp
 TimeStamp = /4FAAF813;
@@ -215,6 +215,20 @@ TimeStamp = /4FAAF92A/4FAB02DC;
 Reference = Q20;
 ValeurCmp = 2N7000;
 IdModule  = TO92;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FDFF87F;
+Reference = R1;
+ValeurCmp = 4k7;
+IdModule  = R3;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FDFF86B;
+Reference = R2;
+ValeurCmp = 4k7;
+IdModule  = R3;
 EndCmp
 
 BeginCmp

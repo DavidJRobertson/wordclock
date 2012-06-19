@@ -1,5 +1,13 @@
-# EESchema Netlist Version 1.1 created  Tue 19 Jun 2012 03:11:35 BST
+# EESchema Netlist Version 1.1 created  Tue 19 Jun 2012 06:52:04 BST
 (
+ ( /4FDFF87F $noname  R1 4k7 {Lib=R}
+  (    1 +5V )
+  (    2 /SCL )
+ )
+ ( /4FDFF86B $noname  R2 4k7 {Lib=R}
+  (    1 +5V )
+  (    2 /SDA )
+ )
  ( /4FAB06B8 C1  C1 0.1uF {Lib=C}
   (    1 +5V )
   (    2 GND )
@@ -17,39 +25,39 @@
   (    2 GND )
  )
  ( /4FAB05A6 C1V7  C2 1uF {Lib=CP1}
-  (    1 N-000051 )
+  (    1 /Vin )
   (    2 GND )
  )
  ( /4FAB0589 SIL-2  P2 Vin {Lib=CONN_2}
   (    1 GND )
-  (    2 N-000051 )
+  (    2 /Vin )
  )
  ( /4FAB057F TO220  U3 7805 {Lib=7805}
-  (  GND GND )
-  (   VI N-000051 )
-  (   VO +5V )
+  (    1 /Vin )
+  (    2 GND )
+  (    3 +5V )
  )
  ( /4FAB055D PIN_ARRAY_3X1  K1 SERIAL {Lib=CONN_3}
-  (    1 N-000050 )
-  (    2 N-000049 )
+  (    1 N-000024 )
+  (    2 N-000023 )
   (    3 GND )
  )
  ( /4FAAF813 CR2032H  BT1 BATTERY {Lib=BATTERY}
-  (    1 N-000023 )
+  (    1 N-000005 )
   (    2 GND )
  )
  ( /4FAAF711 pin_array_3x2  P1 ISP {Lib=CONN_3X2}
-  (    1 N-000029 )
+  (    1 N-000001 )
   (    2 +5V )
-  (    3 N-000027 )
-  (    4 N-000003 )
-  (    5 N-000021 )
+  (    3 N-000006 )
+  (    4 N-000031 )
+  (    5 N-000012 )
   (    6 GND )
  )
  ( /4FAAF07F DIP-16__300  U4 4094 {Lib=4094}
-  (    1 N-000048 )
-  (    2 N-000026 )
-  (    3 N-000032 )
+  (    1 N-000033 )
+  (    2 N-000028 )
+  (    3 N-000008 )
   (    4 /outputdriver/col0 )
   (    5 /outputdriver/col1 )
   (    6 /outputdriver/col2 )
@@ -78,18 +86,18 @@
   (   11 /outputdriver/row9 )
   (   12 ? )
   (   13 GND )
-  (   14 N-000031 )
-  (   15 N-000040 )
+  (   14 N-000041 )
+  (   15 N-000032 )
   (   16 +5V )
  )
  ( /4FAAEDF2 r26-crystal  X1 32.768kHz {Lib=CRYSTAL}
-  (    1 N-000024 )
-  (    2 N-000025 )
+  (    1 N-000027 )
+  (    2 N-000026 )
  )
  ( /4FAAEDD0 DIP-8__300  U2 DS1307 {Lib=DS1307}
-  (    1 N-000025 )
-  (    2 N-000024 )
-  (    3 N-000023 )
+  (    1 N-000026 )
+  (    2 N-000027 )
+  (    3 N-000005 )
   (    4 GND )
   (    5 /SDA )
   (    6 /SCL )
@@ -97,9 +105,9 @@
   (    8 +5V )
  )
  ( /4FAAEB49 DIP-28__300  U1 ATmega168 {Lib=ATMEGA8-P}
-  (    1 N-000021 )
-  (    2 N-000050 )
-  (    3 N-000049 )
+  (    1 N-000012 )
+  (    2 N-000024 )
+  (    3 N-000023 )
   (    4 ? )
   (    5 ? )
   (    6 /1Hz )
@@ -112,17 +120,17 @@
   (   13 ? )
   (   14 /outputdriver/col9 )
   (   15 /outputdriver/col8 )
-  (   16 N-000040 )
-  (   17 N-000003 )
-  (   18 N-000029 )
-  (   19 N-000027 )
+  (   16 N-000032 )
+  (   17 N-000031 )
+  (   18 N-000001 )
+  (   19 N-000006 )
   (   20 +5V )
   (   21 ? )
   (   22 GND )
-  (   23 N-000032 )
-  (   24 N-000026 )
-  (   25 N-000048 )
-  (   26 N-000031 )
+  (   23 N-000008 )
+  (   24 N-000028 )
+  (   25 N-000033 )
+  (   26 N-000041 )
   (   27 /SDA )
   (   28 /SCL )
  )
@@ -253,6 +261,18 @@
 )
 *
 { Allowed footprints by component:
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+$endlist
 $component C1
  SM*
  C?
@@ -283,140 +303,144 @@ $endlist
 $endfootprintlist
 }
 { Pin List by Nets
-Net 3 "" ""
- U1 17
- P1 4
-Net 4 "GND" "GND"
- U1 8
- C5 2
- C4 2
- U5 13
+Net 1 "" ""
+ P1 1
+ U1 18
+Net 4 "+5V" "+5V"
+ Q17 3
+ C3 1
+ Q19 3
+ U4 15
+ U3 3
+ U5 16
+ C4 1
+ U2 8
+ U1 20
+ U4 16
+ U1 7
+ Q18 3
+ C5 1
+ Q11 3
+ C1 1
+ R2 1
+ P1 2
+ R1 1
+ Q12 3
+ Q13 3
+ Q20 3
+ Q14 3
+ Q15 3
+ Q16 3
+Net 5 "" ""
+ BT1 1
+ U2 3
+Net 6 "" ""
+ U1 19
+ P1 3
+Net 8 "" ""
+ U4 3
+ U1 23
+Net 11 "GND" "GND"
+ Q6 1
+ Q7 1
+ Q8 1
+ P1 6
  C1 2
- U1 22
- U5 8
+ Q9 1
  Q10 1
- U2 4
+ BT1 2
  Q1 1
  Q2 1
  Q3 1
+ Q5 1
  U4 8
  Q4 1
- Q5 1
- Q6 1
- BT1 2
- P1 6
- Q9 1
- K1 3
- Q8 1
- U3 GND
- P2 1
+ C5 2
+ C4 2
+ U1 8
+ U5 8
+ U1 22
+ U2 4
  C2 2
+ U3 2
+ K1 3
+ P2 1
  C3 2
- Q7 1
-Net 7 "+5V" "+5V"
- Q18 3
- U3 VO
- C3 1
- C4 1
- Q19 3
- Q16 3
- Q17 3
- Q15 3
- Q14 3
- Q20 3
- Q13 3
- Q12 3
- C1 1
- Q11 3
- C5 1
- U5 16
- P1 2
- U1 20
- U2 8
- U1 7
- U4 15
- U4 16
-Net 9 "/outputdriver/col7" "col7"
- Q8 2
- U4 11
-Net 10 "/outputdriver/col0" "col0"
- Q1 2
- U4 4
-Net 11 "/outputdriver/col1" "col1"
- Q2 2
- U4 5
-Net 12 "/outputdriver/col2" "col2"
- Q3 2
- U4 6
-Net 15 "/outputdriver/col4" "col4"
- U4 14
- Q5 2
-Net 16 "/outputdriver/col3" "col3"
- U4 7
- Q4 2
-Net 17 "/outputdriver/col5" "col5"
- Q6 2
- U4 13
-Net 18 "/outputdriver/col9" "col9"
- U1 14
- Q10 2
-Net 19 "/outputdriver/col8" "col8"
- U1 15
- Q9 2
-Net 20 "/outputdriver/col6" "col6"
- U4 12
- Q7 2
-Net 21 "" ""
+ U5 13
+Net 12 "" ""
  U1 1
  P1 5
-Net 22 "/1Hz" "1Hz"
+Net 14 "/outputdriver/col0" "col0"
+ Q1 2
+ U4 4
+Net 15 "/outputdriver/col1" "col1"
+ Q2 2
+ U4 5
+Net 16 "/outputdriver/col2" "col2"
+ U4 6
+ Q3 2
+Net 17 "/outputdriver/col3" "col3"
+ U4 7
+ Q4 2
+Net 23 "" ""
+ K1 2
+ U1 3
+Net 24 "" ""
+ K1 1
+ U1 2
+Net 25 "/1Hz" "1Hz"
  U2 7
  U1 6
-Net 23 "" ""
- BT1 1
- U2 3
-Net 24 "" ""
- X1 1
- U2 2
-Net 25 "" ""
+Net 26 "" ""
  U2 1
  X1 2
-Net 26 "" ""
- U1 24
- U4 2
 Net 27 "" ""
- P1 3
- U1 19
-Net 28 "/SCL" "SCL"
- U2 6
+ U2 2
+ X1 1
+Net 28 "" ""
+ U4 2
+ U1 24
+Net 29 "/SCL" "SCL"
  U1 28
-Net 29 "" ""
- P1 1
- U1 18
+ U2 6
+ R1 2
 Net 30 "/SDA" "SDA"
  U2 5
  U1 27
+ R2 2
 Net 31 "" ""
- U1 26
- U5 14
+ P1 4
+ U1 17
 Net 32 "" ""
- U4 3
- U1 23
-Net 37 "/outputdriver/row1" "row1"
- Q12 2
- U5 2
-Net 38 "/outputdriver/row5" "row5"
- Q16 2
- U5 1
-Net 39 "/outputdriver/row0" "row0"
- U5 3
- Q11 2
-Net 40 "" ""
- U1 16
  U5 15
-Net 41 "/outputdriver/row9" "row9"
+ U1 16
+Net 33 "" ""
+ U1 25
+ U4 1
+Net 34 "/outputdriver/col8" "col8"
+ Q9 2
+ U1 15
+Net 35 "/outputdriver/col9" "col9"
+ Q10 2
+ U1 14
+Net 36 "/outputdriver/col4" "col4"
+ U4 14
+ Q5 2
+Net 37 "/outputdriver/col5" "col5"
+ Q6 2
+ U4 13
+Net 38 "/outputdriver/col6" "col6"
+ Q7 2
+ U4 12
+Net 39 "/outputdriver/col7" "col7"
+ U4 11
+ Q8 2
+Net 40 "/outputdriver/row9" "row9"
  Q20 2
  U5 11
+Net 41 "" ""
+ U1 26
+ U5 14
 Net 42 "/outputdriver/row4" "row4"
  U5 10
  Q15 2
@@ -424,29 +448,29 @@ Net 43 "/outputdriver/row8" "row8"
  U5 9
  Q19 2
 Net 44 "/outputdriver/row3" "row3"
- U5 7
  Q14 2
+ U5 7
 Net 45 "/outputdriver/row7" "row7"
- Q18 2
  U5 6
+ Q18 2
 Net 46 "/outputdriver/row6" "row6"
  Q17 2
  U5 5
 Net 47 "/outputdriver/row2" "row2"
- U5 4
  Q13 2
-Net 48 "" ""
- U4 1
- U1 25
-Net 49 "" ""
- K1 2
- U1 3
-Net 50 "" ""
- K1 1
- U1 2
-Net 51 "" ""
+ U5 4
+Net 48 "/outputdriver/row0" "row0"
+ Q11 2
+ U5 3
+Net 49 "/outputdriver/row1" "row1"
+ Q12 2
+ U5 2
+Net 50 "/outputdriver/row5" "row5"
+ Q16 2
+ U5 1
+Net 51 "/Vin" "Vin"
+ U3 1
  P2 2
- U3 VI
  C2 1
 Net 52 "" ""
  Q17 1
@@ -455,26 +479,26 @@ Net 53 "" ""
  Q18 1
  P4 8
 Net 54 "" ""
- Q19 1
  P4 9
+ Q19 1
 Net 55 "" ""
  P4 1
  Q11 1
 Net 56 "" ""
- Q1 3
  P3 1
+ Q1 3
 Net 57 "" ""
- Q12 1
  P4 2
+ Q12 1
 Net 58 "" ""
  P4 3
  Q13 1
 Net 59 "" ""
- Q15 1
  P4 5
+ Q15 1
 Net 60 "" ""
- Q16 1
  P4 6
+ Q16 1
 Net 61 "" ""
  P4 10
  Q20 1
@@ -482,17 +506,17 @@ Net 62 "" ""
  P3 5
  Q5 3
 Net 63 "" ""
- P3 3
  Q3 3
+ P3 3
 Net 64 "" ""
  P3 4
  Q4 3
 Net 65 "" ""
- P3 7
  Q7 3
+ P3 7
 Net 66 "" ""
- P3 8
  Q8 3
+ P3 8
 Net 67 "" ""
  P3 9
  Q9 3
@@ -500,11 +524,11 @@ Net 68 "" ""
  Q10 3
  P3 10
 Net 69 "" ""
- P3 2
  Q2 3
+ P3 2
 Net 70 "" ""
- P3 6
  Q6 3
+ P3 6
 Net 71 "" ""
  P4 4
  Q14 1

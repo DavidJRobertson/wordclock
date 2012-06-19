@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 19 Jun 2012 03:11:31 BST
+EESchema Schematic File Version 2  date Tue 19 Jun 2012 06:52:00 BST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -224,10 +224,10 @@ Wire Wire Line
 Text Notes 11150 600  2    60   ~ 0
 Row Driver
 $Comp
-L +5V #PWR015
+L +5V #PWR016
 U 1 1 4FAB03FB
 P 6050 6700
-F 0 "#PWR015" H 6050 6790 20  0001 C CNN
+F 0 "#PWR016" H 6050 6790 20  0001 C CNN
 F 1 "+5V" H 6050 6850 30  0000 C CNN
 	1    6050 6700
 	-1   0    0    1   
@@ -375,10 +375,10 @@ F 2 "SIL-10" H 3650 3500 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR016
+L GND #PWR017
 U 1 1 4FAAFBFD
 P 1200 6900
-F 0 "#PWR016" H 1200 6900 30  0001 C CNN
+F 0 "#PWR017" H 1200 6900 30  0001 C CNN
 F 1 "GND" H 1200 6830 30  0001 C CNN
 	1    1200 6900
 	1    0    0    -1  
