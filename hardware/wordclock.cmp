@@ -1,80 +1,80 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Thu 10 May 2012 01:32:52 BST
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Tue 19 Jun 2012 02:52:48 BST
 
 BeginCmp
 TimeStamp = /4FAAF813;
 Reference = BT1;
 ValeurCmp = BATTERY;
-IdModule  = ;
+IdModule  = CR2032H;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAB06B8;
 Reference = C1;
 ValeurCmp = 0.1uF;
-IdModule  = ;
+IdModule  = C1;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAB05A6;
 Reference = C2;
 ValeurCmp = 1uF;
-IdModule  = ;
+IdModule  = C1V7;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAB05B8;
 Reference = C3;
 ValeurCmp = 47uF;
-IdModule  = ;
+IdModule  = C1V7;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAB0683;
 Reference = C4;
 ValeurCmp = 0.1uF;
-IdModule  = ;
+IdModule  = C1;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAB0649;
 Reference = C5;
 ValeurCmp = 0.1uF;
-IdModule  = ;
+IdModule  = C1;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAB055D;
 Reference = K1;
-ValeurCmp = CONN_3;
-IdModule  = ;
+ValeurCmp = SERIAL;
+IdModule  = PIN_ARRAY_3X1;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAAF711;
 Reference = P1;
 ValeurCmp = ISP;
-IdModule  = ;
+IdModule  = pin_array_3x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAB0589;
 Reference = P2;
-ValeurCmp = CONN_2;
-IdModule  = ;
+ValeurCmp = Vin;
+IdModule  = SIL-2;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAAF92A/4FAB01F8;
 Reference = P3;
 ValeurCmp = COLUMNS;
-IdModule  = ;
+IdModule  = SIL-10;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAAF92A/4FAB02D7;
 Reference = P4;
 ValeurCmp = ROWS;
-IdModule  = ;
+IdModule  = SIL-10;
 EndCmp
 
 BeginCmp
@@ -221,42 +221,42 @@ BeginCmp
 TimeStamp = /4FAAEB49;
 Reference = U1;
 ValeurCmp = ATmega168;
-IdModule  = DIL28;
+IdModule  = DIP-28__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAAEDD0;
 Reference = U2;
 ValeurCmp = DS1307;
-IdModule  = MODULE;
+IdModule  = DIP-8__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAB057F;
 Reference = U3;
 ValeurCmp = 7805;
-IdModule  = ;
+IdModule  = TO220;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAAF07F;
 Reference = U4;
 ValeurCmp = 4094;
-IdModule  = ;
+IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAAEEBF;
 Reference = U5;
 ValeurCmp = 4017;
-IdModule  = ;
+IdModule  = DIP-16__300;
 EndCmp
 
 BeginCmp
 TimeStamp = /4FAAEDF2;
 Reference = X1;
 ValeurCmp = 32.768kHz;
-IdModule  = ;
+IdModule  = r26-crystal;
 EndCmp
 
 EndListe
