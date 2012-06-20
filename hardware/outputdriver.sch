@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 19 Jun 2012 06:52:00 BST
+EESchema Schematic File Version 2  date Wed 20 Jun 2012 20:38:20 BST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -36,7 +36,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 2
 Title "Wordclock"
-Date "19 jun 2012"
+Date "20 jun 2012"
 Rev "A"
 Comp "David Robertson"
 Comment1 "http://davidr.me/"

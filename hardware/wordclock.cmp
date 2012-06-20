@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Tue 19 Jun 2012 04:59:31 BST
+Cmp-Mod V01 Created by CvPCB (2011-05-25)-stable date = Wed 20 Jun 2012 20:38:39 BST
 
 BeginCmp
 TimeStamp = /4FAAF813;
@@ -75,6 +75,13 @@ TimeStamp = /4FAAF92A/4FAB02D7;
 Reference = P4;
 ValeurCmp = ROWS;
 IdModule  = SIL-10;
+EndCmp
+
+BeginCmp
+TimeStamp = /4FE2267B;
+Reference = P5;
+ValeurCmp = Vin-alt;
+IdModule  = bornier2;
 EndCmp
 
 BeginCmp

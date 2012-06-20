@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 19 Jun 2012 06:52:00 BST
+EESchema Schematic File Version 2  date Wed 20 Jun 2012 20:38:20 BST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -36,7 +36,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 2
 Title "Wordclock"
-Date "19 jun 2012"
+Date "20 jun 2012"
 Rev "1"
 Comp "David Robertson"
 Comment1 ""
@@ -44,6 +44,17 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Connection ~ 4250 7450
+Wire Wire Line
+	4250 7450 4250 7600
+Wire Wire Line
+	4250 7600 3500 7600
+Wire Wire Line
+	3500 7600 3500 7000
+Wire Wire Line
+	3500 7000 4000 7000
+Wire Wire Line
+	4000 7000 4000 6700
 Connection ~ 3100 6550
 Wire Wire Line
 	3050 6550 3200 6550
@@ -73,9 +84,7 @@ Connection ~ 4500 7450
 Wire Wire Line
 	4500 7250 4500 7450
 Wire Wire Line
-	4650 6750 4150 6750
-Wire Wire Line
-	4150 6750 4150 7250
+	4150 6750 4650 6750
 Wire Wire Line
 	3550 2450 3550 2550
 Wire Wire Line
@@ -301,6 +310,21 @@ Wire Wire Line
 Wire Wire Line
 	2200 7450 2250 7450
 Connection ~ 2250 7450
+Wire Wire Line
+	4150 7250 4150 6500
+Wire Wire Line
+	4150 6500 4000 6500
+Connection ~ 4150 6750
+$Comp
+L CONN_2 P5
+U 1 1 4FE2267B
+P 3650 6600
+F 0 "P5" V 3600 6600 40  0000 C CNN
+F 1 "Vin-alt" V 3700 6600 40  0000 C CNN
+F 2 "SIL-2" H 3650 6600 60  0001 C CNN
+	1    3650 6600
+	-1   0    0    1   
+$EndComp
 Text Label 4300 6750 0    60   ~ 0
 Vin
 $Comp

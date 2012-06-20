@@ -1,17 +1,20 @@
-          0.1uF;  3;"C1, C4, C5"
-            1uF;  1;"C2"
-         2N7000; 20;"Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, Q11, Q12, Q13, Q14, Q15, Q16, Q17, Q18, Q19, Q20"
-      32.768kHz;  1;"X1"
-           4017;  1;"U5"
-           4094;  1;"U4"
-           47uF;  1;"C3"
-            4k7;  2;"R1, R2"
-           7805;  1;"U3"
-      ATmega168;  1;"U1"
-        BATTERY;  1;"BT1"
-        COLUMNS;  1;"P3"
-         DS1307;  1;"U2"
-            ISP;  1;"P1"
-           ROWS;  1;"P4"
-         SERIAL;  1;"K1"
-            Vin;  1;"P2"
+"Id";"Designator";"Package";"Quantity";"Designation";"Supplier and ref";
+1;"Q9,Q15,Q16,Q20,Q19,Q18,Q17,Q7,Q8,Q14,Q10,Q6,Q5,Q4,Q3,Q2,Q1,Q12,Q11,Q13";"TO92";20;"2N7000";;;
+2;"P4";"SIL-10";1;"ROWS";;;
+3;"P3";"SIL-10";1;"COLUMNS";;;
+4;"X1";"r26-crystal";1;"32.768kHz";;;
+5;"P1";"pin_array_3x2";1;"ISP";;;
+6;"K1";"PIN_ARRAY_3X1";1;"SERIAL";;;
+7;"U2";"DIP-8__300";1;"DS1307";;;
+8;"U1";"DIP-28__300";1;"ATmega168";;;
+9;"U4";"DIP-16__300";1;"4094";;;
+10;"U5";"DIP-16__300";1;"4017";;;
+11;"BT1";"CR2032H";1;"BATTERY";;;
+12;"C2";"C1V7";1;"1uF";;;
+13;"C3";"C1V7";1;"47uF";;;
+14;"C1,C5,C4";"C1";3;"0.1uF";;;
+15;"R1,R2";"R3";2;"4k7";;;
+16;"U3";"TO220";1;"7805";;;
+17;"P2";"SIL-2";1;"Vin";;;
+18;",,";"5mm_mount_hole";3;"mnt5mm";;;
+19;"P5";"bornier2";1;"Vin-alt";;;
