@@ -1,4 +1,4 @@
-PCBNEW-BOARD Version 1 date Wed 20 Jun 2012 23:34:20 BST
+PCBNEW-BOARD Version 1 date Thu 21 Jun 2012 01:18:10 BST
 
 # Created by Pcbnew(2011-05-25)-stable
 
@@ -9,8 +9,8 @@ Ly 1FFF8001
 EnabledLayers 1FFF8001
 Links 111
 NoConn 0
-Di 10124 8224 58499 42580
-Ndraw 29
+Di 10124 8224 49276 36876
+Ndraw 27
 Ntrack 320
 Nzone 0
 BoardThickness 630
@@ -21,7 +21,7 @@ $EndGENERAL
 $SHEETDESCR
 Sheet A4 11700 8267
 Title "Word Clock Controller"
-Date "20 jun 2012"
+Date "21 jun 2012"
 Rev "A"
 Comp "David Robertson"
 Comment1 "http://davidr.me/"
@@ -59,7 +59,7 @@ PadSize 600 600
 PadDrill 320
 Pad2MaskClearance 100
 AuxiliaryAxisOrg 0 0
-PcbPlotParams (pcbplotparams (layerselection 15761409) (usegerberextensions true) (excludeedgelayer false) (linewidth 60) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 0) (pscolor true) (psnegative false) (psa4output false) (plotreference true) (plotvalue false) (plotothertext true) (plotinvisibletext false) (padsonsilk false) (subtractmaskfromsilk false) (outputformat 1) (mirror false) (drillshape 2) (scaleselection 1) (outputdirectory ""))
+PcbPlotParams (pcbplotparams (layerselection 284196865) (usegerberextensions true) (excludeedgelayer true) (linewidth 60) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 0) (pscolor true) (psnegative false) (psa4output false) (plotreference true) (plotvalue false) (plotothertext true) (plotinvisibletext false) (padsonsilk false) (subtractmaskfromsilk false) (outputformat 1) (mirror false) (drillshape 2) (scaleselection 1) (outputdirectory gerbers/))
 $EndSETUP
 
 $EQUIPOT
@@ -387,6 +387,60 @@ AddNet "+5V"
 AddNet "/Vin"
 AddNet "GND"
 $EndNCLASS
+$MODULE 5mm_mount_hole
+Po 26750 11250 0 15 4FE25F90 4FE225EC ~~
+Li 5mm_mount_hole
+Kw DEV
+Sc 4FE225EC
+AR 5mm_mount_hole
+Op 0 0 0
+T0 0 -1200 400 400 0 100 N V 21 N ""
+T1 0 -1500 400 400 0 100 N I 21 N "top"
+DC 0 0 0 -900 150 21
+$PAD
+Sh "1" C 1969 1969 0 0 0
+Dr 1181 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$EndMODULE  5mm_mount_hole
+$MODULE 5mm_mount_hole
+Po 12500 31000 0 15 4FE25F99 4FE224EC ~~
+Li 5mm_mount_hole
+Kw DEV
+Sc 4FE224EC
+AR 5mm_mount_hole
+Op 0 0 0
+T0 0 -1200 400 400 0 100 N V 21 N ""
+T1 0 -1500 400 400 0 100 N I 21 N "left"
+DC 0 0 0 -900 150 21
+$PAD
+Sh "1" C 1969 1969 0 0 0
+Dr 1181 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$EndMODULE  5mm_mount_hole
+$MODULE 5mm_mount_hole
+Po 47000 24500 0 15 4FE25F0A 4FE26058 ~~
+Li 5mm_mount_hole
+Kw DEV
+Sc 4FE26058
+AR 5mm_mount_hole
+Op 0 0 0
+T0 0 -1200 400 400 0 100 N V 21 N ""
+T1 0 -1500 400 400 0 100 N I 21 N "mnt5mm"
+DC 0 0 0 -900 150 21
+$PAD
+Sh "1" C 1969 1969 0 0 0
+Dr 1181 0 0
+At STD N 00E0FFFF
+Ne 0 ""
+Po 0 0
+$EndPAD
+$EndMODULE  5mm_mount_hole
 $MODULE TO92
 Po 27700 33800 0 15 4FDFEA53 4FDFDEE5 ~~
 Li TO92
@@ -2567,60 +2621,6 @@ Ne 5 "/Vin"
 Po 500 0
 $EndPAD
 $EndMODULE  SIL-2
-$MODULE 5mm_mount_hole
-Po 47000 24500 0 15 4FE224CA 4FE224DE ~~
-Li 5mm_mount_hole
-Kw DEV
-Sc 4FE224DE
-AR 5mm_mount_hole
-Op 0 0 0
-T0 0 -1200 400 400 0 100 N V 21 N ""
-T1 0 -1500 400 400 0 100 N I 21 N "mnt5mm"
-DC 0 0 0 -900 150 21
-$PAD
-Sh "1" C 1969 1969 0 0 0
-Dr 1969 0 0
-At STD N 00E0FFFF
-Ne 0 ""
-Po 0 0
-$EndPAD
-$EndMODULE  5mm_mount_hole
-$MODULE 5mm_mount_hole
-Po 12500 31000 0 15 4FE224CA 4FE224EC ~~
-Li 5mm_mount_hole
-Kw DEV
-Sc 4FE224EC
-AR 5mm_mount_hole
-Op 0 0 0
-T0 0 -1200 400 400 0 100 N V 21 N ""
-T1 0 -1500 400 400 0 100 N I 21 N "mnt5mm"
-DC 0 0 0 -900 150 21
-$PAD
-Sh "1" C 1969 1969 0 0 0
-Dr 1969 0 0
-At STD N 00E0FFFF
-Ne 0 ""
-Po 0 0
-$EndPAD
-$EndMODULE  5mm_mount_hole
-$MODULE 5mm_mount_hole
-Po 26750 11250 0 15 4FE224CA 4FE225EC ~~
-Li 5mm_mount_hole
-Kw DEV
-Sc 4FE225EC
-AR 5mm_mount_hole
-Op 0 0 0
-T0 0 -1200 400 400 0 100 N V 21 N ""
-T1 0 -1500 400 400 0 100 N I 21 N "mnt5mm"
-DC 0 0 0 -900 150 21
-$PAD
-Sh "1" C 1969 1969 0 0 0
-Dr 1969 0 0
-At STD N 00E0FFFF
-Ne 0 ""
-Po 0 0
-$EndPAD
-$EndMODULE  5mm_mount_hole
 $MODULE bornier2
 Po 18500 12000 900 15 4FE227D6 4FE226C8 ~~
 Li bornier2
@@ -2679,32 +2679,6 @@ $DRAWSEGMENT
 Po 0 16400 9400 16400 14400 150
 De 21 0 900 0 0
 $EndDRAWSEGMENT
-$COTATION
-Ge 0 21 0
-Va 28500
-Te "72.390 mm"
-Po 55839 22550 600 800 120 2700 1
-Sb 0 55199 8300 55199 36800 120
-Sd 0 50700 36800 56479 36800 120
-Sg 0 50700 8300 56479 8300 120
-S1 0 55199 36800 54969 36357 120
-S2 0 55199 36800 55429 36357 120
-S3 0 55199 8300 54969 8743 120
-S4 0 55199 8300 55429 8743 120
-$endCOTATION
-$COTATION
-Ge 0 21 0
-Va 39000
-Te "99.060 mm"
-Po 29700 41939 600 800 120 0 1
-Sb 0 10200 41299 49200 41299 120
-Sd 0 49200 37800 49200 42579 120
-Sg 0 10200 37800 10200 42579 120
-S1 0 49200 41299 48757 41529 120
-S2 0 49200 41299 48757 41069 120
-S3 0 10200 41299 10643 41529 120
-S4 0 10200 41299 10643 41069 120
-$endCOTATION
 $DRAWSEGMENT
 Po 0 49200 8300 49200 10300 150
 De 28 0 900 0 0
