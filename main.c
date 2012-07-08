@@ -36,16 +36,9 @@ int main(void)
     // Initialize RTC
     I2CInit();
     DS1307Write(0x00, 0b00000000); // Start the clock, set time to 0 secs
-    DS1307Write(0x01, 0b00000000); // Set minutes to 0
-    DS1307Write(0x01, 0b00000000); // Set hours to 0 + set to 24 hr clock
+    //DS1307Write(0x01, 0b00000000); // Set minutes to 0
+    //DS1307Write(0x02, 0b00000000); // Set hours to 0 + set to 24 hr clock
     DS1307Write(0x07, 0b00010000); // Turn on 1Hz output
-    _delay_ms(5000);
-    getTimeFromRTC();
-    _delay_ms(5000);
-    getTimeFromRTC();
-    _delay_ms(5000);
-    getTimeFromRTC();
-
 
     OCR0A = 60;               // Timer/counter0 compare register A to 60 for counting to a minute.
 
@@ -60,16 +53,10 @@ int main(void)
     TCCR0B |= _BV(CS02);
 
 
-
-
-
     PORTC &= ~(_BV(PC1)); // Shift register data line low
-
     PORTB |= _BV(PB2);    // POR 4017
     _delay_us(1);
     PORTB &= ~(_BV(PB2));
-
-
     int i;
     for (i = 0; i < 9; i++)
     {
@@ -77,8 +64,9 @@ int main(void)
         _delay_us(1);
         PORTC &= ~(_BV(PC3)); //4017 Clock line low
     }
-
     displayRow(0);
+
+    getTimeFromRTC();
     prepareScreen(currenthour, currentminute);
 
     while(1)
@@ -333,10 +321,7 @@ ISR(TIMER0_COMPA_vect)
             getTimeFromRTC();
         }
     }
-    //getTimeFromRTC();
+
+
     prepareScreen(currenthour, currentminute);
 }
-
-
-
-

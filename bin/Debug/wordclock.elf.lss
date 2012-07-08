@@ -3,13 +3,13 @@ bin/Debug/wordclock.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000714  00000000  00000000  00000074  2**1
+  0 .text         000006ca  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .bss          00000017  00800100  00800100  00000788  2**0
+  1 .bss          00000017  00800100  00800100  0000073e  2**0
                   ALLOC
-  2 .stab         00001d7c  00000000  00000000  00000788  2**2
+  2 .stab         00001c80  00000000  00000000  00000740  2**2
                   CONTENTS, READONLY, DEBUGGING
-  3 .stabstr      00000bdc  00000000  00000000  00002504  2**0
+  3 .stabstr      00000bcd  00000000  00000000  000023c0  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -29,7 +29,7 @@ Disassembly of section .text:
   2c:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   30:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   34:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
-  38:	0c 94 47 03 	jmp	0x68e	; 0x68e <__vector_14>
+  38:	0c 94 22 03 	jmp	0x644	; 0x644 <__vector_14>
   3c:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   40:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
   44:	0c 94 69 00 	jmp	0xd2	; 0xd2 <__bad_interrupt>
@@ -78,8 +78,8 @@ Disassembly of section .text:
   a4:	11 e0       	ldi	r17, 0x01	; 1
   a6:	a0 e0       	ldi	r26, 0x00	; 0
   a8:	b1 e0       	ldi	r27, 0x01	; 1
-  aa:	e4 e1       	ldi	r30, 0x14	; 20
-  ac:	f7 e0       	ldi	r31, 0x07	; 7
+  aa:	ea ec       	ldi	r30, 0xCA	; 202
+  ac:	f6 e0       	ldi	r31, 0x06	; 6
   ae:	02 c0       	rjmp	.+4      	; 0xb4 <__do_copy_data+0x10>
   b0:	05 90       	lpm	r0, Z+
   b2:	0d 92       	st	X+, r0
@@ -101,7 +101,7 @@ Disassembly of section .text:
   c6:	b1 07       	cpc	r27, r17
   c8:	e1 f7       	brne	.-8      	; 0xc2 <.do_clear_bss_loop>
   ca:	0e 94 ba 02 	call	0x574	; 0x574 <main>
-  ce:	0c 94 88 03 	jmp	0x710	; 0x710 <_exit>
+  ce:	0c 94 63 03 	jmp	0x6c6	; 0x6c6 <_exit>
 
 000000d2 <__bad_interrupt>:
   d2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -326,80 +326,67 @@ uint8_t DS1307Read(uint8_t address, uint8_t *data)
  1b2:	18 2f       	mov	r17, r24
  1b4:	eb 01       	movw	r28, r22
     uint8_t res;	// result
-
     // Start
     I2CStart();
  1b6:	0e 94 7f 00 	call	0xfe	; 0xfe <I2CStart>
-
     // SLA+W
     res = I2CWriteByte(0b11010000);	//DS1307 address + W (to set up register pointer)
  1ba:	80 ed       	ldi	r24, 0xD0	; 208
  1bc:	0e 94 8f 00 	call	0x11e	; 0x11e <I2CWriteByte>
-
     // Error
     if(!res)	return FALSE;
  1c0:	88 23       	and	r24, r24
  1c2:	29 f4       	brne	.+10     	; 0x1ce <DS1307Read+0x22>
-
+    // Error
+    if(!res)	return FALSE;
     // Now read the value with NACK
     res = I2CReadByte(data, 0);
-
     // Error
     if(!res)	return FALSE;
  1c4:	80 e0       	ldi	r24, 0x00	; 0
-
     // STOP
     I2CStop();
-
     return TRUE;
 }
  1c6:	df 91       	pop	r29
  1c8:	cf 91       	pop	r28
  1ca:	1f 91       	pop	r17
  1cc:	08 95       	ret
-
+    // SLA+W
+    res = I2CWriteByte(0b11010000);	//DS1307 address + W (to set up register pointer)
     // Error
     if(!res)	return FALSE;
-
     // Now send the address of required register
     res = I2CWriteByte(address);
  1ce:	81 2f       	mov	r24, r17
  1d0:	0e 94 8f 00 	call	0x11e	; 0x11e <I2CWriteByte>
-
     // Error
     if(!res)	return FALSE;
  1d4:	88 23       	and	r24, r24
  1d6:	b1 f3       	breq	.-20     	; 0x1c4 <DS1307Read+0x18>
-
     // Repeat Start
     I2CStart();
  1d8:	0e 94 7f 00 	call	0xfe	; 0xfe <I2CStart>
-
     // SLA + R
     res=I2CWriteByte(0b11010001);	//DS1307 Address + R
  1dc:	81 ed       	ldi	r24, 0xD1	; 209
  1de:	0e 94 8f 00 	call	0x11e	; 0x11e <I2CWriteByte>
-
     // Error
     if(!res)	return FALSE;
  1e2:	88 23       	and	r24, r24
  1e4:	79 f3       	breq	.-34     	; 0x1c4 <DS1307Read+0x18>
-
     // Now read the value with NACK
     res = I2CReadByte(data, 0);
  1e6:	ce 01       	movw	r24, r28
  1e8:	60 e0       	ldi	r22, 0x00	; 0
  1ea:	0e 94 ae 00 	call	0x15c	; 0x15c <I2CReadByte>
-
     // Error
     if(!res)	return FALSE;
  1ee:	88 23       	and	r24, r24
  1f0:	49 f3       	breq	.-46     	; 0x1c4 <DS1307Read+0x18>
-
     // STOP
     I2CStop();
  1f2:	0e 94 87 00 	call	0x10e	; 0x10e <I2CStop>
-
     return TRUE;
  1f6:	81 e0       	ldi	r24, 0x01	; 1
  1f8:	e6 cf       	rjmp	.-52     	; 0x1c6 <DS1307Read+0x1a>
@@ -416,28 +403,24 @@ uint8_t DS1307Write(uint8_t address, uint8_t data)
  1fe:	18 2f       	mov	r17, r24
  200:	06 2f       	mov	r16, r22
     uint8_t res;	// result
-
     //Start
     I2CStart();
  202:	0e 94 7f 00 	call	0xfe	; 0xfe <I2CStart>
-
     //SLA+W
     res = I2CWriteByte(0b11010000);	//DS1307 address + W
  206:	80 ed       	ldi	r24, 0xD0	; 208
  208:	0e 94 8f 00 	call	0x11e	; 0x11e <I2CWriteByte>
-
     // Error
     if(!res)	return FALSE;
  20c:	88 23       	and	r24, r24
  20e:	21 f4       	brne	.+8      	; 0x218 <DS1307Write+0x1e>
-
+    // Error
+    if(!res)	return FALSE;
     // Now write the value
     res = I2CWriteByte(data);
-
     // Error
     if(!res)	return FALSE;
  210:	80 e0       	ldi	r24, 0x00	; 0
-
     // STOP
     I2CStop();
 
@@ -446,30 +429,26 @@ uint8_t DS1307Write(uint8_t address, uint8_t data)
  212:	1f 91       	pop	r17
  214:	0f 91       	pop	r16
  216:	08 95       	ret
-
+    //SLA+W
+    res = I2CWriteByte(0b11010000);	//DS1307 address + W
     // Error
     if(!res)	return FALSE;
-
     // Now send the address of required register
     res = I2CWriteByte(address);
  218:	81 2f       	mov	r24, r17
  21a:	0e 94 8f 00 	call	0x11e	; 0x11e <I2CWriteByte>
-
     // Error
     if(!res)	return FALSE;
  21e:	88 23       	and	r24, r24
  220:	b9 f3       	breq	.-18     	; 0x210 <DS1307Write+0x16>
-
     // Now write the value
     res = I2CWriteByte(data);
  222:	80 2f       	mov	r24, r16
  224:	0e 94 8f 00 	call	0x11e	; 0x11e <I2CWriteByte>
-
     // Error
     if(!res)	return FALSE;
  228:	88 23       	and	r24, r24
  22a:	91 f3       	breq	.-28     	; 0x210 <DS1307Write+0x16>
-
     // STOP
     I2CStop();
  22c:	0e 94 87 00 	call	0x10e	; 0x10e <I2CStop>
@@ -1214,310 +1193,237 @@ int main(void)
  58a:	80 e0       	ldi	r24, 0x00	; 0
  58c:	60 e0       	ldi	r22, 0x00	; 0
  58e:	0e 94 fd 00 	call	0x1fa	; 0x1fa <DS1307Write>
-    DS1307Write(0x01, 0b00000000); // Set minutes to 0
- 592:	81 e0       	ldi	r24, 0x01	; 1
- 594:	60 e0       	ldi	r22, 0x00	; 0
+    //DS1307Write(0x01, 0b00000000); // Set minutes to 0
+    //DS1307Write(0x02, 0b00000000); // Set hours to 0 + set to 24 hr clock
+    DS1307Write(0x07, 0b00010000); // Turn on 1Hz output
+ 592:	87 e0       	ldi	r24, 0x07	; 7
+ 594:	60 e1       	ldi	r22, 0x10	; 16
  596:	0e 94 fd 00 	call	0x1fa	; 0x1fa <DS1307Write>
-    DS1307Write(0x01, 0b00000000); // Set hours to 0 + set to 24 hr clock
- 59a:	81 e0       	ldi	r24, 0x01	; 1
- 59c:	60 e0       	ldi	r22, 0x00	; 0
- 59e:	0e 94 fd 00 	call	0x1fa	; 0x1fa <DS1307Write>
-    DS1307Write(0x07, 0b00010001); // Turn on 1Hz output
- 5a2:	87 e0       	ldi	r24, 0x07	; 7
- 5a4:	61 e1       	ldi	r22, 0x11	; 17
- 5a6:	0e 94 fd 00 	call	0x1fa	; 0x1fa <DS1307Write>
-	if (__tmp < 1.0)
-		__ticks = 1;
-	else if (__tmp > 65535)
-	{
-		//	__ticks = requested delay in 1/10 ms
-		__ticks = (uint16_t) (__ms * 10.0);
- 5aa:	80 e5       	ldi	r24, 0x50	; 80
- 5ac:	93 ec       	ldi	r25, 0xC3	; 195
-    milliseconds can be achieved.
- */
-void
-_delay_loop_2(uint16_t __count)
-{
-	__asm__ volatile (
- 5ae:	28 ec       	ldi	r18, 0xC8	; 200
- 5b0:	30 e0       	ldi	r19, 0x00	; 0
- 5b2:	f9 01       	movw	r30, r18
- 5b4:	31 97       	sbiw	r30, 0x01	; 1
- 5b6:	f1 f7       	brne	.-4      	; 0x5b4 <main+0x40>
-		while(__ticks)
-		{
-			// wait 1/10 ms
-			_delay_loop_2(((F_CPU) / 4e3) / 10);
-			__ticks --;
- 5b8:	01 97       	sbiw	r24, 0x01	; 1
-		__ticks = 1;
-	else if (__tmp > 65535)
-	{
-		//	__ticks = requested delay in 1/10 ms
-		__ticks = (uint16_t) (__ms * 10.0);
-		while(__ticks)
- 5ba:	d9 f7       	brne	.-10     	; 0x5b2 <main+0x3e>
-    _delay_ms(5000);
-    getTimeFromRTC();
- 5bc:	0e 94 93 02 	call	0x526	; 0x526 <getTimeFromRTC>
- 5c0:	80 e5       	ldi	r24, 0x50	; 80
- 5c2:	93 ec       	ldi	r25, 0xC3	; 195
- 5c4:	28 ec       	ldi	r18, 0xC8	; 200
- 5c6:	30 e0       	ldi	r19, 0x00	; 0
- 5c8:	f9 01       	movw	r30, r18
- 5ca:	31 97       	sbiw	r30, 0x01	; 1
- 5cc:	f1 f7       	brne	.-4      	; 0x5ca <main+0x56>
- 5ce:	01 97       	sbiw	r24, 0x01	; 1
- 5d0:	d9 f7       	brne	.-10     	; 0x5c8 <main+0x54>
-    _delay_ms(5000);
-    getTimeFromRTC();
- 5d2:	0e 94 93 02 	call	0x526	; 0x526 <getTimeFromRTC>
- 5d6:	80 e5       	ldi	r24, 0x50	; 80
- 5d8:	93 ec       	ldi	r25, 0xC3	; 195
- 5da:	28 ec       	ldi	r18, 0xC8	; 200
- 5dc:	30 e0       	ldi	r19, 0x00	; 0
- 5de:	f9 01       	movw	r30, r18
- 5e0:	31 97       	sbiw	r30, 0x01	; 1
- 5e2:	f1 f7       	brne	.-4      	; 0x5e0 <main+0x6c>
- 5e4:	01 97       	sbiw	r24, 0x01	; 1
- 5e6:	d9 f7       	brne	.-10     	; 0x5de <main+0x6a>
-    _delay_ms(5000);
-    getTimeFromRTC();
- 5e8:	0e 94 93 02 	call	0x526	; 0x526 <getTimeFromRTC>
-
 
     OCR0A = 60;               // Timer/counter0 compare register A to 60 for counting to a minute.
- 5ec:	8c e3       	ldi	r24, 0x3C	; 60
- 5ee:	87 bd       	out	0x27, r24	; 39
+ 59a:	8c e3       	ldi	r24, 0x3C	; 60
+ 59c:	87 bd       	out	0x27, r24	; 39
 
     TCCR0A &= ~(_BV(WGM00));  // Set timer/counter0 to CTC mode
- 5f0:	84 b5       	in	r24, 0x24	; 36
- 5f2:	8e 7f       	andi	r24, 0xFE	; 254
- 5f4:	84 bd       	out	0x24, r24	; 36
+ 59e:	84 b5       	in	r24, 0x24	; 36
+ 5a0:	8e 7f       	andi	r24, 0xFE	; 254
+ 5a2:	84 bd       	out	0x24, r24	; 36
     TCCR0A |= _BV(WGM01);
- 5f6:	84 b5       	in	r24, 0x24	; 36
- 5f8:	82 60       	ori	r24, 0x02	; 2
- 5fa:	84 bd       	out	0x24, r24	; 36
+ 5a4:	84 b5       	in	r24, 0x24	; 36
+ 5a6:	82 60       	ori	r24, 0x02	; 2
+ 5a8:	84 bd       	out	0x24, r24	; 36
     TCCR0B &= ~(_BV(WGM02));
- 5fc:	85 b5       	in	r24, 0x25	; 37
- 5fe:	87 7f       	andi	r24, 0xF7	; 247
- 600:	85 bd       	out	0x25, r24	; 37
+ 5aa:	85 b5       	in	r24, 0x25	; 37
+ 5ac:	87 7f       	andi	r24, 0xF7	; 247
+ 5ae:	85 bd       	out	0x25, r24	; 37
 
     TIMSK0 |= _BV(OCIE0A);    // Fire interrupt on  timer/counter0 compare match A.
- 602:	80 91 6e 00 	lds	r24, 0x006E
- 606:	82 60       	ori	r24, 0x02	; 2
- 608:	80 93 6e 00 	sts	0x006E, r24
+ 5b0:	80 91 6e 00 	lds	r24, 0x006E
+ 5b4:	82 60       	ori	r24, 0x02	; 2
+ 5b6:	80 93 6e 00 	sts	0x006E, r24
 
     TCCR0B |= _BV(CS00);      // Set timer/counter0 clock source to PD4/T0, rising edge.
- 60c:	85 b5       	in	r24, 0x25	; 37
- 60e:	81 60       	ori	r24, 0x01	; 1
- 610:	85 bd       	out	0x25, r24	; 37
+ 5ba:	85 b5       	in	r24, 0x25	; 37
+ 5bc:	81 60       	ori	r24, 0x01	; 1
+ 5be:	85 bd       	out	0x25, r24	; 37
     TCCR0B |= _BV(CS01);      // For falling edge, change CS00 bit to 0.
- 612:	85 b5       	in	r24, 0x25	; 37
- 614:	82 60       	ori	r24, 0x02	; 2
- 616:	85 bd       	out	0x25, r24	; 37
+ 5c0:	85 b5       	in	r24, 0x25	; 37
+ 5c2:	82 60       	ori	r24, 0x02	; 2
+ 5c4:	85 bd       	out	0x25, r24	; 37
     TCCR0B |= _BV(CS02);
- 618:	85 b5       	in	r24, 0x25	; 37
- 61a:	84 60       	ori	r24, 0x04	; 4
- 61c:	85 bd       	out	0x25, r24	; 37
-
-
-
+ 5c6:	85 b5       	in	r24, 0x25	; 37
+ 5c8:	84 60       	ori	r24, 0x04	; 4
+ 5ca:	85 bd       	out	0x25, r24	; 37
 
 
     PORTC &= ~(_BV(PC1)); // Shift register data line low
- 61e:	41 98       	cbi	0x08, 1	; 8
-
+ 5cc:	41 98       	cbi	0x08, 1	; 8
     PORTB |= _BV(PB2);    // POR 4017
- 620:	2a 9a       	sbi	0x05, 2	; 5
-    can be achieved.
-*/
-void
-_delay_loop_1(uint8_t __count)
-{
-	__asm__ volatile (
- 622:	82 e0       	ldi	r24, 0x02	; 2
- 624:	8a 95       	dec	r24
- 626:	f1 f7       	brne	.-4      	; 0x624 <main+0xb0>
+ 5ce:	2a 9a       	sbi	0x05, 2	; 5
+ 5d0:	82 e0       	ldi	r24, 0x02	; 2
+ 5d2:	8a 95       	dec	r24
+ 5d4:	f1 f7       	brne	.-4      	; 0x5d2 <main+0x5e>
     _delay_us(1);
     PORTB &= ~(_BV(PB2));
- 628:	2a 98       	cbi	0x05, 2	; 5
- 62a:	89 e0       	ldi	r24, 0x09	; 9
- 62c:	90 e0       	ldi	r25, 0x00	; 0
- 62e:	32 e0       	ldi	r19, 0x02	; 2
-
-
+ 5d6:	2a 98       	cbi	0x05, 2	; 5
     int i;
     for (i = 0; i < 9; i++)
+ 5d8:	80 e0       	ldi	r24, 0x00	; 0
+ 5da:	90 e0       	ldi	r25, 0x00	; 0
+ 5dc:	32 e0       	ldi	r19, 0x02	; 2
     {
         PORTC |= _BV(PC3); // 4017 Clock line high
- 630:	43 9a       	sbi	0x08, 3	; 8
- 632:	23 2f       	mov	r18, r19
- 634:	2a 95       	dec	r18
- 636:	f1 f7       	brne	.-4      	; 0x634 <main+0xc0>
+ 5de:	43 9a       	sbi	0x08, 3	; 8
+ 5e0:	23 2f       	mov	r18, r19
+ 5e2:	2a 95       	dec	r18
+ 5e4:	f1 f7       	brne	.-4      	; 0x5e2 <main+0x6e>
         _delay_us(1);
         PORTC &= ~(_BV(PC3)); //4017 Clock line low
- 638:	43 98       	cbi	0x08, 3	; 8
- 63a:	01 97       	sbiw	r24, 0x01	; 1
+ 5e6:	43 98       	cbi	0x08, 3	; 8
+    PORTC &= ~(_BV(PC1)); // Shift register data line low
+    PORTB |= _BV(PB2);    // POR 4017
     _delay_us(1);
     PORTB &= ~(_BV(PB2));
-
-
     int i;
     for (i = 0; i < 9; i++)
- 63c:	c9 f7       	brne	.-14     	; 0x630 <main+0xbc>
+ 5e8:	01 96       	adiw	r24, 0x01	; 1
+ 5ea:	89 30       	cpi	r24, 0x09	; 9
+ 5ec:	91 05       	cpc	r25, r1
+ 5ee:	b9 f7       	brne	.-18     	; 0x5de <main+0x6a>
+    {
         PORTC |= _BV(PC3); // 4017 Clock line high
         _delay_us(1);
         PORTC &= ~(_BV(PC3)); //4017 Clock line low
     }
-
     displayRow(0);
- 63e:	80 e0       	ldi	r24, 0x00	; 0
- 640:	90 e0       	ldi	r25, 0x00	; 0
- 642:	0e 94 74 01 	call	0x2e8	; 0x2e8 <displayRow>
+ 5f0:	80 e0       	ldi	r24, 0x00	; 0
+ 5f2:	90 e0       	ldi	r25, 0x00	; 0
+ 5f4:	0e 94 74 01 	call	0x2e8	; 0x2e8 <displayRow>
+
+    getTimeFromRTC();
+ 5f8:	0e 94 93 02 	call	0x526	; 0x526 <getTimeFromRTC>
     prepareScreen(currenthour, currentminute);
- 646:	80 91 01 01 	lds	r24, 0x0101
- 64a:	60 91 02 01 	lds	r22, 0x0102
- 64e:	0e 94 92 01 	call	0x324	; 0x324 <prepareScreen>
+ 5fc:	80 91 01 01 	lds	r24, 0x0101
+ 600:	60 91 02 01 	lds	r22, 0x0102
+ 604:	0e 94 92 01 	call	0x324	; 0x324 <prepareScreen>
     milliseconds can be achieved.
  */
 void
 _delay_loop_2(uint16_t __count)
 {
 	__asm__ volatile (
- 652:	c0 ed       	ldi	r28, 0xD0	; 208
- 654:	d7 e0       	ldi	r29, 0x07	; 7
+ 608:	c0 ed       	ldi	r28, 0xD0	; 208
+ 60a:	d7 e0       	ldi	r29, 0x07	; 7
 
     while(1)
     {
         displayRow(screen[currentrow]);
- 656:	e0 91 00 01 	lds	r30, 0x0100
- 65a:	f0 e0       	ldi	r31, 0x00	; 0
- 65c:	ee 0f       	add	r30, r30
- 65e:	ff 1f       	adc	r31, r31
- 660:	ed 5f       	subi	r30, 0xFD	; 253
- 662:	fe 4f       	sbci	r31, 0xFE	; 254
- 664:	80 81       	ld	r24, Z
- 666:	91 81       	ldd	r25, Z+1	; 0x01
- 668:	0e 94 74 01 	call	0x2e8	; 0x2e8 <displayRow>
+ 60c:	e0 91 00 01 	lds	r30, 0x0100
+ 610:	f0 e0       	ldi	r31, 0x00	; 0
+ 612:	ee 0f       	add	r30, r30
+ 614:	ff 1f       	adc	r31, r31
+ 616:	ed 5f       	subi	r30, 0xFD	; 253
+ 618:	fe 4f       	sbci	r31, 0xFE	; 254
+ 61a:	80 81       	ld	r24, Z
+ 61c:	91 81       	ldd	r25, Z+1	; 0x01
+ 61e:	0e 94 74 01 	call	0x2e8	; 0x2e8 <displayRow>
         nextRow();
- 66c:	0e 94 1a 01 	call	0x234	; 0x234 <nextRow>
- 670:	ce 01       	movw	r24, r28
- 672:	01 97       	sbiw	r24, 0x01	; 1
- 674:	f1 f7       	brne	.-4      	; 0x672 <main+0xfe>
- 676:	ef cf       	rjmp	.-34     	; 0x656 <main+0xe2>
+ 622:	0e 94 1a 01 	call	0x234	; 0x234 <nextRow>
+ 626:	ce 01       	movw	r24, r28
+ 628:	01 97       	sbiw	r24, 0x01	; 1
+ 62a:	f1 f7       	brne	.-4      	; 0x628 <main+0xb4>
+ 62c:	ef cf       	rjmp	.-34     	; 0x60c <main+0x98>
 
-00000678 <decodeBCD>:
+0000062e <decodeBCD>:
 
 
 uint8_t decodeBCD(uint8_t val)
 {
     // Decode binary coded decimal
     return ( (val/16*10) + (val%16) );
- 678:	98 2f       	mov	r25, r24
- 67a:	92 95       	swap	r25
- 67c:	9f 70       	andi	r25, 0x0F	; 15
- 67e:	99 0f       	add	r25, r25
- 680:	29 2f       	mov	r18, r25
- 682:	22 0f       	add	r18, r18
- 684:	22 0f       	add	r18, r18
- 686:	29 0f       	add	r18, r25
- 688:	8f 70       	andi	r24, 0x0F	; 15
+ 62e:	98 2f       	mov	r25, r24
+ 630:	92 95       	swap	r25
+ 632:	9f 70       	andi	r25, 0x0F	; 15
+ 634:	99 0f       	add	r25, r25
+ 636:	29 2f       	mov	r18, r25
+ 638:	22 0f       	add	r18, r18
+ 63a:	22 0f       	add	r18, r18
+ 63c:	29 0f       	add	r18, r25
+ 63e:	8f 70       	andi	r24, 0x0F	; 15
 }
- 68a:	82 0f       	add	r24, r18
- 68c:	08 95       	ret
+ 640:	82 0f       	add	r24, r18
+ 642:	08 95       	ret
 
-0000068e <__vector_14>:
+00000644 <__vector_14>:
 
 
 
 ISR(TIMER0_COMPA_vect)
 {
- 68e:	1f 92       	push	r1
- 690:	0f 92       	push	r0
- 692:	0f b6       	in	r0, 0x3f	; 63
- 694:	0f 92       	push	r0
- 696:	11 24       	eor	r1, r1
- 698:	2f 93       	push	r18
- 69a:	3f 93       	push	r19
- 69c:	4f 93       	push	r20
- 69e:	5f 93       	push	r21
- 6a0:	6f 93       	push	r22
- 6a2:	7f 93       	push	r23
- 6a4:	8f 93       	push	r24
- 6a6:	9f 93       	push	r25
- 6a8:	af 93       	push	r26
- 6aa:	bf 93       	push	r27
- 6ac:	ef 93       	push	r30
- 6ae:	ff 93       	push	r31
+ 644:	1f 92       	push	r1
+ 646:	0f 92       	push	r0
+ 648:	0f b6       	in	r0, 0x3f	; 63
+ 64a:	0f 92       	push	r0
+ 64c:	11 24       	eor	r1, r1
+ 64e:	2f 93       	push	r18
+ 650:	3f 93       	push	r19
+ 652:	4f 93       	push	r20
+ 654:	5f 93       	push	r21
+ 656:	6f 93       	push	r22
+ 658:	7f 93       	push	r23
+ 65a:	8f 93       	push	r24
+ 65c:	9f 93       	push	r25
+ 65e:	af 93       	push	r26
+ 660:	bf 93       	push	r27
+ 662:	ef 93       	push	r30
+ 664:	ff 93       	push	r31
     // Interrupt service routine for t/c0 compare match A. Fires every minute.
     currentminute++;
- 6b0:	60 91 02 01 	lds	r22, 0x0102
- 6b4:	6f 5f       	subi	r22, 0xFF	; 255
- 6b6:	60 93 02 01 	sts	0x0102, r22
+ 666:	60 91 02 01 	lds	r22, 0x0102
+ 66a:	6f 5f       	subi	r22, 0xFF	; 255
+ 66c:	60 93 02 01 	sts	0x0102, r22
     if (currentminute > 59)
- 6ba:	6c 33       	cpi	r22, 0x3C	; 60
- 6bc:	30 f1       	brcs	.+76     	; 0x70a <__vector_14+0x7c>
+ 670:	6c 33       	cpi	r22, 0x3C	; 60
+ 672:	30 f1       	brcs	.+76     	; 0x6c0 <__vector_14+0x7c>
     {
         currentminute = 0;
- 6be:	10 92 02 01 	sts	0x0102, r1
+ 674:	10 92 02 01 	sts	0x0102, r1
         currenthour++;
- 6c2:	80 91 01 01 	lds	r24, 0x0101
- 6c6:	8f 5f       	subi	r24, 0xFF	; 255
- 6c8:	80 93 01 01 	sts	0x0101, r24
+ 678:	80 91 01 01 	lds	r24, 0x0101
+ 67c:	8f 5f       	subi	r24, 0xFF	; 255
+ 67e:	80 93 01 01 	sts	0x0101, r24
         if (currenthour > 23)
- 6cc:	88 31       	cpi	r24, 0x18	; 24
- 6ce:	a0 f4       	brcc	.+40     	; 0x6f8 <__vector_14+0x6a>
- 6d0:	60 e0       	ldi	r22, 0x00	; 0
-            currenthour = 0;
+ 682:	88 31       	cpi	r24, 0x18	; 24
+ 684:	a0 f4       	brcc	.+40     	; 0x6ae <__vector_14+0x6a>
+ 686:	60 e0       	ldi	r22, 0x00	; 0
             getTimeFromRTC();
         }
     }
-    //getTimeFromRTC();
+
+
     prepareScreen(currenthour, currentminute);
- 6d2:	0e 94 92 01 	call	0x324	; 0x324 <prepareScreen>
+ 688:	0e 94 92 01 	call	0x324	; 0x324 <prepareScreen>
 }
- 6d6:	ff 91       	pop	r31
- 6d8:	ef 91       	pop	r30
- 6da:	bf 91       	pop	r27
- 6dc:	af 91       	pop	r26
- 6de:	9f 91       	pop	r25
- 6e0:	8f 91       	pop	r24
- 6e2:	7f 91       	pop	r23
- 6e4:	6f 91       	pop	r22
- 6e6:	5f 91       	pop	r21
- 6e8:	4f 91       	pop	r20
- 6ea:	3f 91       	pop	r19
- 6ec:	2f 91       	pop	r18
- 6ee:	0f 90       	pop	r0
- 6f0:	0f be       	out	0x3f, r0	; 63
- 6f2:	0f 90       	pop	r0
- 6f4:	1f 90       	pop	r1
- 6f6:	18 95       	reti
+ 68c:	ff 91       	pop	r31
+ 68e:	ef 91       	pop	r30
+ 690:	bf 91       	pop	r27
+ 692:	af 91       	pop	r26
+ 694:	9f 91       	pop	r25
+ 696:	8f 91       	pop	r24
+ 698:	7f 91       	pop	r23
+ 69a:	6f 91       	pop	r22
+ 69c:	5f 91       	pop	r21
+ 69e:	4f 91       	pop	r20
+ 6a0:	3f 91       	pop	r19
+ 6a2:	2f 91       	pop	r18
+ 6a4:	0f 90       	pop	r0
+ 6a6:	0f be       	out	0x3f, r0	; 63
+ 6a8:	0f 90       	pop	r0
+ 6aa:	1f 90       	pop	r1
+ 6ac:	18 95       	reti
     {
         currentminute = 0;
         currenthour++;
         if (currenthour > 23)
         {
             currenthour = 0;
- 6f8:	10 92 01 01 	sts	0x0101, r1
+ 6ae:	10 92 01 01 	sts	0x0101, r1
             getTimeFromRTC();
- 6fc:	0e 94 93 02 	call	0x526	; 0x526 <getTimeFromRTC>
- 700:	80 91 01 01 	lds	r24, 0x0101
- 704:	60 91 02 01 	lds	r22, 0x0102
- 708:	e4 cf       	rjmp	.-56     	; 0x6d2 <__vector_14+0x44>
+ 6b2:	0e 94 93 02 	call	0x526	; 0x526 <getTimeFromRTC>
+ 6b6:	80 91 01 01 	lds	r24, 0x0101
+ 6ba:	60 91 02 01 	lds	r22, 0x0102
+ 6be:	e4 cf       	rjmp	.-56     	; 0x688 <__vector_14+0x44>
 
 ISR(TIMER0_COMPA_vect)
 {
     // Interrupt service routine for t/c0 compare match A. Fires every minute.
     currentminute++;
     if (currentminute > 59)
- 70a:	80 91 01 01 	lds	r24, 0x0101
- 70e:	e1 cf       	rjmp	.-62     	; 0x6d2 <__vector_14+0x44>
+ 6c0:	80 91 01 01 	lds	r24, 0x0101
+ 6c4:	e1 cf       	rjmp	.-62     	; 0x688 <__vector_14+0x44>
 
-00000710 <_exit>:
- 710:	f8 94       	cli
+000006c6 <_exit>:
+ 6c6:	f8 94       	cli
 
-00000712 <__stop_program>:
- 712:	ff cf       	rjmp	.-2      	; 0x712 <__stop_program>
+000006c8 <__stop_program>:
+ 6c8:	ff cf       	rjmp	.-2      	; 0x6c8 <__stop_program>
