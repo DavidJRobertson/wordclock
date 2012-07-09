@@ -28,11 +28,11 @@ int main(void)
 {
     sei(); // Enable interrupts
 
-    DDRC = 0b1111111;         // Port C all outputs
-    DDRB = 0b0000111;         // Pins B0 and B1 outputs for column I + J drive, plus B2 for 4017 POR
-    DDRD &= ~(_BV(PD4));      // Set PD4/T0 as input. Used for 1Hz input from RTC to timer/counter0.
-    DDRD &= ~(_BV(PD2));      // Set INT0 as input
-    DDRD &= ~(_BV(PD3));      // Set INT1 as input
+    DDRC   = 0b1111111;         // Port C all outputs
+    DDRB   = 0b0000111;         // Pins B0 and B1 outputs for column I + J drive, plus B2 for 4017 POR
+    DDRD  &= ~(_BV(PD4));      // Set PD4/T0 as input. Used for 1Hz input from RTC to timer/counter0.
+    DDRD  &= ~(_BV(PD2));      // Set INT0 as input
+    DDRD  &= ~(_BV(PD3));      // Set INT1 as input
     PORTD |= _BV(PD4);        // Turn on internal pull-up resistor for PD4/T0
 
 
@@ -47,7 +47,7 @@ int main(void)
     //DS1307Write(0x02, 0b00000000); // Set hours to 0 + set to 24 hr clock
     DS1307Write(0x07, 0b00010000); // Turn on 1Hz output
 
-    OCR0A = 60;               // Timer/counter0 compare register A to 60 for counting to a minute.
+    OCR0A = 59;               // Timer/counter0 compare register A to 59 for counting to a minute.
 
     TCCR0A &= ~(_BV(WGM00));  // Set timer/counter0 to CTC mode
     TCCR0A |= _BV(WGM01);
@@ -335,12 +335,15 @@ void setRTC(uint8_t hour, uint8_t minute){
 
   DS1307Write(0x02, hoursdata);
 
+
+  DS1307Write(0x00, 0b00000000); // Zero seconds
 }
 
 
 ISR(TIMER0_COMPA_vect)
 {
     // Interrupt service routine for t/c0 compare match A. Fires every minute.
+
     currentminute++;
     if (currentminute > 59)
     {
@@ -368,7 +371,7 @@ ISR(INT0_vect)
       currenthour = 0;
     }
   }
-
+  TCNT0 = 0; // Zero seconds
   setRTC(currenthour, currentminute);
   prepareScreen(currenthour, currentminute);
   _delay_ms(20);
@@ -381,7 +384,7 @@ ISR(INT1_vect)
   if (currenthour > 23) {
     currenthour = 0;
   }
-
+  TCNT0 = 0; // Zero seconds
   setRTC(currenthour, currentminute);
   prepareScreen(currenthour, currentminute);
   _delay_ms(20);
