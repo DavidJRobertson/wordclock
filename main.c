@@ -183,6 +183,9 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     {
         screen[3] = 0b0000000000000011; // TO
         hour++; // Increment hour because we are saying it is x minutes to the next hour
+        if (hour > 23) {
+           hour = 0; 
+        }
     }
 
     screen[4] = 0; // Blank hour words
