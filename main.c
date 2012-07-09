@@ -31,11 +31,18 @@ int main(void)
     DDRC = 0b1111111;         // Port C all outputs
     DDRB = 0b0000111;         // Pins B0 and B1 outputs for column I + J drive, plus B2 for 4017 POR
     DDRD &= ~(_BV(PD4));      // Set PD4/T0 as input. Used for 1Hz input from RTC to timer/counter0.
+    DDRD &= ~(_BV(PD2));      // Set INT0 as input
+    DDRD &= ~(_BV(PD3));      // Set INT1 as input
     PORTD |= _BV(PD4);        // Turn on internal pull-up resistor for PD4/T0
+
+
+    EICRA = 0b00001010;       // Set INT0 and INT1 to trigger on falling edge.
+    EIMSK = 0b00000011;       // Enable INT0 and INT1
+
 
     // Initialize RTC
     I2CInit();
-    DS1307Write(0x00, 0b00000000); // Start the clock, set time to 0 secs
+    DS1307Write(0x00, 0b00000000); // Start the clock, set time to 0 secs. TODO: this resets secs to 0 - should really read out, modify clock halt bit and write back.
     //DS1307Write(0x01, 0b00000000); // Set minutes to 0
     //DS1307Write(0x02, 0b00000000); // Set hours to 0 + set to 24 hr clock
     DS1307Write(0x07, 0b00010000); // Turn on 1Hz output
@@ -165,7 +172,7 @@ void prepareScreen(uint8_t hour, uint8_t minute)
         if (minute < 5)
         {
             screen[9] = 0b0000001111111000; // O'CLOCK
-            screen[3] &= 0b1111111111000000; // Blank to/past
+            screen[3] = 0b0000000000000000; // Blank to/past
         }
         else
         {
@@ -306,6 +313,30 @@ uint8_t decodeBCD(uint8_t val)
 }
 
 
+void setRTC(uint8_t hour, uint8_t minute){
+  uint8_t unitmins  = minute % 10;
+  uint8_t tenmins   = (minute - unitmins) / 10;
+
+  uint8_t minsdata  = 0b00001111 & unitmins;
+  uint8_t tempm      = tenmins << 4;
+  minsdata = minsdata | tempm;
+
+  DS1307Write(0x01, minsdata);
+
+
+  uint8_t unithours = hour % 10;
+  uint8_t tenhours  = (hour - unithours) / 10;
+
+
+  uint8_t hoursdata  = 0b00001111 & unithours;
+  uint8_t temph      = tenhours << 4;
+  hoursdata = hoursdata | temph;
+  hoursdata = hoursdata & 0b00111111;
+
+  DS1307Write(0x02, hoursdata);
+
+}
+
 
 ISR(TIMER0_COMPA_vect)
 {
@@ -322,6 +353,36 @@ ISR(TIMER0_COMPA_vect)
         }
     }
 
-
     prepareScreen(currenthour, currentminute);
+}
+
+
+ISR(INT0_vect)
+{
+  // Add a minute
+  currentminute++;
+  if (currentminute > 59) {
+    currentminute = 0;
+    currenthour++;
+    if (currenthour > 23) {
+      currenthour = 0;
+    }
+  }
+
+  setRTC(currenthour, currentminute);
+  prepareScreen(currenthour, currentminute);
+  _delay_ms(20);
+}
+
+ISR(INT1_vect)
+{
+  // Add an hour
+  currenthour++;
+  if (currenthour > 23) {
+    currenthour = 0;
+  }
+
+  setRTC(currenthour, currentminute);
+  prepareScreen(currenthour, currentminute);
+  _delay_ms(20);
 }
