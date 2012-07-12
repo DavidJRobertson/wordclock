@@ -1,4 +1,4 @@
-PCBNEW-BOARD Version 1 date Fri 22 Jun 2012 01:37:53 BST
+PCBNEW-BOARD Version 1 date Wed 11 Jul 2012 22:29:53 BST
 
 # Created by Pcbnew(2011-05-25)-stable
 
@@ -10,7 +10,7 @@ EnabledLayers 1FFF8001
 Links 111
 NoConn 0
 Di 10124 8224 49276 36876
-Ndraw 27
+Ndraw 28
 Ntrack 320
 Nzone 0
 BoardThickness 630
@@ -21,7 +21,7 @@ $EndGENERAL
 $SHEETDESCR
 Sheet A4 11700 8267
 Title "Word Clock Controller"
-Date "22 jun 2012"
+Date "11 jul 2012"
 Rev "A"
 Comp "David Robertson"
 Comment1 "http://davidr.me/"
@@ -2657,6 +2657,11 @@ Of 0.000000 0.000000 0.000000
 Ro 0.000000 0.000000 0.000000
 $EndSHAPE3D
 $EndMODULE  bornier2
+$TEXTPCB
+Te "http://davidr.me/projects/word-clock.html"
+Po 38200 11000 600 800 120 0
+De 20 0 0 Normal
+$EndTEXTPCB
 $DRAWSEGMENT
 Po 0 23600 14400 16400 14400 150
 De 21 0 900 0 0

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 20 Jun 2012 20:38:20 BST
+EESchema Schematic File Version 2  date Wed 11 Jul 2012 22:54:35 BST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -36,7 +36,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 2
 Title "Wordclock"
-Date "20 jun 2012"
+Date "11 jul 2012"
 Rev "A"
 Comp "David Robertson"
 Comment1 "http://davidr.me/"
@@ -224,10 +224,10 @@ Wire Wire Line
 Text Notes 11150 600  2    60   ~ 0
 Row Driver
 $Comp
-L +5V #PWR016
+L +5V #PWR020
 U 1 1 4FAB03FB
 P 6050 6700
-F 0 "#PWR016" H 6050 6790 20  0001 C CNN
+F 0 "#PWR020" H 6050 6790 20  0001 C CNN
 F 1 "+5V" H 6050 6850 30  0000 C CNN
 	1    6050 6700
 	-1   0    0    1   
@@ -375,10 +375,10 @@ F 2 "SIL-10" H 3650 3500 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR017
+L GND #PWR021
 U 1 1 4FAAFBFD
 P 1200 6900
-F 0 "#PWR017" H 1200 6900 30  0001 C CNN
+F 0 "#PWR021" H 1200 6900 30  0001 C CNN
 F 1 "GND" H 1200 6830 30  0001 C CNN
 	1    1200 6900
 	1    0    0    -1  
