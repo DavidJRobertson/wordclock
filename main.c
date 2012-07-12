@@ -171,95 +171,97 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     {
         if (minute < 5)
         {
-            screen[9] = 0b0000001111111000; // O'CLOCK
+            screen[9] = 0b0000001111110000; // O'CLOCK
             screen[3] = 0b0000000000000000; // Blank to/past
         }
         else
         {
-            screen[3] = 0b0000000000111100; // PAST
+            screen[3] = 0b0000000111100000; // PAST
         }
     }
     else
     {
-        screen[3] = 0b0000000000000011; // TO
+        screen[3] = 0b0000001100000000; // TO
         hour++; // Increment hour because we are saying it is x minutes to the next hour
-        if (hour > 23) {
-           hour = 0; 
+        if (hour > 23)
+        {
+            hour = 0;
         }
     }
 
-    screen[4] = 0; // Blank hour words
-    screen[5] = 0;
-    screen[6] = 0;
-    screen[7] = 0;
-    screen[8] = 0;
+    screen[4]  = 0; // Blank hour words
+    screen[5]  = 0;
+    screen[6]  = 0;
+    screen[7]  = 0;
+    screen[8]  = 0;
+    screen[9] &= 0b0000001111110000;
 
     switch (hour)
     {
     case 0:
     case 12:
-        screen[8] = 0b0000001111110000; // TWELVE
+        screen[7]  = 0b0000001111110000; // TWELVE
         break;
     case 1:
     case 13:
-        screen[3] |= 0b0000001110000000; // ONE
+        screen[4]  = 0b0000000111000000; // ONE
         break;
     case 2:
     case 14:
-        screen[5] = 0b0000000000000111; // TWO
+        screen[5]  = 0b0000000000000111; // TWO
         break;
     case 3:
     case 15:
-        screen[6] = 0b0000001111100000; // THREE
+        screen[4]  = 0b0000000000111110; // THREE
         break;
     case 4:
     case 16:
-        screen[7] = 0b0000001111000000; // FOUR
+        screen[8]  = 0b0000001111000000; // FOUR
         break;
     case 5:
     case 17:
-        screen[5] = 0b0000000001111000; // hFIVE
+        screen[5]  = 0b0000001111000000; // hFIVE
         break;
     case 6:
     case 18:
-        screen[4] = 0b0000000111000000; // SIX
+        screen[5]  = 0b0000000000111000; // SIX
         break;
     case 7:
     case 19:
-        screen[4] = 0b0000000000111110; // SEVEN
+        screen[6]  = 0b0000000000011111; // SEVEN
         break;
     case 8:
     case 20:
-        screen[6] = 0b0000000000011111; // EIGHT
+        screen[6]  = 0b0000001111100000; // EIGHT
         break;
     case 9:
     case 21:
-        screen[8] = 0b0000000000001111; // NINE
+        screen[7]  = 0b0000000000001111; // NINE
         break;
     case 10:
     case 22:
-        screen[5] = 0b0000001110000000; // hTEN
+        screen[9] |= 0b0000000000000111; // hTEN
         break;
     case 11:
     case 23:
-        screen[7] = 0b0000000000111111; // ELEVEN
+        screen[8]  = 0b0000000000111111; // ELEVEN
         break;
     }
 
-    screen[1] = 0; // Blank minute words
-    screen[2] = 0;
-
+    screen[1]  = 0; // Blank minute words
+    screen[2]  = 0;
+    screen[3] &= 0b0000001111100000;
     if (minute < 5)
     {
         // do nothing
     }
     else if (minute < 10)
     {
-        screen[1] = 0b0000001111000000; // mFIVE
+        screen[3] = 0b0000000000001111; // mFIVE
     }
     else if (minute < 15)
     {
-        screen[2] = 0b0000000000000111; // mTEN
+        screen[0] |= 0b0000001110000000; // mTEN
     }
     else if (minute < 20)
     {
@@ -271,15 +273,17 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     }
     else if (minute < 30)
     {
-        screen[1] = 0b0000001111111111; // TWENTYFIVE
+        screen[1] = 0b0000000000111111; // TWENTY
+        screen[3] = 0b0000000000001111; // mFIVE
     }
     else if (minute < 35)
     {
-        screen[0] |= 0b0000001111000000; // HALF
+        screen[1] = 0b0000001111000000; // HALF
     }
     else if (minute < 40)
     {
-        screen[1] = 0b0000001111111111; // TWENTYFIVE
+        screen[1] = 0b0000000000111111; // TWENTY
+        screen[3] = 0b0000000000001111; // mFIVE
     }
     else if (minute < 45)
     {
@@ -291,11 +295,11 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     }
     else if (minute < 55)
     {
-        screen[2] = 0b0000000000000111; // mTEN
+        screen[0] |= 0b0000001110000000; // mTEN
     }
     else if (minute < 60)
     {
-        screen[1] = 0b0000001111000000; // mFIVE
+        screen[3] = 0b0000000000001111; // mFIVE
     }
 }
 
@@ -316,30 +320,31 @@ uint8_t decodeBCD(uint8_t val)
 }
 
 
-void setRTC(uint8_t hour, uint8_t minute){
-  uint8_t unitmins  = minute % 10;
-  uint8_t tenmins   = (minute - unitmins) / 10;
+void setRTC(uint8_t hour, uint8_t minute)
+{
+    uint8_t unitmins  = minute % 10;
+    uint8_t tenmins   = (minute - unitmins) / 10;
 
-  uint8_t minsdata  = 0b00001111 & unitmins;
-  uint8_t tempm      = tenmins << 4;
-  minsdata = minsdata | tempm;
+    uint8_t minsdata  = 0b00001111 & unitmins;
+    uint8_t tempm      = tenmins << 4;
+    minsdata = minsdata | tempm;
 
-  DS1307Write(0x01, minsdata);
-
-
-  uint8_t unithours = hour % 10;
-  uint8_t tenhours  = (hour - unithours) / 10;
+    DS1307Write(0x01, minsdata);
 
 
-  uint8_t hoursdata  = 0b00001111 & unithours;
-  uint8_t temph      = tenhours << 4;
-  hoursdata = hoursdata | temph;
-  hoursdata = hoursdata & 0b00111111;
-
-  DS1307Write(0x02, hoursdata);
+    uint8_t unithours = hour % 10;
+    uint8_t tenhours  = (hour - unithours) / 10;
 
 
-  DS1307Write(0x00, 0b00000000); // Zero seconds
+    uint8_t hoursdata  = 0b00001111 & unithours;
+    uint8_t temph      = tenhours << 4;
+    hoursdata = hoursdata | temph;
+    hoursdata = hoursdata & 0b00111111;
+
+    DS1307Write(0x02, hoursdata);
+
+
+    DS1307Write(0x00, 0b00000000); // Zero seconds
 }
 
 
@@ -365,30 +370,33 @@ ISR(TIMER0_COMPA_vect)
 
 ISR(INT0_vect)
 {
-  // Add a minute
-  currentminute++;
-  if (currentminute > 59) {
-    currentminute = 0;
-    currenthour++;
-    if (currenthour > 23) {
-      currenthour = 0;
+    // Add a minute
+    currentminute++;
+    if (currentminute > 59)
+    {
+        currentminute = 0;
+        currenthour++;
+        if (currenthour > 23)
+        {
+            currenthour = 0;
+        }
     }
-  }
-  TCNT0 = 0; // Zero seconds
-  setRTC(currenthour, currentminute);
-  prepareScreen(currenthour, currentminute);
-  _delay_ms(20);
+    TCNT0 = 0; // Zero seconds
+    setRTC(currenthour, currentminute);
+    prepareScreen(currenthour, currentminute);
+    _delay_ms(20);
 }
 
 ISR(INT1_vect)
 {
-  // Add an hour
-  currenthour++;
-  if (currenthour > 23) {
-    currenthour = 0;
-  }
-  TCNT0 = 0; // Zero seconds
-  setRTC(currenthour, currentminute);
-  prepareScreen(currenthour, currentminute);
-  _delay_ms(20);
+    // Add an hour
+    currenthour++;
+    if (currenthour > 23)
+    {
+        currenthour = 0;
+    }
+    TCNT0 = 0; // Zero seconds
+    setRTC(currenthour, currentminute);
+    prepareScreen(currenthour, currentminute);
+    _delay_ms(20);
 }
