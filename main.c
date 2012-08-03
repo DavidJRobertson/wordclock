@@ -1,26 +1,32 @@
 #define __HAS_DELAY_CYCLES 0
 
+#define HOURFLASH_ANIMATION_VALUE 600
+#define HOURFLASH_BLANK_VALUE 600
+
+#define HOURFLASH_TOP_VALUE (HOURFLASH_BLANK_VALUE + HOURFLASH_ANIMATION_VALUE)
+
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/sfr_defs.h>
-#include <stdbool.h>
 #include <avr/interrupt.h>
 #include "I2C.h"
 #include "ds1307.h"
 
-void shiftRegisterSendBit(bool bit);
 void shiftRegisterSendByte(uint8_t data);
 void shiftRegisterStrobe(void);
 void displayRow(uint16_t row);
-void nextRow(void);
 static uint8_t reverse(uint8_t b);
 void prepareScreen(uint8_t hour, uint8_t minute);
 void getTimeFromRTC(void);
 uint8_t decodeBCD(uint8_t val);
+void flash(uint16_t stage);
 
 uint8_t currentrow = 0;
 uint8_t currenthour = 0;
 uint8_t currentminute = 0;
+
+volatile uint16_t hourflash = 0;
 
 uint16_t screen[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
@@ -64,6 +70,7 @@ int main(void)
     PORTB |= _BV(PB2);    // POR 4017
     _delay_us(1);
     PORTB &= ~(_BV(PB2));
+
     int i;
     for (i = 0; i < 9; i++)
     {
@@ -71,37 +78,34 @@ int main(void)
         _delay_us(1);
         PORTC &= ~(_BV(PC3)); //4017 Clock line low
     }
-    displayRow(0);
 
     getTimeFromRTC();
     prepareScreen(currenthour, currentminute);
 
     while(1)
     {
-        displayRow(screen[currentrow]);
-        nextRow();
+        if (hourflash == 1)
+        {
+            prepareScreen(currenthour, currentminute);
+            hourflash--;
+        }
+        else if (hourflash > 1)
+        {
+            flash(hourflash);
+            hourflash--;
+        }
 
+        displayRow(screen[currentrow]);
         _delay_ms(1);
     }
     return 0;
 }
 
-void nextRow(void)
-{
-    PORTC |= _BV(PC3); // 4017 Clock line high
-    _delay_us(1);
-    PORTC &= ~(_BV(PC3)); //4017 Clock line low
-
-    currentrow++;
-    if (currentrow > 9)
-    {
-        currentrow = 0;
-    }
-}
 
 void displayRow(uint16_t row)
 {
     shiftRegisterSendByte(row & 0xff);
+
     if ((row >> 8) & 0x01)
     {
         PORTB |= _BV(PB1);
@@ -110,6 +114,7 @@ void displayRow(uint16_t row)
     {
         PORTB &= ~(_BV(PB1));
     }
+
     if ((row >> 9) & 0x01)
     {
         PORTB |= _BV(PB0);
@@ -118,7 +123,16 @@ void displayRow(uint16_t row)
     {
         PORTB &= ~(_BV(PB0));
     }
-    shiftRegisterStrobe();
+    PORTC |= _BV(PC2); // Strobe shift register
+    PORTC &= ~(_BV(PC2)); // as above
+
+    PORTC |= _BV(PC3); // 4017 Clock line high
+    PORTC &= ~(_BV(PC3)); //4017 Clock line low
+    currentrow++;
+    if (currentrow > 9)
+    {
+        currentrow = 0;
+    }
 }
 void shiftRegisterSendByte(uint8_t data)
 {
@@ -126,31 +140,20 @@ void shiftRegisterSendByte(uint8_t data)
     int i;
     for(i = 0; i < 8; i++)
     {
-        shiftRegisterSendBit((data >> i) & 0x01);
+        if (((data >> i) & 0x01) == 1)
+        {
+            PORTC |= _BV(PC1); // Data line high
+        }
+        else
+        {
+            PORTC &= ~(_BV(PC1)); // Data line low
+        }
+
+        PORTC |= _BV(PC0); // Clock line high
+        PORTC &= ~(_BV(PC0)); // Clock line low
     }
 }
 
-void shiftRegisterSendBit(bool bit)
-{
-    if (bit == 1)
-    {
-        PORTC |= _BV(PC1); // Data line high
-    }
-    else
-    {
-        PORTC &= ~(_BV(PC1)); // Data line low
-    }
-
-    PORTC |= _BV(PC0); // Clock line high
-    PORTC &= ~(_BV(PC0)); // Clock line low
-}
-
-void shiftRegisterStrobe()
-{
-    PORTC |= _BV(PC2);
-    _delay_us(1);
-    PORTC &= ~(_BV(PC2));
-}
 
 static uint8_t reverse(uint8_t b)
 {
@@ -257,7 +260,7 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     }
     else if (minute < 10)
     {
-        screen[3] = 0b0000000000001111; // mFIVE
+        screen[3] |= 0b0000000000001111; // mFIVE
     }
     else if (minute < 15)
     {
@@ -274,7 +277,7 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     else if (minute < 30)
     {
         screen[1] = 0b0000000000111111; // TWENTY
-        screen[3] = 0b0000000000001111; // mFIVE
+        screen[3] |= 0b0000000000001111; // mFIVE
     }
     else if (minute < 35)
     {
@@ -283,7 +286,7 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     else if (minute < 40)
     {
         screen[1] = 0b0000000000111111; // TWENTY
-        screen[3] = 0b0000000000001111; // mFIVE
+        screen[3] |= 0b0000000000001111; // mFIVE
     }
     else if (minute < 45)
     {
@@ -299,7 +302,7 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     }
     else if (minute < 60)
     {
-        screen[3] = 0b0000000000001111; // mFIVE
+        screen[3] |= 0b0000000000001111; // mFIVE
     }
 }
 
@@ -347,6 +350,35 @@ void setRTC(uint8_t hour, uint8_t minute)
     DS1307Write(0x00, 0b00000000); // Zero seconds
 }
 
+void flash(uint16_t stage)
+{
+    screen[0] = 0;
+    screen[1] = 0;
+    screen[2] = 0;
+    screen[3] = 0;
+    screen[4] = 0;
+    screen[5] = 0;
+    screen[6] = 0;
+    screen[7] = 0;
+    screen[8] = 0;
+    screen[9] = 0;
+    if (stage < HOURFLASH_BLANK_VALUE) {
+      return;
+    }
+    //Form is       (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    uint8_t level = (stage - HOURFLASH_BLANK_VALUE) * 5 / (HOURFLASH_TOP_VALUE - HOURFLASH_BLANK_VALUE);
+    uint16_t temp = 0b0000000000000000;
+    uint8_t fi;
+
+    for (fi = level; fi < (10 - level); fi++)
+    {
+        temp |= _BV(fi);
+        screen[fi] = 0b0000000000000000 | _BV(level) | _BV(9-level);
+    }
+    screen[level] = screen [9-level] = temp;
+
+}
+
 
 ISR(TIMER0_COMPA_vect)
 {
@@ -357,6 +389,7 @@ ISR(TIMER0_COMPA_vect)
     {
         currentminute = 0;
         currenthour++;
+        hourflash = HOURFLASH_TOP_VALUE;
         if (currenthour > 23)
         {
             currenthour = 0;
@@ -370,6 +403,8 @@ ISR(TIMER0_COMPA_vect)
 
 ISR(INT0_vect)
 {
+
+    //hourflash = HOURFLASH_TOP_VALUE;
     // Add a minute
     currentminute++;
     if (currentminute > 59)
