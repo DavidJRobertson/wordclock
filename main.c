@@ -10,8 +10,10 @@
 #include <util/delay.h>
 #include <avr/sfr_defs.h>
 #include <avr/interrupt.h>
+#include <string.h>
 #include "I2C.h"
 #include "ds1307.h"
+#include "compiletime.h"
 
 void shiftRegisterSendByte(uint8_t data);
 void shiftRegisterStrobe(void);
@@ -19,6 +21,7 @@ void displayRow(uint16_t row);
 static uint8_t reverse(uint8_t b);
 void prepareScreen(uint8_t hour, uint8_t minute);
 void getTimeFromRTC(void);
+void setRTC(uint8_t hour, uint8_t minute);
 uint8_t decodeBCD(uint8_t val);
 void flash(uint16_t stage);
 
@@ -48,9 +51,25 @@ int main(void)
 
     // Initialize RTC
     I2CInit();
-    DS1307Write(0x00, 0b00000000); // Start the clock, set time to 0 secs. TODO: this resets secs to 0 - should really read out, modify clock halt bit and write back.
+
+    uint8_t tempsecs;
+    DS1307Read(0x00, &tempsecs);
+    tempsecs &= 0b01111111;
+    DS1307Write(0x00, tempsecs); // Start the clock
     //DS1307Write(0x01, 0b00000000); // Set minutes to 0
     //DS1307Write(0x02, 0b00000000); // Set hours to 0 + set to 24 hr clock
+
+    DS1307Read(0x08, &tempsecs);
+    if (tempsecs != 42)
+    {
+        //RTC has not been set up, use compile time
+        //These constants are defined by a script which generates compiletime.h upon building in Code::Blocks IDE.
+        setRTC(COMPILE_HOUR, COMPILE_MIN);
+        TCNT0 = COMPILE_SEC;
+        DS1307Write(0x08, 42); // Mark RTC as set up
+    }
+    getTimeFromRTC();
+
     DS1307Write(0x07, 0b00010000); // Turn on 1Hz output
 
     OCR0A = 59;               // Timer/counter0 compare register A to 59 for counting to a minute.
@@ -79,7 +98,7 @@ int main(void)
         PORTC &= ~(_BV(PC3)); //4017 Clock line low
     }
 
-    getTimeFromRTC();
+
     prepareScreen(currenthour, currentminute);
 
     while(1)
@@ -313,6 +332,12 @@ void getTimeFromRTC()
 
     DS1307Read(0x02, &currenthour);
     currenthour   = decodeBCD(currenthour);
+
+    uint8_t tempsecs;
+    DS1307Read(0x00, &tempsecs);
+    tempsecs &= 0b01111111; // Mask away clock halt bit
+    tempsecs = decodeBCD(tempsecs);
+    TCNT0 = tempsecs;
 }
 
 
@@ -362,8 +387,9 @@ void flash(uint16_t stage)
     screen[7] = 0;
     screen[8] = 0;
     screen[9] = 0;
-    if (stage < HOURFLASH_BLANK_VALUE) {
-      return;
+    if (stage < HOURFLASH_BLANK_VALUE)
+    {
+        return;
     }
     //Form is       (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
     uint8_t level = (stage - HOURFLASH_BLANK_VALUE) * 5 / (HOURFLASH_TOP_VALUE - HOURFLASH_BLANK_VALUE);
@@ -378,7 +404,6 @@ void flash(uint16_t stage)
     screen[level] = screen [9-level] = temp;
 
 }
-
 
 ISR(TIMER0_COMPA_vect)
 {

@@ -1,3 +1,4 @@
 hardware/psplots/
 obj/
 bin/
+compiletime.h
