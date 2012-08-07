@@ -2,6 +2,7 @@
 
 #define HOURFLASH_ANIMATION_VALUE 600
 #define HOURFLASH_BLANK_VALUE 600
+#define HOURFLASH_COUNT 5
 
 #define HOURFLASH_TOP_VALUE (HOURFLASH_BLANK_VALUE + HOURFLASH_ANIMATION_VALUE)
 
@@ -30,6 +31,7 @@ uint8_t currenthour = 0;
 uint8_t currentminute = 0;
 
 volatile uint16_t hourflash = 0;
+volatile uint8_t  hourflashcount = 0;
 
 uint16_t screen[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
@@ -105,11 +107,17 @@ int main(void)
     {
         if (hourflash == 1)
         {
-            prepareScreen(currenthour, currentminute);
-            hourflash--;
+
+              prepareScreen(currenthour, currentminute);
+              hourflash--;
+
         }
         else if (hourflash > 1)
         {
+            if (hourflashcount > 1 && hourflash == HOURFLASH_BLANK_VALUE) {
+              hourflashcount--;
+              hourflash = HOURFLASH_TOP_VALUE;
+            }
             flash(hourflash);
             hourflash--;
         }
@@ -414,6 +422,7 @@ ISR(TIMER0_COMPA_vect)
     {
         currentminute = 0;
         currenthour++;
+        hourflashcount = HOURFLASH_COUNT;
         hourflash = HOURFLASH_TOP_VALUE;
         if (currenthour > 23)
         {
@@ -428,7 +437,7 @@ ISR(TIMER0_COMPA_vect)
 
 ISR(INT0_vect)
 {
-
+    //hourflashcount = HOURFLASH_COUNT;
     //hourflash = HOURFLASH_TOP_VALUE;
     // Add a minute
     currentminute++;
