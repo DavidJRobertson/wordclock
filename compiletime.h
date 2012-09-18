@@ -1,0 +1,3 @@
+#define COMPILE_HOUR 19
+#define COMPILE_MIN 10
+#define COMPILE_SEC 01
