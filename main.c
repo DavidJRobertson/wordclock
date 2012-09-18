@@ -108,15 +108,16 @@ int main(void)
         if (hourflash == 1)
         {
 
-              prepareScreen(currenthour, currentminute);
-              hourflash--;
+            prepareScreen(currenthour, currentminute);
+            hourflash--;
 
         }
         else if (hourflash > 1)
         {
-            if (hourflashcount > 1 && hourflash == HOURFLASH_BLANK_VALUE) {
-              hourflashcount--;
-              hourflash = HOURFLASH_TOP_VALUE;
+            if (hourflashcount > 1 && hourflash == HOURFLASH_BLANK_VALUE)
+            {
+                hourflashcount--;
+                hourflash = HOURFLASH_TOP_VALUE;
             }
             flash(hourflash);
             hourflash--;
