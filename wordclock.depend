@@ -1,24 +1,23 @@
 # depslib dependency file v1.0
-1336770185 source:/home/david/code/wordclock/main.c
+1344015183 source:/home/david/code/wordclock/main.c
 	<avr/io.h>
 	<util/delay.h>
 	<avr/sfr_defs.h>
-	<stdbool.h>
 	<avr/interrupt.h>
 	"I2C.h"
 	"ds1307.h"
 
-1336768806 source:/home/david/code/wordclock/ds1307.c
+1343927154 source:/home/david/code/wordclock/ds1307.c
 	<avr/io.h>
 	"I2C.h"
 	"ds1307.h"
 
 1336767966 /home/david/code/wordclock/I2C.h
 
-1336767966 /home/david/code/wordclock/ds1307.h
+1343927145 /home/david/code/wordclock/ds1307.h
 	<avr/io.h>
 
-1336768801 source:/home/david/code/wordclock/I2C.c
+1338056026 source:/home/david/code/wordclock/I2C.c
 	<avr/io.h>
 	<util/delay.h>
 	"I2C.h"
