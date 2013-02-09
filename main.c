@@ -35,8 +35,7 @@ volatile uint8_t  hourflashcount = 0;
 
 uint16_t screen[10] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-int main(void)
-{
+int main(void) {
     sei(); // Enable interrupts
 
     DDRC   = 0b1111111;         // Port C all outputs
@@ -62,8 +61,7 @@ int main(void)
     //DS1307Write(0x02, 0b00000000); // Set hours to 0 + set to 24 hr clock
 
     DS1307Read(0x08, &tempsecs);
-    if (tempsecs != 42)
-    {
+    if (tempsecs != 42) {
         //RTC has not been set up, use compile time
         //These constants are defined by a script which generates compiletime.h upon building in Code::Blocks IDE.
         setRTC(COMPILE_HOUR, COMPILE_MIN);
@@ -93,8 +91,7 @@ int main(void)
     PORTB &= ~(_BV(PB2));
 
     int i;
-    for (i = 0; i < 9; i++)
-    {
+    for (i = 0; i < 9; i++) {
         PORTC |= _BV(PC3); // 4017 Clock line high
         _delay_us(1);
         PORTC &= ~(_BV(PC3)); //4017 Clock line low
@@ -103,19 +100,12 @@ int main(void)
 
     prepareScreen(currenthour, currentminute);
 
-    while(1)
-    {
-        if (hourflash == 1)
-        {
-
+    while(1) {
+        if (hourflash == 1) {
             prepareScreen(currenthour, currentminute);
             hourflash--;
-
-        }
-        else if (hourflash > 1)
-        {
-            if (hourflashcount > 1 && hourflash == HOURFLASH_BLANK_VALUE)
-            {
+        } else if (hourflash > 1) {
+            if (hourflashcount > 1 && hourflash == HOURFLASH_BLANK_VALUE) {
                 hourflashcount--;
                 hourflash = HOURFLASH_TOP_VALUE;
             }
@@ -130,25 +120,18 @@ int main(void)
 }
 
 
-void displayRow(uint16_t row)
-{
+void displayRow(uint16_t row) {
     shiftRegisterSendByte(row & 0xff);
 
-    if ((row >> 8) & 0x01)
-    {
+    if ((row >> 8) & 0x01) {
         PORTB |= _BV(PB1);
-    }
-    else
-    {
+    } else {
         PORTB &= ~(_BV(PB1));
     }
 
-    if ((row >> 9) & 0x01)
-    {
+    if ((row >> 9) & 0x01) {
         PORTB |= _BV(PB0);
-    }
-    else
-    {
+    } else {
         PORTB &= ~(_BV(PB0));
     }
     PORTC |= _BV(PC2); // Strobe shift register
@@ -157,8 +140,7 @@ void displayRow(uint16_t row)
     PORTC |= _BV(PC3); // 4017 Clock line high
     PORTC &= ~(_BV(PC3)); //4017 Clock line low
     currentrow++;
-    if (currentrow > 9)
-    {
+    if (currentrow > 9) {
         currentrow = 0;
     }
 }
@@ -166,14 +148,10 @@ void shiftRegisterSendByte(uint8_t data)
 {
     data = reverse((uint8_t)data);
     int i;
-    for(i = 0; i < 8; i++)
-    {
-        if (((data >> i) & 0x01) == 1)
-        {
+    for(i = 0; i < 8; i++) {
+        if (((data >> i) & 0x01) == 1) {
             PORTC |= _BV(PC1); // Data line high
-        }
-        else
-        {
+        } else {
             PORTC &= ~(_BV(PC1)); // Data line low
         }
 
@@ -183,8 +161,7 @@ void shiftRegisterSendByte(uint8_t data)
 }
 
 
-static uint8_t reverse(uint8_t b)
-{
+static uint8_t reverse(uint8_t b) {
     int rev = (b >> 4) | ((b & 0xf) << 4);
     rev = ((rev & 0xcc) >> 2) | ((rev & 0x33) << 2);
     rev = ((rev & 0xaa) >> 1) | ((rev & 0x55) << 1);
@@ -193,29 +170,21 @@ static uint8_t reverse(uint8_t b)
 
 
 
-void prepareScreen(uint8_t hour, uint8_t minute)
-{
+void prepareScreen(uint8_t hour, uint8_t minute) {
     screen[0] = 0b0000000000011011; // IT IS
 
     screen[9] = 0; //Blank o'clock line.
-    if (minute < 35)
-    {
-        if (minute < 5)
-        {
+    if (minute < 35) {
+        if (minute < 5) {
             screen[9] = 0b0000001111110000; // O'CLOCK
             screen[3] = 0b0000000000000000; // Blank to/past
-        }
-        else
-        {
+        } else {
             screen[3] = 0b0000000111100000; // PAST
         }
-    }
-    else
-    {
+    } else {
         screen[3] = 0b0000001100000000; // TO
         hour++; // Increment hour because we are saying it is x minutes to the next hour
-        if (hour > 23)
-        {
+        if (hour > 23) {
             hour = 0;
         }
     }
@@ -227,8 +196,7 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     screen[8]  = 0;
     screen[9] &= 0b0000001111110000;
 
-    switch (hour)
-    {
+    switch (hour) {
     case 0:
     case 12:
         screen[7]  = 0b0000001111110000; // TWELVE
@@ -282,60 +250,36 @@ void prepareScreen(uint8_t hour, uint8_t minute)
     screen[1]  = 0; // Blank minute words
     screen[2]  = 0;
     screen[3] &= 0b0000001111100000;
-    if (minute < 5)
-    {
+    if (minute < 5) {
         // do nothing
-    }
-    else if (minute < 10)
-    {
+    } else if (minute < 10) {
         screen[3] |= 0b0000000000001111; // mFIVE
-    }
-    else if (minute < 15)
-    {
+    } else if (minute < 15) {
         screen[0] |= 0b0000001110000000; // mTEN
-    }
-    else if (minute < 20)
-    {
+    } else if (minute < 20) {
         screen[2] = 0b0000001111111000; // QUARTER
-    }
-    else if (minute < 25)
-    {
+    } else if (minute < 25) {
         screen[1] = 0b0000000000111111; // TWENTY
-    }
-    else if (minute < 30)
-    {
+    } else if (minute < 30) {
         screen[1] = 0b0000000000111111; // TWENTY
         screen[3] |= 0b0000000000001111; // mFIVE
-    }
-    else if (minute < 35)
-    {
+    } else if (minute < 35) {
         screen[1] = 0b0000001111000000; // HALF
-    }
-    else if (minute < 40)
-    {
+    } else if (minute < 40) {
         screen[1] = 0b0000000000111111; // TWENTY
         screen[3] |= 0b0000000000001111; // mFIVE
-    }
-    else if (minute < 45)
-    {
+    } else if (minute < 45) {
         screen[1] = 0b0000000000111111; // TWENTY
-    }
-    else if (minute < 50)
-    {
+    } else if (minute < 50) {
         screen[2] = 0b0000001111111000; // QUARTER
-    }
-    else if (minute < 55)
-    {
+    } else if (minute < 55) {
         screen[0] |= 0b0000001110000000; // mTEN
-    }
-    else if (minute < 60)
-    {
+    } else if (minute < 60) {
         screen[3] |= 0b0000000000001111; // mFIVE
     }
 }
 
-void getTimeFromRTC()
-{
+void getTimeFromRTC() {
     DS1307Read(0x01, &currentminute);
     currentminute = decodeBCD(currentminute);
 
@@ -350,15 +294,13 @@ void getTimeFromRTC()
 }
 
 
-uint8_t decodeBCD(uint8_t val)
-{
+uint8_t decodeBCD(uint8_t val) {
     // Decode binary coded decimal
     return ( (val/16*10) + (val%16) );
 }
 
 
-void setRTC(uint8_t hour, uint8_t minute)
-{
+void setRTC(uint8_t hour, uint8_t minute) {
     uint8_t unitmins  = minute % 10;
     uint8_t tenmins   = (minute - unitmins) / 10;
 
@@ -384,8 +326,7 @@ void setRTC(uint8_t hour, uint8_t minute)
     DS1307Write(0x00, 0b00000000); // Zero seconds
 }
 
-void flash(uint16_t stage)
-{
+void flash(uint16_t stage) {
     screen[0] = 0;
     screen[1] = 0;
     screen[2] = 0;
@@ -396,8 +337,7 @@ void flash(uint16_t stage)
     screen[7] = 0;
     screen[8] = 0;
     screen[9] = 0;
-    if (stage < HOURFLASH_BLANK_VALUE)
-    {
+    if (stage < HOURFLASH_BLANK_VALUE) {
         return;
     }
     //Form is       (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
@@ -405,8 +345,7 @@ void flash(uint16_t stage)
     uint16_t temp = 0b0000000000000000;
     uint8_t fi;
 
-    for (fi = level; fi < (10 - level); fi++)
-    {
+    for (fi = level; fi < (10 - level); fi++) {
         temp |= _BV(fi);
         screen[fi] = 0b0000000000000000 | _BV(level) | _BV(9-level);
     }
@@ -414,19 +353,16 @@ void flash(uint16_t stage)
 
 }
 
-ISR(TIMER0_COMPA_vect)
-{
+ISR(TIMER0_COMPA_vect) {
     // Interrupt service routine for t/c0 compare match A. Fires every minute.
 
     currentminute++;
-    if (currentminute > 59)
-    {
+    if (currentminute > 59) {
         currentminute = 0;
         currenthour++;
         hourflashcount = HOURFLASH_COUNT;
         hourflash = HOURFLASH_TOP_VALUE;
-        if (currenthour > 23)
-        {
+        if (currenthour > 23) {
             currenthour = 0;
             getTimeFromRTC();
         }
@@ -436,18 +372,15 @@ ISR(TIMER0_COMPA_vect)
 }
 
 
-ISR(INT0_vect)
-{
+ISR(INT0_vect) {
     //hourflashcount = HOURFLASH_COUNT;
     //hourflash = HOURFLASH_TOP_VALUE;
     // Add a minute
     currentminute++;
-    if (currentminute > 59)
-    {
+    if (currentminute > 59) {
         currentminute = 0;
         currenthour++;
-        if (currenthour > 23)
-        {
+        if (currenthour > 23) {
             currenthour = 0;
         }
     }
@@ -457,12 +390,10 @@ ISR(INT0_vect)
     _delay_ms(20);
 }
 
-ISR(INT1_vect)
-{
+ISR(INT1_vect) {
     // Add an hour
     currenthour++;
-    if (currenthour > 23)
-    {
+    if (currenthour > 23) {
         currenthour = 0;
     }
     TCNT0 = 0; // Zero seconds
