@@ -105,7 +105,7 @@ int main(void)
 
     while(1)
     {
-        if (hourflash == 1)
+        /*if (hourflash == 1)
         {
 
             prepareScreen(currenthour, currentminute);
@@ -124,6 +124,8 @@ int main(void)
         }
 
         displayRow(screen[currentrow]);
+        */
+        displayRow(0xFFFF); // All on
         _delay_ms(1);
     }
     return 0;
